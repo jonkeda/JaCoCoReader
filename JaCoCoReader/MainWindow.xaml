@@ -1,0 +1,214 @@
+﻿<controls:MetroWindow x:Class="JaCoCoReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:viewModels="clr-namespace:JaCoCoReader.ViewModels"
+                      xmlns:controls1="clr-namespace:JaCoCoReader.UI.Controls"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel,
+                                              IsDesignTimeCreatable=false}"
+        Title="JaCoCo Reader" Height="350" Width="525" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button Command="{Binding LoadCommand}">Load Code Coverage</Button>
+            
+        </ToolBar>
+
+        <Grid Grid.Column="0" Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Horizontal">
+                <!--<Button Content="Previous" Command="{Binding PreviousCommand}"/>-->
+                <!--<Button Content="First" Command="{Binding NextCommand}"/>-->
+                <Button Command="{Binding RefreshCommand}">Refresh</Button>
+            </StackPanel>
+            
+            <controls1:TreeViewEx Grid.Row="1" ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" >
+                <controls1:TreeViewEx.Resources>
+
+                    <HierarchicalDataTemplate DataType="{x:Type viewModels:FolderViewModel}" ItemsSource="{Binding Items}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
+                            <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
+                            <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+
+                    <HierarchicalDataTemplate DataType="{x:Type viewModels:SourcefileViewModel}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
+                            <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
+                            <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+
+                </controls1:TreeViewEx.Resources>
+
+                <controls1:TreeViewEx.ItemContainerStyle>
+                    <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
+
+                        
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
+                        <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
+                    </Style>
+                </controls1:TreeViewEx.ItemContainerStyle>
+            </controls1:TreeViewEx>
+
+            <ListView Grid.Row="2" ItemsSource="{Binding Model.Counters}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Type" Width="70" DisplayMemberBinding="{Binding Type}"   />
+                        <GridViewColumn Header="Missed" Width="70" DisplayMemberBinding="{Binding Missed}" />
+                        <GridViewColumn Header="Covered" Width="70" DisplayMemberBinding="{Binding Covered}" />
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+
+        </Grid>
+        <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding SelectedNode}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:SourcefileViewModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="{Binding Description}" FontSize="40" />
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" DataContext="{Binding}">
+                            <Label Content="Total lines" />
+                            <Label Content="{Binding TotalLines}" FontWeight="Bold" />
+
+                            <Label Content="Covered" />
+                            <Label Content="{Binding CoveredLines}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                            <Label Content="Missed" />
+                            <Label Content="{Binding MissedLines}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+
+                        <controls1:CodeCoverageTextEditor Grid.Column="0" Grid.Row="2"
+                                                          ShowLineNumbers="True"
+                                                          FontFamily="Consolas"
+                                                          SyntaxHighlighting="PowerShell"
+                                                          FontSize="10pt" 
+                                                          IsReadOnly="True"
+                                                          Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
+                                                          LinesHit="{Binding LinesHit }"/>
+
+                        <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill" Margin="0,15,0,40">
+                            <ItemsControl ItemsSource="{Binding BrushLines}" >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas Width="20" Height="{Binding LineHeight}"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="{Binding Brush}" Width="10" Height="1000" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style TargetType="ContentPresenter" >
+                                        <Setter Property="Canvas.Left" Value="1" />
+                                        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
+                            </ItemsControl>
+                        </Viewbox>
+                    </Grid>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="{Binding Description}" FontSize="40"/>
+
+                        <ListView Grid.Row="1" ItemsSource="{Binding Items}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="20">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text=" " Background="{Binding Background}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Name" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Description}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Header="Missed" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding MissedLines}" TextAlignment="Right" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="%" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Covered" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CoveredLines}" TextAlignment="Right" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="%" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+
+            </ContentControl.Resources>
+        </ContentControl>
+
+    </Grid>
+</controls:MetroWindow>
+

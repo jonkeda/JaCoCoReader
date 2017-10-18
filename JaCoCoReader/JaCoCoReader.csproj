@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4D1535F7-E411-4B46-8D28-2ABABFD6E7C7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>JaCoCoReader</RootNamespace>
+    <AssemblyName>JaCoCoReader</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\CounterCollection.cs" />
+    <Compile Include="Threading\DefaultThreadDispatcher.cs" />
+    <Compile Include="Threading\IThreadDispatcher.cs" />
+    <Compile Include="Threading\ThreadDispatcher.cs" />
+    <Compile Include="Threading\WpfDispatcher.cs" />
+    <Compile Include="UI\CommandCanExecuteDelegate.cs" />
+    <Compile Include="UI\CommandDelegate.cs" />
+    <Compile Include="UI\CommandTaskCanExecuteDelegate.cs" />
+    <Compile Include="UI\CommandTaskDelegate.cs" />
+    <Compile Include="UI\Controls\BindableTextEditor.cs" />
+    <Compile Include="UI\Controls\CodeCoverageTextEditor.cs" />
+    <Compile Include="UI\Controls\CoverageBackgroundRenderer.cs" />
+    <Compile Include="UI\Controls\ITreeViewItem.cs" />
+    <Compile Include="UI\Controls\TreeViewEx.cs" />
+    <Compile Include="UI\Controls\TreeViewItemEx.cs" />
+    <Compile Include="UI\Controls\ViewControl.cs" />
+    <Compile Include="UI\Interfaces\IDialog.cs" />
+    <Compile Include="UI\NodeCollectionViewModel.cs" />
+    <Compile Include="UI\NodesViewModel.cs" />
+    <Compile Include="UI\NodeViewModel.cs" />
+    <Compile Include="UI\ObservableViewModelCollection.cs" />
+    <Compile Include="UI\PropertyNotifier.cs" />
+    <Compile Include="UI\TargetCommand.cs" />
+    <Compile Include="UI\TargetTaskCommand.cs" />
+    <Compile Include="UI\ViewModel.cs" />
+    <Compile Include="UI\ViewModelCollection.cs" />
+    <Compile Include="ViewModels\SourcefileViewModel.cs" />
+    <Compile Include="ViewModels\Folder.cs" />
+    <Compile Include="ViewModels\FolderCollection.cs" />
+    <Compile Include="ViewModels\FolderCollectionViewModel.cs" />
+    <Compile Include="ViewModels\FolderViewModel.cs" />
+    <Compile Include="ViewModels\IFolderNodeViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SourcefileCollectionViewModel.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\ClassCollection.cs" />
+    <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\CounterType.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupCollection.cs" />
+    <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\LineCollection.cs" />
+    <Compile Include="Models\Method.cs" />
+    <Compile Include="Models\MethodCollection.cs" />
+    <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\PackageCollection.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Sessioninfo.cs" />
+    <Compile Include="Models\SessioninfoCollection.cs" />
+    <Compile Include="Models\Sourcefile.cs" />
+    <Compile Include="Models\SourcefileCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="report.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
