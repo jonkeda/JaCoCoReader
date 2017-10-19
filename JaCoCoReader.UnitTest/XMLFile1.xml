@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.0//EN" "report.dtd"><report name="Pester (date)">
+  <sessioninfo id="this" start="" dump="" />
+  <package name="Powershell">
+    <sourcefile name="\TestScript.ps1">
+      <line nr="5" ci="1" mi="0" />
+      <line nr="6" ci="1" mi="0" />
+      <line nr="9" ci="1" mi="0" />
+      <line nr="11" ci="1" mi="0" />
+      <line nr="12" ci="1" mi="0" />
+      <line nr="18" ci="0" mi="1" />
+      <line nr="21" ci="1" mi="0" />
+      <counter type="LINE" missed="1" covered="6" />
+    </sourcefile>
+  </package>
+  <counter type="INSTRUCTION" missed="1" covered="6" />
+  <counter type="LINE" missed="1" covered="6" />
+  <counter type="METHOD" missed="1" covered="3" />
+  <counter type="CLASS" missed="0" covered="1" />
+</report>

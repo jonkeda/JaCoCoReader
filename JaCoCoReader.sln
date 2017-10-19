@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaCoCoReader", "JaCoCoReader\JaCoCoReader.csproj", "{4D1535F7-E411-4B46-8D28-2ABABFD6E7C7}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "JaCoCoReader.Setup", "JaCoCoReader.Setup\JaCoCoReader.Setup.vdproj", "{77DCED28-93AD-4D3B-A809-0A6CB36E75B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaCoCoReader.UnitTest", "JaCoCoReader.UnitTest\JaCoCoReader.UnitTest.csproj", "{1E42F215-E5D7-433C-945A-E6BCD5A4E2CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,12 @@ Global
 		{4D1535F7-E411-4B46-8D28-2ABABFD6E7C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D1535F7-E411-4B46-8D28-2ABABFD6E7C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D1535F7-E411-4B46-8D28-2ABABFD6E7C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77DCED28-93AD-4D3B-A809-0A6CB36E75B6}.Debug|Any CPU.ActiveCfg = Debug
+		{77DCED28-93AD-4D3B-A809-0A6CB36E75B6}.Release|Any CPU.ActiveCfg = Release
+		{1E42F215-E5D7-433C-945A-E6BCD5A4E2CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E42F215-E5D7-433C-945A-E6BCD5A4E2CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E42F215-E5D7-433C-945A-E6BCD5A4E2CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E42F215-E5D7-433C-945A-E6BCD5A4E2CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

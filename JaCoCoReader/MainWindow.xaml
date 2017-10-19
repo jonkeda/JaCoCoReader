@@ -9,7 +9,7 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel,
                                               IsDesignTimeCreatable=false}"
-        Title="JaCoCo Reader" Height="350" Width="525" WindowState="Maximized">
+        Title="JaCoCo Reader" Height="350" Width="525" WindowState="Maximized" Icon="Resources/MainIcon.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -61,8 +61,6 @@
 
                 <controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
-
-                        
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                         <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
