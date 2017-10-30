@@ -10,66 +10,123 @@
                       d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel,
                                               IsDesignTimeCreatable=false}"
         Title="JaCoCo Reader" Height="350" Width="525" WindowState="Maximized" Icon="Resources/MainIcon.png">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/JaCoCoReader;component/UI/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="CellTemplateName" DataType="{x:Type viewModels:FolderViewModel}">
+                <DockPanel>
+                    <ToggleButton x:Name="Expander" 
+                      Style="{StaticResource ExpandCollapseToggleStyle}" 
+                      Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
+                      IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
+                      ClickMode="Press"/>
+                    <TextBlock Text="{Binding Description}"/>
+                </DockPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
+                     Value="False">
+                        <Setter TargetName="Expander"
+                  Property="Visibility"
+                  Value="Hidden"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
+
+
+
+    </controls:MetroWindow.Resources>
+
+    <DockPanel >
+
+        <ToolBar DockPanel.Dock="Top">
             <Button Command="{Binding LoadCommand}">Load Code Coverage</Button>
-            
         </ToolBar>
 
-        <Grid Grid.Column="0" Grid.Row="1" >
+        <Grid DockPanel.Dock="Left" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <!--<RowDefinition Height="Auto" />-->
             </Grid.RowDefinitions>
-            
+
             <StackPanel Orientation="Horizontal">
                 <!--<Button Content="Previous" Command="{Binding PreviousCommand}"/>-->
                 <!--<Button Content="First" Command="{Binding NextCommand}"/>-->
                 <Button Command="{Binding RefreshCommand}">Refresh</Button>
             </StackPanel>
-            
-            <controls1:TreeViewEx Grid.Row="1" ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" >
-                <controls1:TreeViewEx.Resources>
 
-                    <HierarchicalDataTemplate DataType="{x:Type viewModels:FolderViewModel}" ItemsSource="{Binding Items}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
-                            <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
-                            <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
+            <controls1:TreeListView Grid.Row="1" ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
+                                  BorderThickness="0" >
+                <controls1:TreeListView.Columns>
+                    <GridViewColumn Header="Name" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                                <DockPanel>
+                                    <ToggleButton x:Name="Expander" 
+                                                  Style="{StaticResource ExpandCollapseToggleStyle}" 
+                                                  Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
+                                                  IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
+                                                  ClickMode="Press"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                </DockPanel>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
+                                                 Value="False">
+                                        <Setter TargetName="Expander"
+                                                Property="Visibility"
+                                                Value="Hidden"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Covered" Width="70" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                                <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Missed" Width="70" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                                <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </controls1:TreeListView.Columns>
+
+
+                <controls1:TreeListView.Resources>
+
+                    <HierarchicalDataTemplate DataType="{x:Type viewModels:FolderViewModel}" ItemsSource="{Binding Items}"/>
 
                     <HierarchicalDataTemplate DataType="{x:Type viewModels:SourcefileViewModel}">
-                        <StackPanel Orientation="Horizontal">
+                        <!--<StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
                             <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
                             <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
-                        </StackPanel>
+                        </StackPanel>-->
                     </HierarchicalDataTemplate>
 
-                </controls1:TreeViewEx.Resources>
+                </controls1:TreeListView.Resources>
 
-                <controls1:TreeViewEx.ItemContainerStyle>
+                <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                         <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
                         <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
                     </Style>
-                </controls1:TreeViewEx.ItemContainerStyle>
-            </controls1:TreeViewEx>
+                </controls1:TreeViewEx.ItemContainerStyle>-->
+            </controls1:TreeListView>
 
-            <ListView Grid.Row="2" ItemsSource="{Binding Model.Counters}">
+            <!--<ListView Grid.Row="2" ItemsSource="{Binding Model.Counters}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Type" Width="70" DisplayMemberBinding="{Binding Type}"   />
@@ -78,10 +135,25 @@
                     </GridView>
                 </ListView.View>
 
-            </ListView>
+            </ListView>-->
 
         </Grid>
-        <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding SelectedNode}">
+
+        <controls1:DockPanelSplitter DockPanel.Dock="Left" >
+
+            <controls1:DockPanelSplitter.Template>
+                <ControlTemplate>
+                    <Border Background="{DynamicResource AccentColorBrush3}"
+                            BorderBrush="{DynamicResource AccentColorBrush3}"
+                            BorderThickness="1">
+                    </Border>
+                </ControlTemplate>
+
+            </controls1:DockPanelSplitter.Template>
+
+        </controls1:DockPanelSplitter>
+
+        <ContentControl Content="{Binding SelectedNode}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:SourcefileViewModel}">
                     <Grid>
@@ -207,6 +279,10 @@
             </ContentControl.Resources>
         </ContentControl>
 
-    </Grid>
+
+    </DockPanel>
+
 </controls:MetroWindow>
+
+
 

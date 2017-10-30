@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
 using JaCoCoReader.Models;
 using JaCoCoReader.UI;
 
@@ -43,6 +44,16 @@ namespace JaCoCoReader.ViewModels
                         && Model.Packages.Count > 0)
                     {
                         folders.Set(Model.Packages[0].Sourcefiles);
+                        if (folders.Count == 1)
+                        {
+                            Folder folder = folders.FirstOrDefault();
+                            while (folder != null
+                                && folder.Folders.Count + folder.Sourcefiles.Count == 1)
+                            {
+                                folders = folder.Folders;
+                                folder = folders.FirstOrDefault();
+                            }
+                        }
                         _folders = new FolderCollectionViewModel(folders);
                         
                     }

@@ -66,6 +66,9 @@
     </ApplicationDefinition>
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\CounterCollection.cs" />
+    <Compile Include="Models\LineHitDictionary.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\ModelCollection.cs" />
     <Compile Include="Threading\DefaultThreadDispatcher.cs" />
     <Compile Include="Threading\IThreadDispatcher.cs" />
     <Compile Include="Threading\ThreadDispatcher.cs" />
@@ -75,12 +78,16 @@
     <Compile Include="UI\CommandTaskCanExecuteDelegate.cs" />
     <Compile Include="UI\CommandTaskDelegate.cs" />
     <Compile Include="UI\Controls\BindableTextEditor.cs" />
+    <Compile Include="UI\Controls\TreeListViewItem.cs" />
     <Compile Include="UI\Controls\CodeCoverageTextEditor.cs" />
     <Compile Include="UI\Controls\CoverageBackgroundRenderer.cs" />
+    <Compile Include="UI\Controls\DockPanelSplitter.cs" />
     <Compile Include="UI\Controls\ITreeViewItem.cs" />
+    <Compile Include="UI\Controls\TreeListView.cs" />
     <Compile Include="UI\Controls\TreeViewEx.cs" />
     <Compile Include="UI\Controls\TreeViewItemEx.cs" />
     <Compile Include="UI\Controls\ViewControl.cs" />
+    <Compile Include="UI\Converters\LevelToIndentConverter.cs" />
     <Compile Include="UI\Interfaces\IDialog.cs" />
     <Compile Include="UI\NodeCollectionViewModel.cs" />
     <Compile Include="UI\NodesViewModel.cs" />
@@ -111,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ClassCollection.cs" />

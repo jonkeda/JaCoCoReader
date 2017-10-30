@@ -6,19 +6,13 @@ namespace JaCoCoReader.Models
     [Serializable]
     [XmlType("line", AnonymousType = true)]
     [XmlRoot("line", IsNullable = false)]
-    public class Line
+    public class Line : Model<Line, int>
     {
-
         private int _nr;
-
         private int _mi;
-
         private int _ci;
-
         private int _mb;
-
         private int _cb;
-
 
         [XmlAttribute("nr")]
         public int Nr
@@ -27,14 +21,12 @@ namespace JaCoCoReader.Models
             set { _nr = value; }
         }
 
-
         [XmlAttribute("mi")]
         public int Mi
         {
             get { return _mi; }
             set { _mi = value; }
         }
-
 
         [XmlAttribute("ci")]
         public int Ci
@@ -43,7 +35,6 @@ namespace JaCoCoReader.Models
             set { _ci = value; }
         }
 
-
         [XmlAttribute("mb")]
         public int Mb
         {
@@ -51,12 +42,26 @@ namespace JaCoCoReader.Models
             set { _mb = value; }
         }
 
-
         [XmlAttribute("cb")]
         public int Cb
         {
             get { return _cb; }
             set { _cb = value; }
+        }
+
+        public override Line Merge(Line model)
+        {
+            Mi += model.Mi;
+            Ci += model.Ci;
+            Mb += model.Mb;
+            Cb += model.Cb;
+
+            return this;
+        }
+
+        public override int Key
+        {
+            get { return Nr; }
         }
     }
 }

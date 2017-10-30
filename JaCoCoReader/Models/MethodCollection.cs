@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace JaCoCoReader.Models
+﻿namespace JaCoCoReader.Models
 {
-    public class MethodCollection : Collection<Method>
+    public class MethodCollection : ModelCollection<Method, string>
     { }
 }

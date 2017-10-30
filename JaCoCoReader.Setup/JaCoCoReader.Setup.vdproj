@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8F69880D39364A11BCEC379B4C8518F5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A22855D26C82F9710EB3DC5068BF2C0C"
         "OwnerKey" = "8:_516D764F2DD02DD944C9DFD418BEE5E1"
         "MsmSig" = "8:_UNDEFINED"
@@ -202,6 +208,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8F69880D39364A11BCEC379B4C8518F5"
+            {
+            "SourcePath" = "8:..\\JaCoCoReader\\Resources\\MainIcon.png"
+            "TargetName" = "8:MainIcon.png"
+            "Tag" = "8:"
+            "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A22855D26C82F9710EB3DC5068BF2C0C"
@@ -844,7 +870,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_873467EC0DF34683B4C9ABC6E92FD0A8"
             {
-            "SourcePath" = "8:..\\JaCoCoReader\\obj\\Debug\\JaCoCoReader.exe"
+            "SourcePath" = "8:..\\JaCoCoReader\\obj\\Release\\JaCoCoReader.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"

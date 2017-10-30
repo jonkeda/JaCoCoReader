@@ -4,29 +4,21 @@ using System.Xml.Serialization;
 namespace JaCoCoReader.Models
 {
     [Serializable]
-
-
     [XmlType("method", AnonymousType = true)]
     [XmlRoot("method", IsNullable = false)]
-    public class Method
+    public class Method : Model<Method, string>
     {
-
         private CounterCollection _counter;
-
         private string _name;
-
         private string _desc;
-
-        private string _line;
-
+        private int _line;
 
         [XmlElement("counter")]
-        public CounterCollection Counter
+        public CounterCollection Counters
         {
             get { return _counter; }
             set { _counter = value; }
         }
-
 
         [XmlAttribute("name")]
         public string Name
@@ -35,20 +27,30 @@ namespace JaCoCoReader.Models
             set { _name = value; }
         }
 
-
         [XmlAttribute("desc")]
-        public string Desc
+        public string Description
         {
             get { return _desc; }
             set { _desc = value; }
         }
 
-
         [XmlAttribute("line")]
-        public string Line
+        public int Line
         {
             get { return _line; }
             set { _line = value; }
+        }
+
+        public override Method Merge(Method model)
+        {
+            Counters.Merge(model.Counters);
+
+            return this;
+        }
+
+        public override string Key
+        {
+            get { return Name; }
         }
     }
 }

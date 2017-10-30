@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace JaCoCoReader.Models
+﻿namespace JaCoCoReader.Models
 {
-    public class SessioninfoCollection : Collection<Sessioninfo>
+    public class SessioninfoCollection : ModelCollection<Sessioninfo, string>
     { }
 }

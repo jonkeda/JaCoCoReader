@@ -6,7 +6,7 @@ namespace JaCoCoReader.Models
     [Serializable]
     [XmlType("counter", AnonymousType = true)]
     [XmlRoot("counter", IsNullable = false)]
-    public class Counter
+    public class Counter : Model<Counter, CounterType>
     {
         private CounterType _type;
         private int _missed;
@@ -31,6 +31,19 @@ namespace JaCoCoReader.Models
         {
             get { return _covered; }
             set { _covered = value; }
+        }
+
+        public override Counter Merge(Counter model)
+        {
+            Missed += model.Missed;
+            Covered += model.Covered;
+
+            return this;
+        }
+
+        public override CounterType Key
+        {
+            get { return Type; }
         }
     }
 }

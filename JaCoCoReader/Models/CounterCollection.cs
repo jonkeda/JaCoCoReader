@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace JaCoCoReader.Models
+﻿namespace JaCoCoReader.Models
 {
-    public class CounterCollection : Collection<Counter>
+    public class CounterCollection : ModelCollection<Counter, CounterType>
     { }
 }

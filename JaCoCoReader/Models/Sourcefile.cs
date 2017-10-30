@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace JaCoCoReader.Models
 {
-    public class LineHitDictionary : Dictionary<int, bool>
-    { }
-
     [Serializable]
     [XmlType("sourcefile", AnonymousType = true)]
     [XmlRoot("sourcefile", IsNullable = false)]
-    public class Sourcefile
+    public class Sourcefile : Model<Sourcefile, string>
     {
 
         private LineCollection _lines;
@@ -42,6 +36,18 @@ namespace JaCoCoReader.Models
             set { _name = value; }
         }
 
+        public override Sourcefile Merge(Sourcefile model)
+        {
+            Lines.Merge(model.Lines);
+            Counters.Merge(model.Counters);
+
+            return this;
+        }
+
+        public override string Key
+        {
+            get { return Name; }
+        }
 
     }
 }

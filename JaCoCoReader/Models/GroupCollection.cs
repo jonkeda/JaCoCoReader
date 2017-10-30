@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace JaCoCoReader.Models
+﻿namespace JaCoCoReader.Models
 {
-    public class GroupCollection : Collection<Group>
+    public class GroupCollection : ModelCollection<Group, string>
     { }
 }

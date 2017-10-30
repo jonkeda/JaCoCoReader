@@ -11,22 +11,17 @@ namespace JaCoCoReader.Models
         [XmlEnum("INSTRUCTION")]
         Instruction,
 
-
         [XmlEnum("BRANCH")]
         Branch,
-
 
         [XmlEnum("LINE")]
         Line,
 
-
         [XmlEnum("COMPLEXITY")]
         Complexity,
 
-
         [XmlEnum("METHOD")]
         Method,
-
 
         [XmlEnum("CLASS")]
         Class
