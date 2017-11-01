@@ -29,18 +29,96 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\ClassCollection.cs" />
+    <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\CounterCollection.cs" />
+    <Compile Include="Models\CounterType.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupCollection.cs" />
+    <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\LineCollection.cs" />
+    <Compile Include="Models\LineHitDictionary.cs" />
+    <Compile Include="Models\Method.cs" />
+    <Compile Include="Models\MethodCollection.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\ModelCollection.cs" />
+    <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\PackageCollection.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Sessioninfo.cs" />
+    <Compile Include="Models\SessioninfoCollection.cs" />
+    <Compile Include="Models\Sourcefile.cs" />
+    <Compile Include="Models\SourcefileCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\DefaultThreadDispatcher.cs" />
+    <Compile Include="Threading\IThreadDispatcher.cs" />
+    <Compile Include="Threading\ThreadDispatcher.cs" />
+    <Compile Include="Threading\WpfDispatcher.cs" />
+    <Compile Include="UI\CommandCanExecuteDelegate.cs" />
+    <Compile Include="UI\CommandDelegate.cs" />
+    <Compile Include="UI\CommandTaskCanExecuteDelegate.cs" />
+    <Compile Include="UI\CommandTaskDelegate.cs" />
+    <Compile Include="UI\Controls\DockPanelSplitter.cs" />
+    <Compile Include="UI\Controls\ITreeViewItem.cs" />
+    <Compile Include="UI\Controls\TreeListView.cs" />
+    <Compile Include="UI\Controls\TreeListViewItem.cs" />
+    <Compile Include="UI\Controls\TreeViewEx.cs" />
+    <Compile Include="UI\Controls\TreeViewItemEx.cs" />
+    <Compile Include="UI\Controls\ViewControl.cs" />
+    <Compile Include="UI\Converters\LevelToIndentConverter.cs" />
+    <Compile Include="UI\Interfaces\IDialog.cs" />
+    <Compile Include="UI\NodeCollectionViewModel.cs" />
+    <Compile Include="UI\NodesViewModel.cs" />
+    <Compile Include="UI\NodeViewModel.cs" />
+    <Compile Include="UI\ObservableViewModelCollection.cs" />
+    <Compile Include="UI\PropertyNotifier.cs" />
+    <Compile Include="UI\TargetCommand.cs" />
+    <Compile Include="UI\TargetTaskCommand.cs" />
+    <Compile Include="UI\ViewModel.cs" />
+    <Compile Include="UI\ViewModelCollection.cs" />
+    <Compile Include="ViewModels\Colors.cs" />
+    <Compile Include="ViewModels\Folder.cs" />
+    <Compile Include="ViewModels\FolderCollection.cs" />
+    <Compile Include="ViewModels\FolderCollectionViewModel.cs" />
+    <Compile Include="ViewModels\FolderViewModel.cs" />
+    <Compile Include="ViewModels\IFolderNodeViewModel.cs" />
+    <Compile Include="ViewModels\LineBrush.cs" />
+    <Compile Include="ViewModels\LineBrushCollection.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\SourcefileCollectionViewModel.cs" />
+    <Compile Include="ViewModels\SourcefileViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

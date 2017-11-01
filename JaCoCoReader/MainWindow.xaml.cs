@@ -1,5 +1,4 @@
-﻿
-using JaCoCoReader.ViewModels;
+﻿using JaCoCoReader.Core.ViewModels;
 
 namespace JaCoCoReader
 {
@@ -9,7 +8,7 @@ namespace JaCoCoReader
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            DataContext = new ReportViewModel();
         }
     }
 }

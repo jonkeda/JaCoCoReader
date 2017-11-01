@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Rendering;
+using Colors = JaCoCoReader.Core.ViewModels.Colors;
 
 namespace JaCoCoReader.UI.Controls
 {
@@ -9,17 +10,17 @@ namespace JaCoCoReader.UI.Controls
     {
         static readonly Pen Pen;
 
-        public static readonly SolidColorBrush MissedBackground;
-        public static readonly SolidColorBrush HitBackground;
-        public static readonly SolidColorBrush DefaultBackground;
+        //public static readonly SolidColorBrush MissedBackground;
+        //public static readonly SolidColorBrush HitBackground;
+        //public static readonly SolidColorBrush DefaultBackground;
 
-        readonly CodeCoverageTextEditor editor;
+        readonly CodeCoverageTextEditor _editor;
 
         static CoverageBackgroundRenderer()
         {
-            MissedBackground = new SolidColorBrush(Color.FromRgb(0xff, 0xdd, 0xdd)); MissedBackground.Freeze();
-            HitBackground = new SolidColorBrush(Color.FromRgb(0xdd, 0xff, 0xdd)); HitBackground.Freeze();
-            DefaultBackground = Brushes.Transparent;
+            //MissedBackground = new SolidColorBrush(Color.FromRgb(0xff, 0xdd, 0xdd)); MissedBackground.Freeze();
+            //HitBackground = new SolidColorBrush(Color.FromRgb(0xdd, 0xff, 0xdd)); HitBackground.Freeze();
+            //DefaultBackground = Brushes.Transparent;
 
             SolidColorBrush blackBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0)); blackBrush.Freeze();
             Pen = new Pen(blackBrush, 0.0);
@@ -27,7 +28,7 @@ namespace JaCoCoReader.UI.Controls
 
         public CoverageBackgroundRenderer(CodeCoverageTextEditor editor)
         {
-            this.editor = editor;
+            this._editor = editor;
         }
 
         public KnownLayer Layer
@@ -37,7 +38,8 @@ namespace JaCoCoReader.UI.Controls
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
-            if (editor?.LinesHit == null)
+            if (_editor?.LinesHit == null
+                || !_editor.ShowLinesHit)
             {
                 return;
             }
@@ -49,16 +51,16 @@ namespace JaCoCoReader.UI.Controls
                 int linenum = v.FirstDocumentLine.LineNumber;
 
                 bool hit;
-                if (editor.LinesHit.TryGetValue(linenum, out hit))
+                if (_editor.LinesHit.TryGetValue(linenum, out hit))
                 {
                     Brush brush;
                     if (hit)
                     {
-                        brush = HitBackground;
+                        brush = Colors.HitBackground;
                     }
                     else
                     {
-                        brush = MissedBackground;
+                        brush = Colors.MissedBackground;
                     }
 
                     drawingContext.DrawRectangle(brush, Pen,
