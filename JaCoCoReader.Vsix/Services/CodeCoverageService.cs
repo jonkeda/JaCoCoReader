@@ -1,4 +1,5 @@
 ﻿using JaCoCoReader.Core.ViewModels;
+using JaCoCoReader.Core.ViewModels.CodeCoverage;
 
 namespace JaCoCoReader.Vsix.Services
 {

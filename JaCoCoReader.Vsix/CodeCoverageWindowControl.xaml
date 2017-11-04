@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls;assembly=JaCoCoReader.Core"
              xmlns:viewModels="clr-namespace:JaCoCoReader.Core.ViewModels;assembly=JaCoCoReader.Core"
+             xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage;assembly=JaCoCoReader.Core"
 
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance Type=viewModels:ReportViewModel, IsDesignTimeCreatable=false}"
+             d:DataContext="{d:DesignInstance Type=codeCoverage:ReportViewModel, IsDesignTimeCreatable=false}"
              Name="CodeCoverageControl">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -19,7 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/JaCoCoReader.Core;component/UI/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate x:Key="CellTemplateName" DataType="{x:Type viewModels:FolderViewModel}">
+            <DataTemplate x:Key="CellTemplateName" DataType="{x:Type codeCoverage:FolderViewModel}">
                 <DockPanel>
                     <ToggleButton x:Name="Expander" 
                                   Style="{StaticResource ExpandCollapseToggleStyle}" 
@@ -59,7 +60,7 @@
             <controls1:TreeListView.Columns>
                 <GridViewColumn Header="Name" Width="100">
                     <GridViewColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                        <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
                             <DockPanel>
                                 <ToggleButton x:Name="Expander" 
                                                   Style="{StaticResource ExpandCollapseToggleStyle}" 
@@ -81,14 +82,14 @@
                 </GridViewColumn>
                 <GridViewColumn Header="Covered" Width="70" >
                     <GridViewColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                        <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
                             <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
                 <GridViewColumn Header="Missed" Width="70" >
                     <GridViewColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:FolderViewModel}">
+                        <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
                             <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
@@ -98,9 +99,9 @@
 
             <controls1:TreeListView.Resources>
 
-                <HierarchicalDataTemplate DataType="{x:Type viewModels:FolderViewModel}" ItemsSource="{Binding Items}" />
+                <HierarchicalDataTemplate DataType="{x:Type codeCoverage:FolderViewModel}" ItemsSource="{Binding Items}" />
 
-                <HierarchicalDataTemplate DataType="{x:Type viewModels:SourcefileViewModel}" />
+                <HierarchicalDataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}" />
 
             </controls1:TreeListView.Resources>
 

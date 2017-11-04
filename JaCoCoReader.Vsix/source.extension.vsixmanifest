@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="JaCoCoReader.Vsix.c295cd2b-47da-463f-b8cf-f2549e0af2ea" Version="1.0" Language="en-US" Publisher="ING" />
+    <Identity Id="JaCoCoReader.Vsix.c295cd2b-47da-463f-b8cf-f2549e0af2ea" Version="1.0" Language="en-US" Publisher="SRT2" />
     <DisplayName>JaCoCoReader.Vsix</DisplayName>
     <Description>Empty VSIX Project.</Description>
   </Metadata>

@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 namespace JaCoCoReader.Core.UI
 {
     public abstract class ObservableViewModelCollection<TVm, TM> : ObservableCollection<TVm>
-        where TVm : ViewModel<TM>
+        where TVm : FileViewModel<TM>
         where TM : class, new()
     {
         private readonly ObservableCollection<TM> _models;

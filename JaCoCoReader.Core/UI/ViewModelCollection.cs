@@ -5,7 +5,7 @@ using System.Linq;
 namespace JaCoCoReader.Core.UI
 {
     public class ViewModelCollection<TVm, TM> : Collection<TVm>
-        where TVm : ViewModel<TM>
+        where TVm : FileViewModel<TM>
         where TM : class, new()
     {
         private readonly Func<TM,TVm> _createViewModel;

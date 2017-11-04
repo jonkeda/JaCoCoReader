@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using JaCoCoReader.Core.Models;
+using JaCoCoReader.Core.Models.CodeCoverage;
 
 namespace JaCoCoReader.UI.Controls
 {
