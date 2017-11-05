@@ -129,11 +129,11 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (MissedLines > 0)
                 {
-                    return Colors.MissedBackground;
+                    return Brushes.DarkGreen;
                 }
                 if (CoveredLines > 0)
                 {
-                    return Colors.HitBackground;
+                    return Brushes.DarkRed;
                 }
                 return Colors.DefaultBackground;
             }

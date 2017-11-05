@@ -44,7 +44,9 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         private void DoLoadCommand()
         {
             FolderBrowserDialog ofd = new FolderBrowserDialog();
-            //ofd.SelectedPath = @"C:\Sources\JaCoCoReader\JaCoCoReader.Core\Examples";
+#if DEBUG
+            ofd.SelectedPath = @"C:\Sources\JaCoCoReader\JaCoCoReader.Core\Examples";
+#endif
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 TestProject testProject = PowerShellTestDiscoverer.GetTests(ofd.SelectedPath, null);

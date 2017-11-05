@@ -10,7 +10,10 @@ CodeCoverage
 * + fix hit score
 * Fix line count
 * double click should open sourcefile
-* Coloring is not always correct
+* + Coloring is not always correct
+* show line count
+* allow sorting on line and percentages
+
 
 Code coverage editor
 * show hit colors in the Margin
@@ -28,6 +31,7 @@ Tests
 Tests window
 * List view 
 
+
 Tests tree
 * Add icons
 * + Add traffic light
@@ -42,6 +46,7 @@ Tests tree
 Tests Bug
 * + Describe name is not taken correctly
 * + Row highlighting is two lines too low
+
 
 Test glyphs
 * Show glyphs next to describe, Context and It
