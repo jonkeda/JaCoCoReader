@@ -40,6 +40,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.PowerShell.3.ReferenceAssemblies.1.0.0\lib\net4\System.Management.Automation.dll</HintPath>
       <Private>True</Private>
@@ -143,6 +144,18 @@
     <Compile Include="ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileViewModel.cs" />
     <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
+    <Compile Include="Views\ReportMenu.xaml.cs">
+      <DependentUpon>ReportMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportTree.xaml.cs">
+      <DependentUpon>ReportTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SolutionMenu.xaml.cs">
+      <DependentUpon>SolutionMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SolutionTree.xaml.cs">
+      <DependentUpon>SolutionTree.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Examples\Calculator\Add-Numbers.ps1" />
@@ -157,15 +170,322 @@
     <None Include="Examples\Validator\Validator.Tests.ps1" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
+    <None Include="Pester\Build.bat" />
+    <None Include="Pester\build.psake.ps1" />
+    <None Include="Pester\CHANGELOG.md" />
+    <None Include="Pester\chocolateyInstall.ps1" />
+    <None Include="Pester\en-US\Gherkin.psd1" />
+    <None Include="Pester\en-US\RSpec.psd1" />
+    <None Include="Pester\Examples\Calculator\Add-Numbers.ps1" />
+    <None Include="Pester\Examples\Calculator\Add-Numbers.Tests.ps1" />
+    <None Include="Pester\Examples\Gherkin\Gherkin-Scope.feature" />
+    <None Include="Pester\Examples\Gherkin\VariableScope.Steps.ps1" />
+    <None Include="Pester\Examples\Planets\Get-Planet.ps1" />
+    <None Include="Pester\Examples\Planets\Get-Planet.Tests.ps1" />
+    <None Include="Pester\Examples\Validator\Validator.feature" />
+    <None Include="Pester\Examples\Validator\Validator.ps1" />
+    <None Include="Pester\Examples\Validator\Validator.Steps.ps1" />
+    <None Include="Pester\Examples\Validator\Validator.Tests.ps1" />
+    <Content Include="Pester\Functions\Assertions\Be.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Be.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeGreaterThan.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeGreaterThan.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeIn.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeIn.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLessThan.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLessThan.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLike.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLike.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLikeExactly.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeLikeExactly.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeNullOrEmpty.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeNullOrEmpty.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeOfType.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\BeOfType.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Exist.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Exist.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatch.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatch.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatchExactly.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatchExactly.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatchMultiline.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\FileContentMatchMultiline.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Match.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Match.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\MatchExactly.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\MatchExactly.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\PesterThrow.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\PesterThrow.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Set-TestInconclusive.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Should.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Assertions\Should.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\BreakAndContinue.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Context.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Coverage.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Coverage.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Describe.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Describe.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Environment.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Environment.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Gherkin.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Gherkin.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GherkinHook.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GherkinHook.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GherkinStep.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GherkinStep.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GlobalMock-A.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\GlobalMock-B.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\In.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\In.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\InModuleScope.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\InModuleScope.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\It.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\It.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Mock.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Mock.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\New-Fixture.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\New-Fixture.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\New-MockObject.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\New-MockObject.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Output.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\Output.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\PesterState.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\PesterState.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\SetupTeardown.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\SetupTeardown.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\TestDrive.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\TestDrive.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\TestResults.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\TestResults.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\TestsRunningInCleanRunspace.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Pester\LICENSE" />
+    <None Include="Pester\nunit_schema_2.5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Pester\Pester.nuspec" />
+    <Content Include="Pester\lib\gherkin.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Pester.psd1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Pester.psm1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Pester\Pester.Tests.ps1" />
+    <None Include="Pester\README.md" />
+    <None Include="Pester\report.dtd" />
+    <None Include="Pester\report.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Pester\Run.ps1" />
+    <None Include="Pester\Snippets\Context.snippets.ps1xml" />
+    <None Include="Pester\Snippets\Describe.snippets.ps1xml" />
+    <None Include="Pester\Snippets\It.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldBe.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldBeGreaterThan.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldBeLessThan.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldBeNullOrEmpty.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldExist.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldFileContentMatch.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldMatch.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotBe.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotBeNullOrEmpty.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotExist.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotFileContentMatch.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotMatch.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldNotThrow.snippets.ps1xml" />
+    <None Include="Pester\Snippets\ShouldThrow.snippets.ps1xml" />
+    <None Include="Pester\TestDeploy.bat" />
+    <None Include="Pester\vendor\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ReportMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SolutionMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SolutionTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pester\vendor\tools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pester\doc\pester.PNG" />
+    <Content Include="Pester\doc\readme\gitter-64.PNG" />
+    <Content Include="Pester\doc\readme\jacoco.PNG" />
+    <Content Include="Pester\doc\readme\output.PNG" />
+    <Content Include="Pester\doc\readme\slack-64.PNG" />
+    <Content Include="Pester\doc\readme\stack-overflow-64.PNG" />
+    <Content Include="Pester\doc\readme\twitter-64.PNG" />
+    <Content Include="Pester\en-US\about_BeforeEach_AfterEach.help.txt" />
+    <Content Include="Pester\en-US\about_Mocking.help.txt" />
+    <Content Include="Pester\en-US\about_Pester.help.txt" />
+    <Content Include="Pester\en-US\about_Should.help.txt" />
+    <Content Include="Pester\en-US\about_TestDrive.help.txt" />
+    <Content Include="Pester\pestercc.xml" />
+    <Content Include="Pester\Report.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

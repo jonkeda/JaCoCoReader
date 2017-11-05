@@ -9,10 +9,10 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     public class Group : Model<Group, string>
     {
 
-        private CounterCollection _counter;
+        private CounterCollection _counter = new CounterCollection();
         private string _name;
-        private GroupCollection _groups;
-        private PackageCollection _packages;
+        private GroupCollection _groups = new GroupCollection();
+        private PackageCollection _packages = new PackageCollection();
 
         [XmlElement("group", typeof(Group))]
         public GroupCollection Groups 

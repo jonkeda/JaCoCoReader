@@ -7,6 +7,7 @@ namespace JaCoCoReader.Core.ViewModels
         public static readonly SolidColorBrush MissedBackground;
         public static readonly SolidColorBrush HitBackground;
         public static readonly SolidColorBrush DefaultBackground;
+
         static Colors()
         {
             MissedBackground = new SolidColorBrush(Color.FromRgb(0xff, 0xdd, 0xdd)); MissedBackground.Freeze();
@@ -14,8 +15,6 @@ namespace JaCoCoReader.Core.ViewModels
             DefaultBackground = Brushes.Transparent;
 
             SolidColorBrush blackBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0)); blackBrush.Freeze();
-            //Pen = new Pen(blackBrush, 0.0);
         }
-
     }
 }

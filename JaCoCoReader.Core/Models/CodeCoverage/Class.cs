@@ -8,8 +8,8 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     [XmlRoot("class", IsNullable = false)]
     public class Class : Model<Class, string>
     {
-        private MethodCollection _method;
-        private CounterCollection _counter;
+        private MethodCollection _method = new MethodCollection();
+        private CounterCollection _counter = new CounterCollection();
         private string _name;
 
         [XmlElement("method")]

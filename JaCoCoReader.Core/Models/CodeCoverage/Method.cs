@@ -8,7 +8,7 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     [XmlRoot("method", IsNullable = false)]
     public class Method : Model<Method, string>
     {
-        private CounterCollection _counter;
+        private CounterCollection _counter = new CounterCollection();
         private string _name;
         private string _desc;
         private int _line;

@@ -75,7 +75,7 @@
     <converters:LevelToIndentConverter x:Key="LevelToIndentConverter"/>
 
 
-    <DataTemplate x:Key="CellTemplate_Name">
+    <!--<DataTemplate x:Key="CellTemplate_Name">
         <DockPanel>
             <ToggleButton x:Name="Expander" 
                       Style="{StaticResource ExpandCollapseToggleStyle}" 
@@ -92,7 +92,7 @@
                   Value="Hidden"/>
             </DataTrigger>
         </DataTemplate.Triggers>
-    </DataTemplate>
+    </DataTemplate>-->
 
     <Style TargetType="{x:Type controls1:TreeListViewItem}">
         <Setter Property="Template">

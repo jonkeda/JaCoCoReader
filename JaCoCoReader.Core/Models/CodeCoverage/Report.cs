@@ -9,11 +9,11 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     [XmlRoot("report", IsNullable = false)]
     public class Report : Model<Report, string>
     {
-        private SessioninfoCollection _sessioninfo;
-        private CounterCollection _counter;
+        private SessioninfoCollection _sessioninfo = new SessioninfoCollection();
+        private CounterCollection _counter = new CounterCollection();
         private string _name;
-        private GroupCollection _groups;
-        private PackageCollection _packages;
+        private GroupCollection _groups = new GroupCollection();
+        private PackageCollection _packages = new PackageCollection();
 
         [XmlElement("sessioninfo")]
         public SessioninfoCollection Sessioninfos

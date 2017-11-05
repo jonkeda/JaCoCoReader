@@ -9,9 +9,9 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     public class Package : Model<Package, string>
     {
         private string _name;
-        private CounterCollection _counter;
-        private ClassCollection _classes;
-        private SourcefileCollection _sourcefiles;
+        private CounterCollection _counter = new CounterCollection();
+        private ClassCollection _classes = new ClassCollection();
+        private SourcefileCollection _sourcefiles = new SourcefileCollection();
 
         [XmlElement("class", typeof(Class))]
         public ClassCollection Classes

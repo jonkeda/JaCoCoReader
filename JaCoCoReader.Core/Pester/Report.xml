@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<report name="Pester">
+  <sessioninfo id="str1234" start="str1234" dump="str1234" />
+  <package name="Powershell">
+    <sourcefile name="c:\files">
+      <line nr="1" mi="str1234" ci="str1234" mb="0" cb="0" />
+    </sourcefile>
+  </package>
+  <counter type="INSTRUCTION" missed="str1234" covered="str1234" />
+</report>

@@ -221,7 +221,8 @@ namespace JaCoCoReader.Core.Services
 
 
         private void RunTestDescribeEx(PowerShell powerShell, TestDescribe describe, RunContext runContext)
-        {            string tempFile = Path.GetTempFileName();
+        {
+            string tempFile = Path.GetTempFileName();
             try
             {
 
@@ -264,7 +265,10 @@ namespace JaCoCoReader.Core.Services
                     describe.ProcessTestResults(results);
 
                     Report report = Report.Load(tempFile);
-                    runContext.AddCodeCoverageReport(report);
+                    if (report != null)
+                    {
+                        runContext.AddCodeCoverageReport(report);
+                    }
                 }
             }
             finally
@@ -277,10 +281,15 @@ namespace JaCoCoReader.Core.Services
 
         private string FindModule(string moduleName, RunContext runContext)
         {
-            string pesterPath = GetModulePath(moduleName, runContext.TestRunDirectory);
+            string pesterPath = GetPesterModulePath(moduleName, Path.GetDirectoryName(typeof(PowerShellTestExecutor).Assembly.Location), "Pester");
+
             if (string.IsNullOrEmpty(pesterPath))
             {
-                pesterPath = GetModulePath(moduleName, runContext.SolutionDirectory);
+                pesterPath = GetModulePath(moduleName, runContext.TestRunDirectory, "packages");
+            }
+            if (string.IsNullOrEmpty(pesterPath))
+            {
+                pesterPath = GetModulePath(moduleName, runContext.SolutionDirectory, "packages");
             }
 
             if (string.IsNullOrEmpty(pesterPath))
@@ -307,13 +316,33 @@ namespace JaCoCoReader.Core.Services
             return resultObject?.Properties["TestResult"].Value as Array;
         }
 
-        private static string GetModulePath(string moduleName, string root)
+        private static string GetPesterModulePath(string moduleName, string root, string folder)
         {
             if (root == null)
                 return null;
 
             // Default packages path for nuget.
-            string packagesRoot = Path.Combine(root, "packages");
+            string packagesRoot = Path.Combine(root, folder);
+
+            if (Directory.Exists(packagesRoot))
+            {
+                string psm1 = Path.Combine(packagesRoot, $@"{moduleName}.psm1");
+                if (File.Exists(psm1))
+                {
+                    return psm1;
+                }
+            }
+
+            return null;
+        }
+
+        private static string GetModulePath(string moduleName, string root, string folder)
+        {
+            if (root == null)
+                return null;
+
+            // Default packages path for nuget.
+            string packagesRoot = Path.Combine(root, folder);
 
             // TODO: Scour for custom nuget packages paths.
 

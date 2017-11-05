@@ -9,8 +9,8 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     public class Sourcefile : Model<Sourcefile, string>
     {
 
-        private LineCollection _lines;
-        private CounterCollection _counters;
+        private LineCollection _lines = new LineCollection();
+        private CounterCollection _counters = new CounterCollection();
         private string _name;
 
         [XmlElement("line")]

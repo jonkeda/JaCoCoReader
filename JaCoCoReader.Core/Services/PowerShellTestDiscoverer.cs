@@ -159,8 +159,15 @@ namespace JaCoCoReader.Core.Services
             CommandAst contextAst = (CommandAst)context;
             string contextName = string.Empty;
             bool nextElementIsName1 = false;
+            bool skipElement = false;
             foreach (CommandElementAst element in contextAst.CommandElements)
             {
+                if (skipElement)
+                {
+                    skipElement = false;
+                    continue;
+                }
+
                 if (element is StringConstantExpressionAst &&
                     !(element as StringConstantExpressionAst).Value.Equals(functionName,
                         StringComparison.OrdinalIgnoreCase))
@@ -175,11 +182,17 @@ namespace JaCoCoReader.Core.Services
                     break;
                 }
 
-                if (element is CommandParameterAst &&
-                    (element as CommandParameterAst).ParameterName.Equals("Name",
-                        StringComparison.OrdinalIgnoreCase))
+                if (element is CommandParameterAst)
                 {
-                    nextElementIsName1 = true;
+                    if ((element as CommandParameterAst).ParameterName.Equals("Name",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        nextElementIsName1 = true;
+                    }
+                    else
+                    {
+                        skipElement = true;
+                    }
                 }
             }
 

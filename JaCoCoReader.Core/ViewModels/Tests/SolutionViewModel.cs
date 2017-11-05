@@ -4,12 +4,21 @@ using System.Windows.Input;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.UI;
+using JaCoCoReader.Core.ViewModels.CodeCoverage;
 
 namespace JaCoCoReader.Core.ViewModels.Tests
 {
     public class SolutionViewModel : ModelViewModel<TestSolution>
     {
+        private readonly ReportViewModel _report;
+
+        public SolutionViewModel(ReportViewModel report)
+        {
+            _report = report;
+        }
+
         private TestModel _selectedNode;
+        private bool _running;
 
         public TestModel SelectedNode
         {
@@ -54,28 +63,51 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
         }
 
+        public bool Running
+        {
+            get { return _running; }
+            set { SetProperty(ref _running, value); }
+        }
+
         private void DoRunCommandAsync()
         {
-            RunContext content = new RunContext();
-            PowerShellTestExecutor executor = new PowerShellTestExecutor();
-
-            switch (SelectedNode)
+            try
             {
-                case TestSolution testSolution:
-                    executor.RunTestSolution(testSolution, content);
-                    break;
-                case TestProject testProject:
-                    executor.RunTestProject(testProject, content);
-                    break;
-                case TestFolder testFolder:
-                    executor.RunTestFolder(testFolder, content);
-                    break;
-                case TestFile testFile:
-                    executor.RunTestFile(testFile, content);
-                    break;
-                case TestDescribe testDescribe:
-                    executor.RunTestDescribe(testDescribe, content);
-                    break;
+                if (Running)
+                {
+                    return;
+                }
+                Running = true;
+
+                RunContext content = new RunContext();
+                PowerShellTestExecutor executor = new PowerShellTestExecutor();
+
+                switch (SelectedNode)
+                {
+                    case null:
+                        executor.RunTestSolution(Model, content);
+                        break;
+                    case TestSolution testSolution:
+                        executor.RunTestSolution(testSolution, content);
+                        break;
+                    case TestProject testProject:
+                        executor.RunTestProject(testProject, content);
+                        break;
+                    case TestFolder testFolder:
+                        executor.RunTestFolder(testFolder, content);
+                        break;
+                    case TestFile testFile:
+                        executor.RunTestFile(testFile, content);
+                        break;
+                    case TestDescribe testDescribe:
+                        executor.RunTestDescribe(testDescribe, content);
+                        break;
+                }
+                _report.Merge(content.Reports);
+            }
+            finally
+            {
+                Running = false;
             }
         }
     }

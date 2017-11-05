@@ -10,13 +10,13 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
             {
                 if (!ContainsKey(line.Nr))
                 {
-                    if (line.Mi > 0)
+                    if (line.Ci > 0)
                     {
-                        Add(line.Nr, false);
+                        Add(line.Nr, true);
                     }
                     else
                     {
-                        Add(line.Nr, true);
+                        Add(line.Nr, false);
                     }
                 }
             }

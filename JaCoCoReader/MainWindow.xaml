@@ -3,16 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls;assembly=JaCoCoReader.Core"
-                      xmlns:controls3="clr-namespace:JaCoCoReader.UI.Controls"
-                      xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage;assembly=JaCoCoReader.Core"
-                      xmlns:tests="clr-namespace:JaCoCoReader.Core.ViewModels.Tests;assembly=JaCoCoReader.Core"
-                      xmlns:codeCoverage1="clr-namespace:JaCoCoReader.Core.Models.Tests;assembly=JaCoCoReader.Core"
-                      mc:Ignorable="d"
-                      
-        Title="Powershell Pester Runner" Height="350" Width="525" WindowState="Maximized" Icon="Resources/MainIcon.png"
-                      x:Name="TheMainWindow">
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls;assembly=JaCoCoReader.Core"
+        xmlns:controls3="clr-namespace:JaCoCoReader.UI.Controls"
+        xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage;assembly=JaCoCoReader.Core"
+        xmlns:tests="clr-namespace:JaCoCoReader.Core.ViewModels.Tests;assembly=JaCoCoReader.Core"
+        xmlns:codeCoverage1="clr-namespace:JaCoCoReader.Core.Models.Tests;assembly=JaCoCoReader.Core"
+        mc:Ignorable="d"
+        Title="Powershell Pester Runner" 
+        Height="350" 
+        Width="525" 
+        WindowState="Maximized" 
+        Icon="Resources/MainIcon.png">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -20,7 +22,7 @@
                 <ResourceDictionary Source="pack://application:,,,/UI/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate x:Key="CellTemplateName" DataType="{x:Type codeCoverage:FolderViewModel}">
+            <!--<DataTemplate x:Key="CellTemplateName" DataType="{x:Type codeCoverage:FolderViewModel}">
                 <DockPanel>
                     <ToggleButton x:Name="Expander" 
                       Style="{StaticResource ExpandCollapseToggleStyle}" 
@@ -37,7 +39,7 @@
                   Value="Hidden"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
-            </DataTemplate>
+            </DataTemplate>-->
         </ResourceDictionary>
 
     </controls:MetroWindow.Resources>
@@ -63,7 +65,7 @@
                     <controls1:TreeListView Grid.Row="0" ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
                                   BorderThickness="0" >
                         <controls1:TreeListView.Columns>
-                            <GridViewColumn Header="Name" Width="100">
+                            <GridViewColumn Header="Name" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
                                         <DockPanel>
@@ -72,7 +74,8 @@
                                                   Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
-                                            <TextBlock Text="{Binding Description}"/>
+                                            <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                                            <TextBlock Text="{Binding Description}" Margin="5,0,0,0"/>
                                         </DockPanel>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
@@ -101,18 +104,11 @@
                             </GridViewColumn>
                         </controls1:TreeListView.Columns>
 
-
                         <controls1:TreeListView.Resources>
 
                             <HierarchicalDataTemplate DataType="{x:Type codeCoverage:FolderViewModel}" ItemsSource="{Binding Items}"/>
 
-                            <HierarchicalDataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}">
-                                <!--<StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
-                            <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
-                            <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
-                        </StackPanel>-->
-                            </HierarchicalDataTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}"/>
 
                         </controls1:TreeListView.Resources>
 
@@ -125,17 +121,6 @@
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
                     </controls1:TreeListView>
-
-                    <!--<ListView Grid.Row="2" ItemsSource="{Binding Model.Counters}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Type" Width="70" DisplayMemberBinding="{Binding Type}"   />
-                        <GridViewColumn Header="Missed" Width="70" DisplayMemberBinding="{Binding Missed}" />
-                        <GridViewColumn Header="Covered" Width="70" DisplayMemberBinding="{Binding Covered}" />
-                    </GridView>
-                </ListView.View>
-
-            </ListView>-->
 
                 </Grid>
 
@@ -191,7 +176,7 @@
                                                           IsReadOnly="True"
                                                           Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
                                                           LinesHit="{Binding LinesHit }"
-                                                          ShowLinesHit="{Binding DataContext.ShowLinesHit, ElementName=TheMainWindow, Mode=OneWay}"/>
+                                                          ShowLinesHit="{Binding DataContext.ShowLinesHit, ElementName=CodeCoverage, Mode=OneWay}"/>
 
                                 <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill" Margin="0,15,0,40">
                                     <ItemsControl ItemsSource="{Binding BrushLines}" >
@@ -289,15 +274,13 @@
 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Button Command="{Binding LoadCommand}" Margin="5">Add folder</Button>
-                    <Button Command="{Binding RefreshCommand}" Margin="5">Refresh</Button>
+                    <!--<Button Command="{Binding RefreshCommand}" Margin="5">Refresh</Button>-->
                     <Button Command="{Binding RunCommand}" Margin="5">Run</Button>
-
                 </StackPanel>
 
                 <Grid DockPanel.Dock="Left" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <!--<RowDefinition Height="Auto" />-->
                     </Grid.RowDefinitions>
 
                     <controls1:TreeListView Grid.Row="0" ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
@@ -312,7 +295,9 @@
                                                   Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
-                                            <TextBlock Text="{Binding Name}"/>
+
+                                            <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
                                         </DockPanel>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
@@ -341,19 +326,8 @@
                             </GridViewColumn>-->
                         </controls1:TreeListView.Columns>
 
-
                         <controls1:TreeListView.Resources>
-
                             <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:TestModel}" ItemsSource="{Binding Items}"/>
-
-                            <!--<HierarchicalDataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}">-->
-                                <!--<StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5,0,0,0" Text=" " Background="{Binding Background}"/>
-                            <TextBlock Margin="5,0,0,0" Text="{Binding Description}" ToolTip="{Binding Model.Name}"  />
-                            <TextBlock Margin="5,0,0,0" Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" />
-                        </StackPanel>-->
-                            <!--</HierarchicalDataTemplate>-->
-
                         </controls1:TreeListView.Resources>
 
                         <!--<controls1:TreeViewEx.ItemContainerStyle>
@@ -365,18 +339,6 @@
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
                     </controls1:TreeListView>
-
-                    <!--<ListView Grid.Row="2" ItemsSource="{Binding Model.Counters}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Type" Width="70" DisplayMemberBinding="{Binding Type}"   />
-                        <GridViewColumn Header="Missed" Width="70" DisplayMemberBinding="{Binding Missed}" />
-                        <GridViewColumn Header="Covered" Width="70" DisplayMemberBinding="{Binding Covered}" />
-                    </GridView>
-                </ListView.View>
-
-            </ListView>-->
-
                 </Grid>
 
                 <controls1:DockPanelSplitter DockPanel.Dock="Left" >
@@ -417,41 +379,41 @@
                             </Grid>
                         </DataTemplate>
 
-                        <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestModel}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <Label Content="{Binding Description}" FontSize="40"/>
+                                <Label Content="{Binding Name}" FontSize="40"/>
 
                                 <ListView Grid.Row="1" ItemsSource="{Binding Items}">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Width="20">
+                                            <!--<GridViewColumn Width="20">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text=" " Background="{Binding Background}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                            </GridViewColumn>-->
                                             <GridViewColumn Header="Name" Width="200">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Description}" />
+                                                        <TextBlock Text="{Binding Name}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Missed" Width="70">
+                                            <GridViewColumn Header="Outcome" Width="70">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding MissedLines}" TextAlignment="Right" />
+                                                        <TextBlock Text="{Binding Outcome}" TextAlignment="Center" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Header="%" Width="70">
+                                            <!--<GridViewColumn Header="%" Width="70">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
@@ -471,7 +433,7 @@
                                                         <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                            </GridViewColumn>-->
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
