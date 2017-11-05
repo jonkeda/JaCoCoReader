@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
@@ -34,7 +35,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         private void DoLoadCommand()
         {
             FolderBrowserDialog ofd = new FolderBrowserDialog();
-            ofd.SelectedPath = @"C:\Repos\Pester\Examples";
+            ofd.SelectedPath = @"C:\Sources\JaCoCoReader\JaCoCoReader.Core\Examples";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 TestProject testProject = PowerShellTestDiscoverer.GetTests(ofd.SelectedPath, null);
@@ -49,10 +50,32 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
         private void DoRunCommand()
         {
-            if (SelectedNode is TestFile testFile)
+            Task.Factory.StartNew(DoRunCommandAsync);
+
+        }
+
+        private void DoRunCommandAsync()
+        {
+            RunContext content = new RunContext();
+            PowerShellTestExecutor executor = new PowerShellTestExecutor();
+
+            switch (SelectedNode)
             {
-                PowerShellTestExecutor executor = new PowerShellTestExecutor();
-                executor.RunTestFile(testFile, new IRunContext(), new IFrameworkHandle());
+                case TestSolution testSolution:
+                    executor.RunTestSolution(testSolution, content);
+                    break;
+                case TestProject testProject:
+                    executor.RunTestProject(testProject, content);
+                    break;
+                case TestFolder testFolder:
+                    executor.RunTestFolder(testFolder, content);
+                    break;
+                case TestFile testFile:
+                    executor.RunTestFile(testFile, content);
+                    break;
+                case TestDescribe testDescribe:
+                    executor.RunTestDescribe(testDescribe, content);
+                    break;
             }
         }
     }

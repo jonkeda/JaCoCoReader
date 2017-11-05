@@ -1,6 +1,4 @@
-﻿using PowerShellTools.TestAdapter;
-
-namespace JaCoCoReader.Core.Services
+﻿namespace JaCoCoReader.Core.Services
 {
     public class PowerShellTestResult
     {

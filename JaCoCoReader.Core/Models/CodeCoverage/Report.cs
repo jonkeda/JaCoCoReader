@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace JaCoCoReader.Core.Models.CodeCoverage
@@ -62,6 +63,24 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
         public override string Key
         {
             get { return Name; }
+        }
+
+        public static Report Load(string fileName)
+        {
+            XmlSerializer xml = new XmlSerializer(typeof(Report));
+
+            using (var s = File.OpenRead(fileName))
+            {
+                try
+                {
+                    return xml.Deserialize(s) as Report;
+                }
+                catch (Exception e)
+                {
+                    // AddError(e);
+                    return null;
+                }
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace PowerShellTools.TestAdapter
+﻿namespace JaCoCoReader.Core.Services
 {
     public enum TestOutcome
     {
         None = 0,
         Passed = 1,
-        Failed = 2,
-        Skipped = 3,
-        NotFound = 4
+        Skipped = 2,
+        NotFound = 3,
+        Failed = 4
     }
 }

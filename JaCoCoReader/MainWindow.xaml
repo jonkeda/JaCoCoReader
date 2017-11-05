@@ -325,14 +325,14 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <!--<GridViewColumn Header="Covered" Width="70" >
+                            <GridViewColumn Header="Outcome" Width="80" >
                                 <GridViewColumn.CellTemplate>
-                                    <DataTemplate DataType="{x:Type codeCoverage:TestModel}">
-                                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
+                                    <DataTemplate DataType="{x:Type codeCoverage1:TestModel}">
+                                        <TextBlock TextAlignment="Center" Text="{Binding Outcome}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Missed" Width="70" >
+                            <!--<GridViewColumn Header="Missed" Width="70" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type codeCoverage:TestModel}">
                                         <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />

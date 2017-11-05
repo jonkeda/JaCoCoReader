@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CodeCoverage\Class.cs" />
+    <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
     <Compile Include="Models\Tests\TestModel.cs" />
     <Compile Include="Models\CodeCoverage\ClassCollection.cs" />
     <Compile Include="Models\CodeCoverage\Counter.cs" />
@@ -92,10 +93,14 @@
     <Compile Include="Models\Tests\TestProjectCollection.cs" />
     <Compile Include="Models\Tests\TestSolution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TestAdapterHost.cs" />
+    <Compile Include="Services\HostUi.cs" />
     <Compile Include="Services\PowerShellTestDiscoverer.cs" />
     <Compile Include="Services\IMessageLogger.cs" />
     <Compile Include="Services\PowerShellTestExecutor.cs" />
     <Compile Include="Services\PowerShellTestResult.cs" />
+    <Compile Include="Services\RawHostUi.cs" />
+    <Compile Include="Services\RunContext.cs" />
     <Compile Include="Services\TestMessageLevel.cs" />
     <Compile Include="Services\TestOutcome.cs" />
     <Compile Include="Threading\DefaultThreadDispatcher.cs" />
@@ -140,6 +145,16 @@
     <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Examples\Calculator\Add-Numbers.ps1" />
+    <None Include="Examples\Calculator\Add-Numbers.Tests.ps1" />
+    <None Include="Examples\Gherkin\Gherkin-Scope.feature" />
+    <None Include="Examples\Gherkin\VariableScope.Steps.ps1" />
+    <None Include="Examples\Planets\Get-Planet.ps1" />
+    <None Include="Examples\Planets\Get-Planet.Tests.ps1" />
+    <None Include="Examples\Validator\Validator.feature" />
+    <None Include="Examples\Validator\Validator.ps1" />
+    <None Include="Examples\Validator\Validator.Steps.ps1" />
+    <None Include="Examples\Validator\Validator.Tests.ps1" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -149,6 +164,8 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

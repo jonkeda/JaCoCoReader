@@ -1,43 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Text;
+using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.Models.Tests;
 using Microsoft.PowerShell;
-using PowerShellTools.TestAdapter;
 
 namespace JaCoCoReader.Core.Services
 {
-    public class IRunContext
-    {
-      public  string TestRunDirectory { get; set; }
-       public string SolutionDirectory { get; set; }
-    }
-
-    public class IFrameworkHandle
-    {
-        public void RecordResult(object testResult) { }
-        public void SendMessage(TestMessageLevel informational, string toString)
-        { }
-    }
-
     public class PowerShellTestExecutor
     {
         public const string ExecutorUriString = "executor://PowerShellTestExecutor/v1";
         public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
         private volatile bool _mCancelled;
-
-        public void RunTestFile(TestFile file, IRunContext runContext,
-            IFrameworkHandle frameworkHandle)
-        {
-            SetupExecutionPolicy();
-            //IEnumerable<TestCase> tests = PowerShellTestDiscoverer.GetTests(sources, null);
-            RunTestFileEx(file, runContext, frameworkHandle);
-        }
 
         #region Setup Execution Policy
 
@@ -73,123 +51,231 @@ namespace JaCoCoReader.Core.Services
 
         #endregion
 
+        #region TestSolution
 
-        private void RunTestFileEx(TestFile tests, IRunContext runContext, IFrameworkHandle frameworkHandle)
+        public void RunTestSolution(TestSolution solution, RunContext runContext)
         {
             _mCancelled = false;
-            //SetupExecutionPolicy();
 
-            // var testSets = new List<TestDescribe>();
-            //foreach (TestFile testCase in tests)
-            //{
-            //    var describe = testCase.FullyQualifiedName.Split('.').First();
-            //    var codeFile = testCase.CodeFilePath;
+            SetupExecutionPolicy();
 
-            //    var testSet = testSets.FirstOrDefault(m => m.Describe.Equals(describe, StringComparison.OrdinalIgnoreCase) &&
-            //                                               m.File.Equals(codeFile, StringComparison.OrdinalIgnoreCase));
+            solution.SetOutcome(TestOutcome.None);
 
-            //    if (testSet == null)
-            //    {
-            //        testSet = new TestDescribe(codeFile, describe);
-            //        testSets.Add(testSet);
-            //    }
+            RunTestSolutionEx(solution, runContext);
+        }
 
-            //    testSet.TestCases.Add(testCase);
-            //}
-
-            foreach (var testSet in tests.Describes)
+        private void RunTestSolutionEx(TestSolution tests, RunContext runContext)
+        {
+            foreach (TestProject project in tests.Projects)
             {
-                if (_mCancelled) break;
-
-                StringBuilder testOutput = new StringBuilder();
-
-                try
+                if (_mCancelled)
                 {
-                    //var testAdapter = new TestAdapterHost();
-                    //testAdapter.HostUi.OutputString = s =>
-                    //{
-                    //    if (!string.IsNullOrEmpty(s))
-                    //        testOutput.Append(s);
-                    //};
-
-                    Runspace runpsace = RunspaceFactory.CreateRunspace();
-                    runpsace.Open();
-
-                    using (PowerShell ps = PowerShell.Create())
-                    {
-                        ps.Runspace = runpsace;
-                        RunTestDescribe(ps, testSet, runContext);
-
-                        foreach (var testResult in testSet.TestResults)
-                        {
-                            frameworkHandle.RecordResult(testResult);
-                        }
-                    }
+                    break;
                 }
-                catch (Exception ex)
+                RunTestFolderEx(project, runContext);
+            }
+        }
+
+        #endregion
+
+        #region Project Folder
+
+        public void RunTestProject(TestProject project, RunContext runContext)
+        {
+            _mCancelled = false;
+
+            SetupExecutionPolicy();
+
+            project.SetOutcome(TestOutcome.None);
+
+            RunTestFolderEx(project, runContext);
+        }
+
+        public void RunTestFolder(TestFolder folder, RunContext runContext)
+        {
+            _mCancelled = false;
+
+            SetupExecutionPolicy();
+
+            folder.SetOutcome(TestOutcome.None);
+
+            RunTestFolderEx(folder, runContext);
+        }
+
+        private void RunTestFolderEx(TestFolder parentFolder, RunContext runContext)
+        {
+            foreach (TestFolder folder in parentFolder.Folders)
+            {
+                if (_mCancelled)
                 {
-                    //foreach (var testCase in testSet.Contexts)
-                    //{
-                    //    var testResult = new TestResult(testCase);
-                    //    testResult.Outcome = TestOutcome.Failed;
-                    //    testResult.ErrorMessage = ex.Message;
-                    //    testResult.ErrorStackTrace = ex.StackTrace;
-                    //    frameworkHandle.RecordResult(testResult);
-                    //}
+                    break;
+                }
+                RunTestFolderEx(folder, runContext);
+                if (folder.Outcome > parentFolder.Outcome)
+                {
+                    parentFolder.Outcome = folder.Outcome;
+                }
+            }
+
+            foreach (TestFile file in parentFolder.Files)
+            {
+                if (_mCancelled)
+                {
+                    break;
+                }
+                RunTestFileEx(file, runContext);
+                if (file.Outcome > parentFolder.Outcome)
+                {
+                    parentFolder.Outcome = file.Outcome;
                 }
 
-                if (testOutput.Length > 0)
+            }
+        }
+
+        #endregion
+
+        #region File
+
+        public void RunTestFile(TestFile file, RunContext runContext)
+        {
+            _mCancelled = false;
+
+            SetupExecutionPolicy();
+
+            file.SetOutcome(TestOutcome.None);
+
+            RunTestFileEx(file, runContext);
+        }
+
+        private void RunTestFileEx(TestFile file, RunContext runContext)
+        {
+            foreach (TestDescribe describe in file.Describes)
+            {
+                if (_mCancelled)
                 {
-                    frameworkHandle.SendMessage(TestMessageLevel.Informational, testOutput.ToString());
+                    break;
+                }
+                RunTestDescribeEx(describe, runContext);
+                if (describe.Outcome > file.Outcome)
+                {
+                    file.Outcome = describe.Outcome;
                 }
             }
         }
+
+        #endregion
 
         public void Cancel()
         {
             _mCancelled = true;
         }
 
-        public void RunTestDescribe(PowerShell powerShell, TestDescribe describe, IRunContext runContext)
+        public void RunTestDescribe(TestDescribe describe, RunContext runContext)
         {
             SetupExecutionPolicy();
 
-            RunTestDescribeEx(powerShell, describe, runContext);
+            describe.SetOutcome(TestOutcome.None);
+
+            RunTestDescribeEx(describe, runContext);
         }
 
-        private void RunTestDescribeEx(PowerShell powerShell, TestDescribe describe, IRunContext runContext)
+        private void RunTestDescribeEx(TestDescribe describe, RunContext runContext)
         {
-            string module = FindModule("Pester", runContext);
-            powerShell.AddCommand("Import-Module").AddParameter("Name", module);
-            powerShell.Invoke();
-            powerShell.Commands.Clear();
-
-            if (powerShell.HadErrors)
+            StringBuilder testOutput = new StringBuilder();
+            TestAdapterHost testAdapter = new TestAdapterHost();
+            testAdapter.HostUi.OutputString = s =>
             {
-                ErrorRecord errorRecord = powerShell.Streams.Error.FirstOrDefault();
-                string errorMessage = errorRecord?.ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(s))
+                {
+                    testOutput.Append(s);
+                }
+            };
 
-                throw new Exception($"FailedToLoadPesterModule {errorMessage}");
+            using (Runspace runspace = RunspaceFactory.CreateRunspace(testAdapter))
+            {
+                runspace.Open();
+
+                using (PowerShell powerShell = PowerShell.Create())
+                {
+                    powerShell.Runspace = runspace;
+
+                    try
+                    {
+                        RunTestDescribeEx(powerShell, describe, runContext);
+                    }
+                    catch (Exception ex)
+                    {
+                        describe.SetOutcome(TestOutcome.Failed);
+                        //foreach (var testCase in testSet.Contexts)
+                        //{
+                        //    var testResult = new TestResult(testCase);
+                        //    testResult.Outcome = TestOutcome.Failed;
+                        //    testResult.ErrorMessage = ex.Message;
+                        //    testResult.ErrorStackTrace = ex.StackTrace;
+                        //    frameworkHandle.RecordResult(testResult);
+                        //}
+                    }
+                }
             }
+        }
 
-            FileInfo fi = new FileInfo(describe.Path);
 
-            powerShell.AddCommand("Invoke-Pester")
-                .AddParameter("Path", fi.Directory?.FullName)
-                .AddParameter("TestName", describe.Name)
-                .AddParameter("PassThru");
+        private void RunTestDescribeEx(PowerShell powerShell, TestDescribe describe, RunContext runContext)
+        {            string tempFile = Path.GetTempFileName();
+            try
+            {
 
-            Collection<PSObject> pesterResults = powerShell.Invoke();
-            powerShell.Commands.Clear();
+                string module = FindModule("Pester", runContext);
+                powerShell.AddCommand("Import-Module").AddParameter("Name", module);
+                powerShell.Invoke();
+                powerShell.Commands.Clear();
 
-            // The test results are not necessary stored in the first PSObject.
-            Array results = GetTestResults(pesterResults);
-            describe.ProcessTestResults(results);
+                if (powerShell.HadErrors)
+                {
+                    ErrorRecord errorRecord = powerShell.Streams.Error.FirstOrDefault();
+                    string errorMessage = errorRecord?.ToString() ?? string.Empty;
+
+                    throw new Exception($"FailedToLoadPesterModule {errorMessage}");
+                }
+
+                FileInfo fi = new FileInfo(describe.Path);
+
+
+                powerShell.AddCommand("Invoke-Pester")
+                    .AddParameter("Path", fi.Directory?.FullName)
+                    .AddParameter("TestName", describe.Name)
+
+                    .AddParameter("DetailedCodeCoverage")
+                    .AddParameter("CodeCoverageOutputFile", tempFile)
+
+                    .AddParameter("PassThru");
+
+                Collection<PSObject> pesterResults = powerShell.Invoke();
+                powerShell.Commands.Clear();
+
+                // The test results are not necessary stored in the first PSObject.
+                Array results = GetTestResults(pesterResults);
+                if (results.Length == 0)
+                {
+                    describe.SetOutcome(TestOutcome.Failed);
+                }
+                else
+                {
+                    describe.ProcessTestResults(results);
+
+                    Report report = Report.Load(tempFile);
+                    runContext.AddCodeCoverageReport(report);
+                }
+            }
+            finally
+            {
+                File.Delete(tempFile);
+            }
         }
 
         #region
 
-        private string FindModule(string moduleName, IRunContext runContext)
+        private string FindModule(string moduleName, RunContext runContext)
         {
             string pesterPath = GetModulePath(moduleName, runContext.TestRunDirectory);
             if (string.IsNullOrEmpty(pesterPath))
