@@ -22,25 +22,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/UI/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <!--<DataTemplate x:Key="CellTemplateName" DataType="{x:Type codeCoverage:FolderViewModel}">
-                <DockPanel>
-                    <ToggleButton x:Name="Expander" 
-                      Style="{StaticResource ExpandCollapseToggleStyle}" 
-                      Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
-                      IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
-                      ClickMode="Press"/>
-                    <TextBlock Text="{Binding Description}"/>
-                </DockPanel>
-                <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
-                     Value="False">
-                        <Setter TargetName="Expander"
-                  Property="Visibility"
-                  Value="Hidden"/>
-                    </DataTrigger>
-                </DataTemplate.Triggers>
-            </DataTemplate>-->
         </ResourceDictionary>
 
     </controls:MetroWindow.Resources>

@@ -9,7 +9,7 @@
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
@@ -24,7 +24,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JaCoCoReader.Vsix</RootNamespace>
-    <AssemblyName>JaCoCoReader.Vsix</AssemblyName>
+    <AssemblyName>Srt2PesterRunner</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -54,17 +54,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CodeCoverageAdornment.cs" />
-    <Compile Include="CodeCoverageAdornmentTextViewCreationListener.cs" />
-    <Compile Include="CodeCoverageWindow.cs" />
-    <Compile Include="CodeCoverageWindowCommand.cs" />
-    <Compile Include="CodeCoverageWindowControl.xaml.cs">
+    <Compile Include="CodeCoverage\CodeCoverageAdornment.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageAdornmentTextViewCreationListener.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageWindow.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageWindowCommand.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageWindowControl.xaml.cs">
       <DependentUpon>CodeCoverageWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CodeCoverageWindowPackage.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageWindowPackage.cs" />
     <Compile Include="Extensions\TextBufferExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CodeCoverageService.cs" />
+    <Compile Include="Tests\TestsWindow.cs" />
+    <Compile Include="Tests\TestsWindowCommand.cs" />
+    <Compile Include="Tests\TestsWindowControl.xaml.cs">
+      <DependentUpon>TestsWindowControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -200,12 +205,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CodeCoverageWindowControl.xaml">
+    <Page Include="CodeCoverage\CodeCoverageWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tests\TestsWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Tests\Resources\TestsWindowCommand.png" />
     <VSCTCompile Include="CodeCoverageWindowPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
@@ -224,6 +238,7 @@
       <Name>JaCoCoReader.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

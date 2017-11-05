@@ -3,37 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:JaCoCoReader.Core.UI.Controls"
-             xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage"
-             d:DataContext="{d:DesignInstance Type=codeCoverage:ReportViewModel, IsDesignTimeCreatable=false}"
+             xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls"
+             xmlns:codeCoverage1="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage"
+             d:DataContext="{d:DesignInstance Type=codeCoverage1:ReportViewModel, IsDesignTimeCreatable=false}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/UI/Resources/Styles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/JaCoCoReader.Core;component/UI/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <controls:TreeListView ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
+    <controls1:TreeListView ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
                                   BorderThickness="0" >
-        <controls:TreeListView.Columns>
+        <controls1:TreeListView.Columns>
             <GridViewColumn Header="Name" Width="250">
                 <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <DockPanel>
                             <ToggleButton x:Name="Expander" 
                                                   Style="{StaticResource ExpandCollapseToggleStyle}" 
-                                                  Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls:TreeListViewItem}}}"
-                                                  IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls:TreeListViewItem}}}"
+                                                  Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
+                                                  IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
                             <TextBlock Text=" " Width="10" Background="{Binding Background}" />
                             <TextBlock Text="{Binding Description}" Margin="5,0,0,0"/>
                         </DockPanel>
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls:TreeListViewItem}}}" 
+                            <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
                                                  Value="False">
                                 <Setter TargetName="Expander"
                                                 Property="Visibility"
@@ -45,27 +45,27 @@
             </GridViewColumn>
             <GridViewColumn Header="Covered" Width="70" >
                 <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
             <GridViewColumn Header="Missed" Width="70" >
                 <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage:FolderViewModel}">
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
-        </controls:TreeListView.Columns>
+        </controls1:TreeListView.Columns>
 
-        <controls:TreeListView.Resources>
+        <controls1:TreeListView.Resources>
 
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage:FolderViewModel}" ItemsSource="{Binding Items}"/>
+            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}" ItemsSource="{Binding Items}"/>
 
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}"/>
+            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:SourcefileViewModel}"/>
 
-        </controls:TreeListView.Resources>
+        </controls1:TreeListView.Resources>
 
         <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
@@ -75,7 +75,7 @@
                         <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
-    </controls:TreeListView>
+    </controls1:TreeListView>
 
 </UserControl>
 

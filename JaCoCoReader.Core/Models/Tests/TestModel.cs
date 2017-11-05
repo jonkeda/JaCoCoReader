@@ -46,9 +46,9 @@ namespace JaCoCoReader.Core.Models.Tests
                 switch (Outcome)
                 {
                     case TestOutcome.Failed:
-                        return ViewModels.Colors.MissedBackground;
+                        return Brushes.DarkRed;
                     case TestOutcome.Passed:
-                        return ViewModels.Colors.HitBackground;
+                        return Brushes.DarkGreen;
                     default:
                         return ViewModels.Colors.DefaultBackground;
                 }

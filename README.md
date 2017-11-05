@@ -1,5 +1,5 @@
 backlog
-* Add tests window to VisualStudio
+* + Add tests window to VisualStudio
 
 
 CodeCoverage
@@ -26,8 +26,8 @@ Tests window
 
 Tests tree
 * Add icons
-* Add traffic light
-* Run tests if nothing is selected
+* + Add traffic light
+* + Run tests if nothing is selected
 
 
 Tests Bug
@@ -36,9 +36,6 @@ Tests Bug
 Test glyphs
 * Show glyphs next to describe, Context and It
 * Allow for start of tests in editor
-
-Test Gherkin
-* Toon Gherkin texts 
 
 
 

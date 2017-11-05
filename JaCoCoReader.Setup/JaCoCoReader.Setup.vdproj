@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0B641B69AFF02537C822AA0ED51E771F"
+        "OwnerKey" = "8:_CF96F7694978124BD14F565CF2973BA2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0B641B69AFF02537C822AA0ED51E771F"
+        "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_516D764F2DD02DD944C9DFD418BEE5E1"
         "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
         "MsmSig" = "8:_UNDEFINED"
@@ -22,6 +34,12 @@
         "Entry"
         {
         "MsmKey" = "8:_648C51ED69CEE647642BF82547CFBCC0"
+        "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_68EA4EEA82381B2FEF1FA1CBF910AC45"
         "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,6 +69,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CF96F7694978124BD14F565CF2973BA2"
+        "OwnerKey" = "8:_68EA4EEA82381B2FEF1FA1CBF910AC45"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF96F7694978124BD14F565CF2973BA2"
+        "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E9A11E86F173E13495804077DF2A00EA"
         "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
         "MsmSig" = "8:_UNDEFINED"
@@ -58,13 +88,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E9A11E86F173E13495804077DF2A00EA"
+        "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_873467EC0DF34683B4C9ABC6E92FD0A8"
+        "OwnerKey" = "8:_68EA4EEA82381B2FEF1FA1CBF910AC45"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -85,6 +115,24 @@
         "OwnerKey" = "8:_648C51ED69CEE647642BF82547CFBCC0"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CF96F7694978124BD14F565CF2973BA2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0B641B69AFF02537C822AA0ED51E771F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E9A11E86F173E13495804077DF2A00EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -103,13 +151,21 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\JaCoCoReader.Setup.msi"
+        "OutputFilename" = "8:Release\\Srt2PesterRunner.Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -119,6 +175,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -148,6 +220,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0B641B69AFF02537C822AA0ED51E771F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Management.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0B641B69AFF02537C822AA0ED51E771F"
+                    {
+                    "Name" = "8:Microsoft.Management.Infrastructure.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Management.Infrastructure.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_516D764F2DD02DD944C9DFD418BEE5E1"
             {
             "AssemblyRegister" = "3:1"
@@ -210,6 +313,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_68EA4EEA82381B2FEF1FA1CBF910AC45"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:JaCoCoReader.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_68EA4EEA82381B2FEF1FA1CBF910AC45"
+                    {
+                    "Name" = "8:JaCoCoReader.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:JaCoCoReader.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8F69880D39364A11BCEC379B4C8518F5"
             {
             "SourcePath" = "8:..\\JaCoCoReader\\Resources\\MainIcon.png"
@@ -244,6 +378,37 @@
                     }
                 }
             "SourcePath" = "8:System.Windows.Interactivity.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CF96F7694978124BD14F565CF2973BA2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_CF96F7694978124BD14F565CF2973BA2"
+                    {
+                    "Name" = "8:System.Management.Automation.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Management.Automation.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DB82D9FEEBC3473AA19B60A238649619"
@@ -349,7 +514,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JaCoCo Reader"
         "ProductCode" = "8:{0AE7F718-5E0D-49A9-8367-721C5179017D}"
-        "PackageCode" = "8:{0081D33B-1A8B-4362-AA05-7CB2531FDBF9}"
+        "PackageCode" = "8:{4CE7B050-37A1-45F7-B80C-DCD63997B1AB}"
         "UpgradeCode" = "8:{30A15887-830F-447F-931C-70B649DF372F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
