@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Models\CodeCoverage\Class.cs" />
     <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
+    <Compile Include="Models\Tests\TestFileModel.cs" />
+    <Compile Include="Models\Tests\TestModelCollection.cs" />
     <Compile Include="Models\Tests\TestModel.cs" />
     <Compile Include="Models\CodeCoverage\ClassCollection.cs" />
     <Compile Include="Models\CodeCoverage\Counter.cs" />

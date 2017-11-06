@@ -8,9 +8,14 @@ using JaCoCoReader.Core.Services;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public class TestDescribe : TestFileModel
+    public class TestDescribe : TestFileModel<TestFile>
     {
-        public TestContextCollection Contexts { get; } = new TestContextCollection();
+        public TestDescribe()
+        {
+            Contexts = new TestContextCollection(this);
+        }
+
+        public TestContextCollection Contexts { get; }
 
         public Ast Ast { get; set; }
 

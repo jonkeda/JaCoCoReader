@@ -55,4 +55,9 @@ namespace JaCoCoReader.Core.Models.Tests
             }
         }
     }
+
+    public abstract class TestModel<T> : TestModel
+    {
+        public T Parent { get; set; }
+    }
 }

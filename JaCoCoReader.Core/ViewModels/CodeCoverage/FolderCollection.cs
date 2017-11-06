@@ -36,7 +36,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         {
             int missedLines = 0;
             int coveredLines = 0;
-            foreach (var folder in root.Folders)
+            foreach (Folder folder in root.Folders)
             {
                 CountLines(folder);
                 missedLines += folder.MissedLines;
@@ -44,11 +44,16 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             }
             foreach (Sourcefile sourcefile in root.Sourcefiles)
             {
-                Counter counter = sourcefile.Counters.FirstOrDefault(c => c.Type == CounterType.Line);
-                if (counter != null)
+                foreach (Line line in sourcefile.Lines)
                 {
-                    missedLines += counter.Missed;
-                    coveredLines += counter.Covered;
+                    if (line.Ci > 0)
+                    {
+                        coveredLines++;
+                    }
+                    else
+                    {
+                        missedLines ++;
+                    }
                 }
             }
             root.MissedLines = missedLines;

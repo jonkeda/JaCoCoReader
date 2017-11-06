@@ -43,20 +43,47 @@
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
+
             <GridViewColumn Header="Covered" Width="70" >
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
+                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLines}" />
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+
+            <GridViewColumn Header="%" Width="50" >
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
+
             <GridViewColumn Header="Missed" Width="70" >
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
+                        <TextBlock TextAlignment="Right" Text="{Binding MissedLines}"  />
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+
+            <GridViewColumn Header="%" Width="50" >
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
+
+            <GridViewColumn Header="Total" Width="70" >
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
+                        <TextBlock TextAlignment="Right" Text="{Binding TotalLines}"  />
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+
         </controls1:TreeListView.Columns>
 
         <controls1:TreeListView.Resources>

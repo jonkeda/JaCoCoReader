@@ -27,6 +27,159 @@
     </controls:MetroWindow.Resources>
 
     <TabControl>
+        <TabItem Header="Tests" x:Name="Tests" d:DataContext="{d:DesignInstance Type=tests:SolutionViewModel, IsDesignTimeCreatable=false}">
+            <DockPanel >
+
+                <views:SolutionMenu DockPanel.Dock="Top"/>
+
+                <views:SolutionTree DockPanel.Dock="Left"/>
+
+                <controls1:DockPanelSplitter DockPanel.Dock="Left" >
+
+                    <controls1:DockPanelSplitter.Template>
+                        <ControlTemplate>
+                            <Border Background="{DynamicResource AccentColorBrush3}"
+                            BorderBrush="{DynamicResource AccentColorBrush3}"
+                            BorderThickness="1">
+                            </Border>
+                        </ControlTemplate>
+
+                    </controls1:DockPanelSplitter.Template>
+
+                </controls1:DockPanelSplitter>
+
+                <ContentControl Content="{Binding SelectedNode}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestFile}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="{Binding Name}" FontSize="40" />
+                                <controls3:CodeCoverageTextEditor Grid.Column="0" Grid.Row="1"
+                                                                  ShowLineNumbers="True"
+                                                                  FontFamily="Consolas"
+                                                                  SyntaxHighlighting="PowerShell"
+                                                                  FontSize="10pt" 
+                                                                  IsReadOnly="True"
+                                                                  Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                            </Grid>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestIt}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="{Binding Name}" FontSize="40" />
+                                <controls3:CodeCoverageTextEditor Grid.Column="0" Grid.Row="1"
+                                                                  ShowLineNumbers="True"
+                                                          FontFamily="Consolas"
+                                                          SyntaxHighlighting="PowerShell"
+                                                          FontSize="10pt" 
+                                                          IsReadOnly="True"
+                                                          Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                            </Grid>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestContext}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="{Binding Name}" FontSize="40" />
+                                <controls3:CodeCoverageTextEditor Grid.Column="0" Grid.Row="1"
+                                                                  ShowLineNumbers="True"
+                                                                  FontFamily="Consolas"
+                                                                  SyntaxHighlighting="PowerShell"
+                                                                  FontSize="10pt" 
+                                                                  IsReadOnly="True"
+                                                                  Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                            </Grid>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestDescribe}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="{Binding Name}" FontSize="40" />
+                                <controls3:CodeCoverageTextEditor Grid.Column="0" Grid.Row="1"
+                                                                  ShowLineNumbers="True"
+                                                                  FontFamily="Consolas"
+                                                                  SyntaxHighlighting="PowerShell"
+                                                                  FontSize="10pt" 
+                                                                  IsReadOnly="True"
+                                                                  Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                            </Grid>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type codeCoverage1:TestModel}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Content="{Binding Name}" FontSize="40"/>
+
+                                <ListView Grid.Row="1" ItemsSource="{Binding Items}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Name" Width="200">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Outcome" Width="70">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Outcome}" TextAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <!--<GridViewColumn Header="%" Width="70">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Covered" Width="70">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding CoveredLines}" TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="%" Width="70">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>-->
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </DataTemplate>
+
+                    </ContentControl.Resources>
+                </ContentControl>
+
+
+            </DockPanel>
+
+        </TabItem>
+
         <TabItem Header="Code coverage" x:Name="CodeCoverage" 
                  d:DataContext="{d:DesignInstance Type=codeCoverage:ReportViewModel, IsDesignTimeCreatable=false}">
             <DockPanel >
@@ -76,6 +229,9 @@
                                     <Label Content="Missed" />
                                     <Label Content="{Binding MissedLines}" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                                    <Label Content="Total" />
+                                    <Label Content="{Binding TotalLines}" FontWeight="Bold"/>
                                 </StackPanel>
 
 
@@ -146,7 +302,7 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Header="%" Width="70">
+                                            <GridViewColumn Header="%" Width="50">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
@@ -160,10 +316,17 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Header="%" Width="70">
+                                            <GridViewColumn Header="%" Width="50">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Total" Width="70">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding TotalLines}" TextAlignment="Right" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -180,119 +343,7 @@
             </DockPanel>
 
         </TabItem>
-        <TabItem Header="Tests" x:Name="Tests" d:DataContext="{d:DesignInstance Type=tests:SolutionViewModel, IsDesignTimeCreatable=false}">
-            <DockPanel >
 
-                <views:SolutionMenu DockPanel.Dock="Top"/>
-
-                <views:SolutionTree DockPanel.Dock="Left"/>
-
-                <controls1:DockPanelSplitter DockPanel.Dock="Left" >
-
-                    <controls1:DockPanelSplitter.Template>
-                        <ControlTemplate>
-                            <Border Background="{DynamicResource AccentColorBrush3}"
-                            BorderBrush="{DynamicResource AccentColorBrush3}"
-                            BorderThickness="1">
-                            </Border>
-                        </ControlTemplate>
-
-                    </controls1:DockPanelSplitter.Template>
-
-                </controls1:DockPanelSplitter>
-
-                <ContentControl Content="{Binding SelectedNode}">
-                    <ContentControl.Resources>
-                        <DataTemplate DataType="{x:Type codeCoverage1:TestFileModel}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <Label Grid.Column="0" Content="{Binding Name}" FontSize="40" />
-
-      
-                                <controls3:CodeCoverageTextEditor Grid.Column="0" Grid.Row="1"
-                                                                  ShowLineNumbers="True"
-                                                          FontFamily="Consolas"
-                                                          SyntaxHighlighting="PowerShell"
-                                                          FontSize="10pt" 
-                                                          IsReadOnly="True"
-                                                          Text="{Binding Text, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
-
-                               
-                            </Grid>
-                        </DataTemplate>
-
-                        <DataTemplate DataType="{x:Type codeCoverage1:TestModel}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <Label Content="{Binding Name}" FontSize="40"/>
-
-                                <ListView Grid.Row="1" ItemsSource="{Binding Items}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <!--<GridViewColumn Width="20">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text=" " Background="{Binding Background}" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>-->
-                                            <GridViewColumn Header="Name" Width="200">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Name}" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-
-                                            <GridViewColumn Header="Outcome" Width="70">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Outcome}" TextAlignment="Center" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <!--<GridViewColumn Header="%" Width="70">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="Covered" Width="70">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding CoveredLines}" TextAlignment="Right" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="%" Width="70">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" TextAlignment="Right" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>-->
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </Grid>
-                        </DataTemplate>
-
-                    </ContentControl.Resources>
-                </ContentControl>
-
-
-            </DockPanel>
-
-        </TabItem>
     </TabControl>
 
 

@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="PowershellPesterTestRunnerVsix" Version="0.6.1" Language="en-US" Publisher="SRT2" />
         <DisplayName>Powershell Pester Testrunner VS Extension</DisplayName>
-        <Description xml:space="preserve">Powershell Pester Testrunner</Description>
+        <Description xml:space="preserve">Powershell Pester Testrunner VS Extension</Description>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />

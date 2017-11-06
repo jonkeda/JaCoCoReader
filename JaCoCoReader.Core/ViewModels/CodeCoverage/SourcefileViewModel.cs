@@ -52,7 +52,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         }
 
         private LineHitDictionary _linesHit;
-        
+
         public LineHitDictionary LinesHit
         {
             get
@@ -65,7 +65,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             }
         }
 
-        
+
         public int TotalLines
         {
             get
@@ -75,18 +75,14 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         }
 
         private int _coveredLines = -1;
-        
+
         public int CoveredLines
         {
             get
             {
                 if (_coveredLines < 0)
                 {
-                    var counter = Model.Counters.FirstOrDefault();
-                    if (counter != null)
-                    {
-                        _coveredLines = counter.Covered;
-                    }
+                    CountLines();
                 }
                 return _coveredLines;
             }
@@ -101,26 +97,41 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (_missedLines < 0)
                 {
-                    var counter = Model.Counters.FirstOrDefault();
-                    if (counter != null)
-                    {
-                        _missedLines = counter.Missed;
-                    }
+                    CountLines();
                 }
                 return _missedLines;
             }
         }
 
-        
+
         public double CoveredLinesPercentage
         {
             get { return CoveredLines / (double)TotalLines; }
         }
 
-        
+
         public double MissedLinesPercentage
         {
             get { return MissedLines / (double)TotalLines; }
+        }
+
+        private void CountLines()
+        {
+            int missedLines = 0;
+            int coveredLines = 0;
+            foreach (Line line in Model.Lines)
+            {
+                if (line.Ci > 0)
+                {
+                    coveredLines++;
+                }
+                else
+                {
+                    missedLines++;
+                }
+            }
+            _missedLines = missedLines;
+            _coveredLines = coveredLines;
         }
 
         public Brush Background
@@ -129,11 +140,11 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (MissedLines > 0)
                 {
-                    return Brushes.DarkGreen;
+                    return Brushes.DarkRed;
                 }
                 if (CoveredLines > 0)
                 {
-                    return Brushes.DarkRed;
+                    return Brushes.DarkGreen;
                 }
                 return Colors.DefaultBackground;
             }

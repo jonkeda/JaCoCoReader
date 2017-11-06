@@ -18,8 +18,16 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <controls1:TreeListView ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
-        <controls1:TreeListView.Columns>
+    <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
+        <controls1:TreeViewEx.ItemTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                    <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </controls1:TreeViewEx.ItemTemplate>
+        <!--<controls1:TreeListView.Columns>
             <GridViewColumn Header="Name" Width="250">
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
@@ -51,18 +59,18 @@
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <!--<GridViewColumn Header="Missed" Width="70" >
+            --><!--<GridViewColumn Header="Missed" Width="70" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type codeCoverage:TestModel}">
                                         <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
-                            </GridViewColumn>-->
+                            </GridViewColumn>--><!--
         </controls1:TreeListView.Columns>
 
         <controls1:TreeListView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}"/>
-        </controls1:TreeListView.Resources>
+        </controls1:TreeListView.Resources>-->
 
         <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
@@ -72,7 +80,7 @@
                         <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
-    </controls1:TreeListView>
+    </controls1:TreeViewEx>
 
 
 </UserControl>

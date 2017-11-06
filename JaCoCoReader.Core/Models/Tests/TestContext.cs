@@ -2,9 +2,14 @@ using System.Collections.Generic;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public class TestContext : TestFileModel
+    public class TestContext : TestFileModel<TestDescribe>
     {
-        public TestItCollection Its { get; } = new TestItCollection();
+        public TestContext()
+        {
+            Its = new TestItCollection(this);
+        }
+
+        public TestItCollection Its { get; }
 
         public override IEnumerable<TestModel> Items
         {

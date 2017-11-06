@@ -2,11 +2,17 @@ using System.Collections.Generic;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public class TestFolder : TestModel
+    public class TestFolder : TestModel<TestFolder>
     {
-        public TestFolderCollection Folders { get; } = new TestFolderCollection();
+        public TestFolder()
+        {
+            Folders = new TestFolderCollection(this);
+            Files = new TestFileCollection(this);
+        }
 
-        public TestFileCollection Files { get; } = new TestFileCollection();
+        public TestFolderCollection Folders { get; } 
+
+        public TestFileCollection Files { get; }
 
         public string Path { get; set; }
 

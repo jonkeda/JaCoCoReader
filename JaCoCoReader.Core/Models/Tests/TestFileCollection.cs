@@ -2,7 +2,10 @@ using System.Collections.ObjectModel;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public class TestFileCollection : ObservableCollection<TestFile>
+    public class TestFileCollection : TestModelCollection<TestFile, TestFolder>
     {
+        public TestFileCollection(TestFolder parent) : base(parent)
+        {
+        }
     }
 }

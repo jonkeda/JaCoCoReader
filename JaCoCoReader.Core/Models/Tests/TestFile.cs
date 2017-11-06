@@ -1,36 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public class TestFileModel : TestModel
+    public class TestFile : TestFileModel<TestFolder>
     {
-        public string Path { get; set; }
-
-        private string _text;
-        public string Text
+        public TestFile()
         {
-            get
-            {
-                if (string.IsNullOrEmpty(_text))
-                {
-                    try
-                    {
-                        _text = File.ReadAllText(Path);
-                    }
-                    catch (Exception ex)
-                    {
-                        _text = ex.Message;
-                    }
-                }
-                return _text;
-            }
+            Describes = new TestDescribeCollection(this);
         }
-    }
-    public class TestFile : TestFileModel
-    {
-        public TestDescribeCollection Describes { get; } = new TestDescribeCollection();
+
+        public TestDescribeCollection Describes { get; }
 
         public override IEnumerable<TestModel> Items
         {
