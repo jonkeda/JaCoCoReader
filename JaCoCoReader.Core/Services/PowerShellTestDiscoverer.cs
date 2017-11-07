@@ -58,7 +58,7 @@ namespace JaCoCoReader.Core.Services
             }
         }
 
-        private static void DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
+        protected static void DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
         {
             //SendMessage(TestMessageLevel.Informational, string.Format(Resources.SearchingForTestsFormat, source), logger);
             Token[] tokens;

@@ -8,7 +8,16 @@ namespace JaCoCoReader.Core.Models.Tests
     public abstract class TestModel : PropertyNotifier
     {
         private TestOutcome _outcome;
+        private string _output;
         public string Name { get; set; }
+
+        public abstract string Type { get; }
+
+        public string Output
+        {
+            get { return _output; }
+            set { SetProperty(ref _output, value); }
+        }
 
         public TestOutcome Outcome
         {

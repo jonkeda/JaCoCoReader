@@ -6,10 +6,11 @@
              xmlns:tests1="clr-namespace:JaCoCoReader.Core.ViewModels.Tests"
              xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls"
              xmlns:codeCoverage11="clr-namespace:JaCoCoReader.Core.Models.Tests"
+             xmlns:views="clr-namespace:JaCoCoReader.Core.Views"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=tests1:SolutionViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,17 +18,23 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
-        <controls1:TreeViewEx.ItemTemplate>
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text=" " Width="10" Background="{Binding Background}" />
-                    <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-                </StackPanel>
-            </HierarchicalDataTemplate>
-        </controls1:TreeViewEx.ItemTemplate>
-        <!--<controls1:TreeListView.Columns>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
+            <controls1:TreeViewEx.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </controls1:TreeViewEx.ItemTemplate>
+            <!--<controls1:TreeListView.Columns>
             <GridViewColumn Header="Name" Width="250">
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
@@ -59,20 +66,9 @@
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            --><!--<GridViewColumn Header="Missed" Width="70" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate DataType="{x:Type codeCoverage:TestModel}">
-                                        <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>--><!--
-        </controls1:TreeListView.Columns>
+            -->
 
-        <controls1:TreeListView.Resources>
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}"/>
-        </controls1:TreeListView.Resources>-->
-
-        <!--<controls1:TreeViewEx.ItemContainerStyle>
+            <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
@@ -80,8 +76,10 @@
                         <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
-    </controls1:TreeViewEx>
+        </controls1:TreeViewEx>
 
+        <views:SolutionDetails Grid.Row="1" DataContext="{Binding SelectedNode}" />
+    </Grid>
 
 </UserControl>
 

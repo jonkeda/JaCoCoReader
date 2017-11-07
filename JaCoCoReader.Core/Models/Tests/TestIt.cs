@@ -7,5 +7,11 @@ namespace JaCoCoReader.Core.Models.Tests
         public CommandAst Ast { get; set; }
         public string ErrorStackTrace { get; set; }
         public string ErrorMessage { get; set; }
+
+        public override string Type
+        {
+            get { return "It"; }
+        }
+
     }
 }

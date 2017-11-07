@@ -19,6 +19,11 @@ namespace JaCoCoReader.Core.Models.Tests
 
         public Ast Ast { get; set; }
 
+        public override string Type
+        {
+            get { return "Describe"; }
+        }
+
         public override IEnumerable<TestModel> Items
         {
             get { return Contexts; }

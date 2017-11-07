@@ -8,8 +8,8 @@
              d:DataContext="{d:DesignInstance Type=tests1:SolutionViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="40" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal">
-        <Button Command="{Binding LoadCommand}" Margin="5">Add folder</Button>
-        <!--<Button Command="{Binding RefreshCommand}" Margin="5">Refresh</Button>-->
+        <Button Command="{Binding LoadCommand}" Margin="5" Visibility="{Binding LoadVisibility}">Add folder</Button>
+        <Button Command="{Binding RefreshCommand}" Margin="5" Visibility="{Binding RefreshVisibility}">Refresh</Button>
         <Button Command="{Binding RunCommand}" Margin="5">Run</Button>
     </StackPanel>
 </UserControl>

@@ -15,5 +15,10 @@ namespace JaCoCoReader.Core.Models.Tests
         {
             get { return Its; }
         }
+
+        public override string Type
+        {
+            get { return "Context"; }
+        }
     }
 }

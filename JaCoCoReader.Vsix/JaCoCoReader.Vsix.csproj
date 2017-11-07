@@ -63,13 +63,26 @@
     </Compile>
     <Compile Include="CodeCoverage\CodeCoverageWindowPackage.cs" />
     <Compile Include="Extensions\TextBufferExtensions.cs" />
+    <Compile Include="Glyphs\Classifier.cs" />
+    <Compile Include="Glyphs\ClassifierProvider.cs" />
+    <Compile Include="Glyphs\TodoGlyph.xaml.cs">
+      <DependentUpon>TodoGlyph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Glyphs\TodoGlyphFactory.cs" />
+    <Compile Include="Glyphs\TodoGlyphFactoryProvider.cs" />
+    <Compile Include="Glyphs\TodoTagger.cs" />
+    <Compile Include="Glyphs\TodoTaggerProvider.cs" />
+    <Compile Include="Models\Tests\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\VsExtensions.cs" />
     <Compile Include="Services\CodeCoverageService.cs" />
     <Compile Include="Tests\TestsWindow.cs" />
     <Compile Include="Tests\TestsWindowCommand.cs" />
     <Compile Include="Tests\TestsWindowControl.xaml.cs">
       <DependentUpon>TestsWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\VsSolutionViewModel.cs" />
+    <Compile Include="ViewModels\VsReportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -209,6 +222,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Glyphs\TodoGlyph.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -219,6 +236,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Glyphs\TodoClassification.csproj" />
     <Content Include="Tests\Resources\TestsWindowCommand.png" />
     <VSCTCompile Include="CodeCoverageWindowPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>

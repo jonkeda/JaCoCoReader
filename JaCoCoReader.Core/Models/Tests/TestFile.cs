@@ -11,6 +11,11 @@ namespace JaCoCoReader.Core.Models.Tests
 
         public TestDescribeCollection Describes { get; }
 
+        public override string Type
+        {
+            get { return "File"; }
+        }
+
         public override IEnumerable<TestModel> Items
         {
             get { return Describes; }

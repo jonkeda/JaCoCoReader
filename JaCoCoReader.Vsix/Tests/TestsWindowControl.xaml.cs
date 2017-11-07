@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using JaCoCoReader.Vsix.Services;
+﻿using JaCoCoReader.Vsix.Services;
 
 namespace JaCoCoReader.Vsix.Tests
 {

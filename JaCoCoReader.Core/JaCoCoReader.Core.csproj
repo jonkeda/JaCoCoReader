@@ -152,6 +152,9 @@
     <Compile Include="Views\ReportTree.xaml.cs">
       <DependentUpon>ReportTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SolutionDetails.xaml.cs">
+      <DependentUpon>SolutionDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SolutionMenu.xaml.cs">
       <DependentUpon>SolutionMenu.xaml</DependentUpon>
     </Compile>
@@ -457,6 +460,10 @@
     <Page Include="Views\ReportTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SolutionDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SolutionMenu.xaml">
       <SubType>Designer</SubType>

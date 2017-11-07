@@ -1,6 +1,6 @@
-﻿using JaCoCoReader.Core.ViewModels;
-using JaCoCoReader.Core.ViewModels.CodeCoverage;
+﻿using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.ViewModels.Tests;
+using JaCoCoReader.Vsix.ViewModels;
 
 namespace JaCoCoReader.Vsix.Services
 {
@@ -21,8 +21,8 @@ namespace JaCoCoReader.Vsix.Services
 
         public CodeCoverageService()
         {
-            Report = new ReportViewModel();
-            Solution = new SolutionViewModel(Report);
+            Report = new VsReportViewModel();
+            Solution = new VsSolutionViewModel(Report);
         }
 
         public ReportViewModel Report { get; }

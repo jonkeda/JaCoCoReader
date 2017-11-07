@@ -16,6 +16,11 @@ namespace JaCoCoReader.Core.Models.Tests
 
         public string Path { get; set; }
 
+        public override string Type
+        {
+            get { return "Folder"; }
+        }
+
         public override IEnumerable<TestModel> Items
         {
             get

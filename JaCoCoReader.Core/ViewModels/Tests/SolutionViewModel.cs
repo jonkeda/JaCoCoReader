@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using JaCoCoReader.Core.Models.Tests;
@@ -26,9 +27,19 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             set { SetProperty(ref _selectedNode, value); }
         }
 
+        public virtual Visibility RefreshVisibility
+        {
+            get { return Visibility.Collapsed; }
+        }
+
         public ICommand RefreshCommand
         {
             get { return new TargetCommand(DoRefreshCommand); }
+        }
+
+        public virtual Visibility LoadVisibility
+        {
+            get { return Visibility.Visible; }
         }
 
         public ICommand LoadCommand
@@ -41,7 +52,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             get { return new TargetCommand(DoRunCommand); }
         }
 
-        private void DoLoadCommand()
+        protected virtual void DoLoadCommand()
         {
             FolderBrowserDialog ofd = new FolderBrowserDialog();
 #if DEBUG
@@ -54,7 +65,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             }
         }
 
-        private void DoRefreshCommand()
+        protected virtual void DoRefreshCommand()
         {
             //LoadModel(FileName);
         }

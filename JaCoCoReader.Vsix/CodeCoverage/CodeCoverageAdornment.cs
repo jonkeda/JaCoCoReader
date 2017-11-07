@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using JaCoCoReader.Core.ViewModels;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Vsix.Extensions;
 using JaCoCoReader.Vsix.Services;

@@ -202,6 +202,8 @@ namespace JaCoCoReader.Core.Services
                     try
                     {
                         RunTestDescribeEx(powerShell, describe, runContext);
+
+                        describe.Output = testOutput.ToString();
                     }
                     catch (Exception ex)
                     {
