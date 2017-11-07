@@ -1,16 +1,50 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Windows.Input;
 using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.UI;
+using System.Collections.Generic;
+using JaCoCoReader.Core.Services;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
-    public class ReportViewModel : FileViewModel<Report>
+    public class CodeCoverageViewModel : FileViewModel<Report>
     {
+        private static List<Item<CoveredScripts>> _coveredScriptsItems = new List<Item<CoveredScripts>>
+        {
+            new Item<CoveredScripts>(CoveredScripts.SameNamedScripts, "Same named scripts"),
+            //new Item<CoveredScripts>(CoveredScripts.AllScripts, "All scripts"),
+            //new Item<CoveredScripts>(CoveredScripts.SelectedScript, "Selected scripts"),
+            new Item<CoveredScripts>(CoveredScripts.FromDescribeParameter, "From Describe parameter")
+        };
+
         private FolderCollectionViewModel _folders;
         private IFolderNodeViewModel _selectedNode;
         private bool _showLinesHit = true;
+        private Item<CoveredScripts> _selectedCoveredScripts;
+
+        public List<Item<CoveredScripts>> CoveredScriptsItems
+        {
+            get
+            {
+                return _coveredScriptsItems;
+            }
+        }
+
+        public Item<CoveredScripts> SelectedCoveredScriptsItem
+        {
+            get { return _selectedCoveredScripts ?? _coveredScriptsItems.FirstOrDefault(); }
+            set { SetProperty(ref _selectedCoveredScripts, value); }
+        }
+
+        public CoveredScripts SelectedCoveredScripts
+        {
+            get
+            {
+                return SelectedCoveredScriptsItem?.Value ?? CoveredScripts.FromDescribeParameter;
+            }
+        }
 
         public IFolderNodeViewModel SelectedNode
         {
@@ -37,12 +71,22 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             LoadModel(FileName);
         }
 
+        public ICommand ClearCommand
+        {
+            get { return new TargetCommand(DoClearCommand); }
+        }
+
+        private void DoClearCommand()
+        {
+            Model.Packages.Clear();
+            OnModelChanged();
+        }
+
         protected override void OnModelChanged()
         {
             _folders = null;
            NotifyPropertyChanged(nameof(Folders));
         }
-
 
         public FolderCollectionViewModel Folders
         {

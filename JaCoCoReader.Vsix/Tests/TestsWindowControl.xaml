@@ -30,7 +30,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <views:SolutionMenu Grid.Row="0" />
-            <views:SolutionTree Grid.Row="1" />
+            <views:TestsMenu Grid.Row="0" />
+            <views:TestsTree Grid.Row="1" />
     </Grid>
 </UserControl>

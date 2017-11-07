@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="JaCoCoReader.Core.Views.ReportTree"
+﻿<UserControl x:Class="JaCoCoReader.Core.Views.TestsTree"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tests1="clr-namespace:JaCoCoReader.Core.ViewModels.Tests"
              xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls"
-             xmlns:codeCoverage1="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage"
-             d:DataContext="{d:DesignInstance Type=codeCoverage1:ReportViewModel, IsDesignTimeCreatable=false}"
+             xmlns:codeCoverage11="clr-namespace:JaCoCoReader.Core.Models.Tests"
+             xmlns:views="clr-namespace:JaCoCoReader.Core.Views"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=tests1:TestsViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
@@ -16,21 +18,35 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <controls1:TreeListView ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
-                                  BorderThickness="0" >
-        <controls1:TreeListView.Columns>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
+            <controls1:TreeViewEx.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </controls1:TreeViewEx.ItemTemplate>
+            <!--<controls1:TreeListView.Columns>
             <GridViewColumn Header="Name" Width="250">
                 <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
+                    <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
                         <DockPanel>
                             <ToggleButton x:Name="Expander" 
                                                   Style="{StaticResource ExpandCollapseToggleStyle}" 
                                                   Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
+
                             <TextBlock Text=" " Width="10" Background="{Binding Background}" />
-                            <TextBlock Text="{Binding Description}" Margin="5,0,0,0"/>
+                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
                         </DockPanel>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
@@ -43,58 +59,16 @@
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
-
-            <GridViewColumn Header="Covered" Width="70" >
+            <GridViewColumn Header="Outcome" Width="80" >
                 <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLines}" />
+                    <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
+                        <TextBlock TextAlignment="Center" Text="{Binding Outcome}" />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
+            -->
 
-            <GridViewColumn Header="%" Width="50" >
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-
-            <GridViewColumn Header="Missed" Width="70" >
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding MissedLines}"  />
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-
-            <GridViewColumn Header="%" Width="50" >
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-
-            <GridViewColumn Header="Total" Width="70" >
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding TotalLines}"  />
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-
-        </controls1:TreeListView.Columns>
-
-        <controls1:TreeListView.Resources>
-
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}" ItemsSource="{Binding Items}"/>
-
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:SourcefileViewModel}"/>
-
-        </controls1:TreeListView.Resources>
-
-        <!--<controls1:TreeViewEx.ItemContainerStyle>
+            <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
@@ -102,7 +76,10 @@
                         <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
-    </controls1:TreeListView>
+        </controls1:TreeViewEx>
+
+        <views:TestsDetails Grid.Row="1" DataContext="{Binding SelectedNode}" />
+    </Grid>
 
 </UserControl>
 

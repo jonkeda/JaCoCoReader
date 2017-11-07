@@ -7,7 +7,8 @@ namespace JaCoCoReader.Core.Threading
     {
         static ThreadDispatcher()
         {
-            Dispatcher = new DefaultThreadDispatcher();
+            // Dispatcher = new DefaultThreadDispatcher();
+            Dispatcher = new WpfDispatcher();
         }
 
         public static IThreadDispatcher Dispatcher { get; set; }

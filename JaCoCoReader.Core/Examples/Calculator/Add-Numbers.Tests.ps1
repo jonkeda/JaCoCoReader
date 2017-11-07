@@ -1,7 +1,7 @@
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 . "$here\Add-Numbers.ps1"
 
-Describe -Tags "Example" -CodeCoverage $PSScriptRoot\Add-Numbers.ps1 "Add-Numbers" {
+Describe -Tags "Example" "Add-Numbers" {
 
     It "adds positive numbers" {
         Add-Numbers 2 3 | Should Be 5

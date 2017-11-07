@@ -13,7 +13,7 @@
              
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance Type=codeCoverage:ReportViewModel, IsDesignTimeCreatable=false}"
+             d:DataContext="{d:DesignInstance Type=codeCoverage:CodeCoverageViewModel, IsDesignTimeCreatable=false}"
              Name="CodeCoverageControl">
     
     <UserControl.Resources>
@@ -30,8 +30,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <views:ReportMenu Grid.Row="0" />
-        <views:ReportTree Grid.Row="1" />
+        <views:CodeCoverageMenu Grid.Row="0" />
+        <views:CodeCoverageTree Grid.Row="1" />
     </Grid>
 
 </UserControl>

@@ -15,9 +15,12 @@ using System.Windows.Shapes;
 
 namespace JaCoCoReader.Core.Views
 {
-    public partial class SolutionDetails : UserControl
+    /// <summary>
+    /// Interaction logic for ReportTree.xaml
+    /// </summary>
+    public partial class CodeCoverageTree : UserControl
     {
-        public SolutionDetails()
+        public CodeCoverageTree()
         {
             InitializeComponent();
         }

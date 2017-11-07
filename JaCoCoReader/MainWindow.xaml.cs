@@ -9,9 +9,9 @@ namespace JaCoCoReader
         {
             InitializeComponent();
 
-            ReportViewModel reportViewModel = new ReportViewModel();
+            CodeCoverageViewModel reportViewModel = new CodeCoverageViewModel();
             CodeCoverage.DataContext = reportViewModel;
-            Tests.DataContext = new SolutionViewModel(reportViewModel);
+            Tests.DataContext = new TestsViewModel(reportViewModel);
         }
     }
 }

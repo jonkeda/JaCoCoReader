@@ -121,7 +121,10 @@
     <Compile Include="UI\Controls\TreeViewEx.cs" />
     <Compile Include="UI\Controls\TreeViewItemEx.cs" />
     <Compile Include="UI\Controls\ViewControl.cs" />
+    <Compile Include="UI\Converters\BaseConverter.cs" />
+    <Compile Include="UI\Converters\BooleanConverter.cs" />
     <Compile Include="UI\Converters\LevelToIndentConverter.cs" />
+    <Compile Include="UI\Converters\VisibilityConverter.cs" />
     <Compile Include="UI\ModelViewModel.cs" />
     <Compile Include="UI\FileViewModel.cs" />
     <Compile Include="UI\Interfaces\IDialog.cs" />
@@ -134,6 +137,8 @@
     <Compile Include="UI\TargetTaskCommand.cs" />
     <Compile Include="UI\ViewModel.cs" />
     <Compile Include="UI\ViewModelCollection.cs" />
+    <Compile Include="Services\CoveredScripts.cs" />
+    <Compile Include="ViewModels\CodeCoverage\Item.cs" />
     <Compile Include="ViewModels\Colors.cs" />
     <Compile Include="ViewModels\CodeCoverage\Folder.cs" />
     <Compile Include="ViewModels\CodeCoverage\FolderCollection.cs" />
@@ -142,24 +147,24 @@
     <Compile Include="ViewModels\CodeCoverage\IFolderNodeViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\LineBrush.cs" />
     <Compile Include="ViewModels\CodeCoverage\LineBrushCollection.cs" />
-    <Compile Include="ViewModels\CodeCoverage\ReportViewModel.cs" />
+    <Compile Include="ViewModels\CodeCoverage\CodeCoverageViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileViewModel.cs" />
     <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
-    <Compile Include="Views\ReportMenu.xaml.cs">
-      <DependentUpon>ReportMenu.xaml</DependentUpon>
+    <Compile Include="Views\CodeCoverageMenu.xaml.cs">
+      <DependentUpon>CodeCoverageMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReportTree.xaml.cs">
-      <DependentUpon>ReportTree.xaml</DependentUpon>
+    <Compile Include="Views\CodeCoverageTree.xaml.cs">
+      <DependentUpon>CodeCoverageTree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SolutionDetails.xaml.cs">
-      <DependentUpon>SolutionDetails.xaml</DependentUpon>
+    <Compile Include="Views\TestsDetails.xaml.cs">
+      <DependentUpon>TestsDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SolutionMenu.xaml.cs">
-      <DependentUpon>SolutionMenu.xaml</DependentUpon>
+    <Compile Include="Views\TestsMenu.xaml.cs">
+      <DependentUpon>TestsMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SolutionTree.xaml.cs">
-      <DependentUpon>SolutionTree.xaml</DependentUpon>
+    <Compile Include="Views\TestsTree.xaml.cs">
+      <DependentUpon>TestsTree.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -453,23 +458,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ReportMenu.xaml">
+    <Page Include="Views\CodeCoverageMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ReportTree.xaml">
+    <Page Include="Views\CodeCoverageTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SolutionDetails.xaml">
+    <Page Include="Views\TestsDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SolutionMenu.xaml">
+    <Page Include="Views\TestsMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SolutionTree.xaml">
+    <Page Include="Views\TestsTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

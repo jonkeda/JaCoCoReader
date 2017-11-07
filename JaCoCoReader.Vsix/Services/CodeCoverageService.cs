@@ -25,7 +25,7 @@ namespace JaCoCoReader.Vsix.Services
             Solution = new VsSolutionViewModel(Report);
         }
 
-        public ReportViewModel Report { get; }
-        public SolutionViewModel Solution { get; }
+        public CodeCoverageViewModel Report { get; }
+        public TestsViewModel Solution { get; }
     }
 }

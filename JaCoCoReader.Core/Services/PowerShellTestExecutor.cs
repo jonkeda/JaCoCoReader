@@ -227,6 +227,7 @@ namespace JaCoCoReader.Core.Services
             string tempFile = Path.GetTempFileName();
             try
             {
+                runContext.UpdateRunningTest(describe.Name);
 
                 string module = FindModule("Pester", runContext);
                 powerShell.AddCommand("Import-Module").AddParameter("Name", module);
@@ -253,6 +254,12 @@ namespace JaCoCoReader.Core.Services
 
                     .AddParameter("PassThru");
 
+                string[] codecoverage = GetCodeCoverageFilenames(fi.Name, runContext);
+                if (codecoverage != null)
+                {
+                    powerShell.AddParameter("CodeCoverage", codecoverage);
+                }
+
                 Collection<PSObject> pesterResults = powerShell.Invoke();
                 powerShell.Commands.Clear();
 
@@ -277,6 +284,33 @@ namespace JaCoCoReader.Core.Services
             {
                 File.Delete(tempFile);
             }
+        }
+
+        private string[] GetCodeCoverageFilenames(string name, RunContext context)
+        {
+            string filename = name.Substring(0, name.Length - ".tests.ps1".Length);
+            switch (context.CoveredScripts)
+            {
+                case CoveredScripts.AllScripts:
+                {
+                    return context.ScriptFileNames.ToArray();
+                }
+                case CoveredScripts.FromDescribeParameter:
+                {
+                    return null;
+                }
+                case CoveredScripts.SelectedScript:
+                {
+                    return null;
+                }
+                case CoveredScripts.SameNamedScripts:
+                {
+
+                    return context.ScriptFileNames.Where(s => s.EndsWith($"{filename}.ps1", StringComparison.InvariantCultureIgnoreCase) 
+                    || s.EndsWith($"{filename}.psm1", StringComparison.InvariantCultureIgnoreCase)).ToArray();
+                }
+            }
+            return null;
         }
 
         #region

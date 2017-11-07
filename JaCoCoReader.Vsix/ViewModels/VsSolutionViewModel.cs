@@ -12,23 +12,33 @@ using JaCoCoReader.Vsix.Services;
 
 namespace JaCoCoReader.Vsix.ViewModels
 {
-    public class VsSolutionViewModel : SolutionViewModel
+    public class VsSolutionViewModel : TestsViewModel
     {
-        public VsSolutionViewModel(ReportViewModel report)
+        public VsSolutionViewModel(CodeCoverageViewModel report)
             : base(report)
         { }
 
         public override Visibility RefreshVisibility
         {
-            get { return Visibility.Visible; }
+            get { return Visibility.Collapsed; }
         }
 
         public override Visibility LoadVisibility
         {
-            get { return Visibility.Collapsed; }
+            get { return Visibility.Visible; }
         }
 
-        protected override void DoRefreshCommand()
+        protected override void DoLoadCommand()
+        {
+            LoadFromSolution();
+
+            if (Model.Projects.Count == 0)
+            {
+                base.DoLoadCommand();
+            }
+        }
+
+        protected void LoadFromSolution()
         {
             Model.Projects.Clear();
 
@@ -51,7 +61,7 @@ namespace JaCoCoReader.Vsix.ViewModels
                     Path = vsProject.FileName
                 };
 
-                
+
                 GetVsTests(vsProject.ProjectItems, project);
                 if (project.Folders.Count > 0
                     || project.Files.Count > 0)

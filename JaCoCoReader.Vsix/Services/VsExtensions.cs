@@ -10,8 +10,6 @@ namespace JaCoCoReader.Vsix.Services
     {
         public static IEnumerable<Project> GetProjects()
         {
-            //EnvDTE100.Solution4
-
             IVsSolution solution = (IVsSolution)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));
             foreach (Project project in GetProjects(solution))
             {
@@ -19,6 +17,10 @@ namespace JaCoCoReader.Vsix.Services
             }
         }
 
+        public static IVsSolution GetSolution()
+        {
+            return (IVsSolution)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));
+        }
 
         public static IEnumerable<Project> GetProjects(this IVsSolution solution)
         {

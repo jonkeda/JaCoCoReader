@@ -2,7 +2,7 @@
 
 namespace JaCoCoReader.Vsix.ViewModels
 {
-    public class VsReportViewModel : ReportViewModel
+    public class VsReportViewModel : CodeCoverageViewModel
     {
     }
 }

@@ -27,12 +27,12 @@
     </controls:MetroWindow.Resources>
 
     <TabControl>
-        <TabItem Header="Tests" x:Name="Tests" d:DataContext="{d:DesignInstance Type=tests:SolutionViewModel, IsDesignTimeCreatable=false}">
+        <TabItem Header="Tests" x:Name="Tests" d:DataContext="{d:DesignInstance Type=tests:TestsViewModel, IsDesignTimeCreatable=false}">
             <DockPanel >
 
-                <views:SolutionMenu DockPanel.Dock="Top"/>
+                <views:TestsMenu DockPanel.Dock="Top"/>
 
-                <views:SolutionTree DockPanel.Dock="Left"/>
+                <views:TestsTree DockPanel.Dock="Left"/>
 
                 <controls1:DockPanelSplitter DockPanel.Dock="Left" >
 
@@ -181,12 +181,12 @@
         </TabItem>
 
         <TabItem Header="Code coverage" x:Name="CodeCoverage" 
-                 d:DataContext="{d:DesignInstance Type=codeCoverage:ReportViewModel, IsDesignTimeCreatable=false}">
+                 d:DataContext="{d:DesignInstance Type=codeCoverage:CodeCoverageViewModel, IsDesignTimeCreatable=false}">
             <DockPanel >
 
-                <views:ReportMenu DockPanel.Dock="Top"/>
+                <views:CodeCoverageMenu DockPanel.Dock="Top"/>
 
-                <views:ReportTree DockPanel.Dock="Left"/>
+                <views:CodeCoverageTree DockPanel.Dock="Left"/>
 
                 <controls1:DockPanelSplitter DockPanel.Dock="Left" >
 
@@ -230,8 +230,6 @@
                                     <Label Content="{Binding MissedLines}" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding MissedLinesPercentage, StringFormat=({0:p0})}" FontWeight="Bold" VerticalAlignment="Center"/>
 
-                                    <Label Content="Total" />
-                                    <Label Content="{Binding TotalLines}" FontWeight="Bold"/>
                                 </StackPanel>
 
 
