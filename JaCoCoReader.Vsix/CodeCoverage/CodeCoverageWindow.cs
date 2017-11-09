@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace JaCoCoReader.Vsix
+namespace JaCoCoReader.Vsix.CodeCoverage
 {
 
     /// <summary>

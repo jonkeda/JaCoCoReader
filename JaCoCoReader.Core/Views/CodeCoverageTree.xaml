@@ -16,9 +16,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <controls1:TreeListView ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
-                                  BorderThickness="0" >
+                                  BorderThickness="0">
+        <controls1:TreeListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Command="{Binding OpenFileCommand}" Header="open file" />
+            </ContextMenu>
+        </controls1:TreeListView.ContextMenu>
         <controls1:TreeListView.Columns>
             <GridViewColumn Header="Name" Width="250">
                 <GridViewColumn.CellTemplate>
@@ -103,7 +108,6 @@
                     </Style>
                 </controls1:TreeViewEx.ItemContainerStyle>-->
     </controls1:TreeListView>
-
 </UserControl>
 
 

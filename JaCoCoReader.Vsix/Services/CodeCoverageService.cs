@@ -4,28 +4,28 @@ using JaCoCoReader.Vsix.ViewModels;
 
 namespace JaCoCoReader.Vsix.Services
 {
-    public class CodeCoverageService
+    public class PowershellService
     {
-        private static CodeCoverageService _current;
-        public static CodeCoverageService Current
+        private static PowershellService _current;
+        public static PowershellService Current
         {
             get
             {
                 if (_current == null)
                 {
-                    _current = new CodeCoverageService();
+                    _current = new PowershellService();
                 }
                 return _current;
             }
         }
 
-        public CodeCoverageService()
+        public PowershellService()
         {
-            Report = new VsReportViewModel();
-            Solution = new VsSolutionViewModel(Report);
+            CodeCoverage = new VsCodeCoverageViewModel();
+            Tests = new VsTestsViewModel(CodeCoverage);
         }
 
-        public CodeCoverageViewModel Report { get; }
-        public TestsViewModel Solution { get; }
+        public CodeCoverageViewModel CodeCoverage { get; }
+        public TestsViewModel Tests { get; }
     }
 }

@@ -6,7 +6,7 @@ namespace JaCoCoReader.Vsix.Extensions
     {
         public static ITextDocument GetTextDocument(this ITextBuffer textBuffer)
         {
-            bool rc = textBuffer.Properties.TryGetProperty<ITextDocument>(typeof(ITextDocument), out var textDoc);
+            bool rc = textBuffer.Properties.TryGetProperty(typeof(ITextDocument), out ITextDocument textDoc);
             if (rc)
             {
                 return textDoc;

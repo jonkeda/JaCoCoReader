@@ -75,7 +75,7 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
                 {
                     return xml.Deserialize(s) as Report;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // AddError(e);
                     return null;

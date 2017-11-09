@@ -3,7 +3,13 @@ using System.IO;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
-    public abstract class TestFileModel<TC> : TestModel<TC>
+    public interface ITestFileModel
+    {
+        string Path { get; set; }
+        string Text { get; }
+    }
+
+    public abstract class TestFileModel<TC> : TestModel<TC>, ITestFileModel
         where TC : TestModel
     {
         public string Path { get; set; }

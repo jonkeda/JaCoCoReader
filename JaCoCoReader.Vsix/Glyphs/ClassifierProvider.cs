@@ -9,25 +9,21 @@
 //
 //***************************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
-using Microsoft.VisualStudio.Text.Tagging;
-using Microsoft.VisualStudio.Text;
 using System.Windows.Media;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Classification;
+using Microsoft.VisualStudio.Text.Tagging;
+using Microsoft.VisualStudio.Utilities;
 
-namespace ToDoGlyphFactory
+namespace JaCoCoReader.Vsix.Glyphs
 {
     /// <summary>
     /// Export a <see cref="IClassifierProvider"/>
     /// </summary>
     [Export(typeof(IClassifierProvider))]
     [ContentType("code")]
-    internal class ToDoClassifierProvider : IClassifierProvider
+    internal class TestClassifierProvider : IClassifierProvider
     {
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("todo")]
@@ -44,7 +40,7 @@ namespace ToDoGlyphFactory
             IClassificationType classificationType = ClassificationRegistry.GetClassificationType("todo");
 
             var tagAggregator = _tagAggregatorFactory.CreateTagAggregator<ToDoTag>(buffer);
-            return new ToDoClassifier(tagAggregator, classificationType);
+            return new TestClassifier(tagAggregator, classificationType);
         }
     }
 

@@ -11,10 +11,10 @@
 
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.Utilities;
 using Microsoft.VisualStudio.Text.Tagging;
+using Microsoft.VisualStudio.Utilities;
 
-namespace ToDoGlyphFactory
+namespace JaCoCoReader.Vsix.Glyphs
 {
     /// <summary>
     /// Export a <see cref="IGlyphFactoryProvider"/>

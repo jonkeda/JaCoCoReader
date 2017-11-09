@@ -82,7 +82,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
         private string RootPath { get; set; }
 
-        public List<string> GetScriptFileNames()
+        public virtual List<string> GetScriptFileNames()
         {
             if (string.IsNullOrEmpty(RootPath))
             {
@@ -124,6 +124,16 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         {
             get { return _runningTest; }
             set { SetProperty(ref _runningTest, value); }
+        }
+
+        public ICommand OpenFileCommand
+        {
+            get { return new TargetCommand(DoOpenFileCommand); }
+        }
+
+        protected virtual void DoOpenFileCommand()
+        {
+            
         }
 
         private void UpdateRunningTest(string name)

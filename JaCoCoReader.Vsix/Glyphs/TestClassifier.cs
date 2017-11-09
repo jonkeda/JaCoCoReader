@@ -12,25 +12,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
-using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Text;
-using System.Windows.Media;
+using Microsoft.VisualStudio.Text.Classification;
+using Microsoft.VisualStudio.Text.Tagging;
 
-namespace ToDoGlyphFactory
+namespace JaCoCoReader.Vsix.Glyphs
 {
     /// <summary>
-    /// ToDo tag classifier finds every instance of ToDoTag within a given span.
+    /// Test tag classifier finds every instance of ToDoTag within a given span.
     /// </summary>
-    class ToDoClassifier : IClassifier
+    class TestClassifier : IClassifier
     {
         private IClassificationType _classificationType;
         private ITagAggregator<ToDoTag> _tagger;
 
-        internal ToDoClassifier(ITagAggregator<ToDoTag> tagger, IClassificationType todoType)
+        internal TestClassifier(ITagAggregator<ToDoTag> tagger, IClassificationType todoType)
         {
             _tagger = tagger;
             _classificationType = todoType;

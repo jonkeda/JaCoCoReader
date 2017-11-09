@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="CodeCoverage\CodeCoverageAdornment.cs" />
     <Compile Include="CodeCoverage\CodeCoverageAdornmentTextViewCreationListener.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageMargin.cs" />
+    <Compile Include="CodeCoverage\CodeCoverageMarginFactory.cs" />
     <Compile Include="CodeCoverage\CodeCoverageWindow.cs" />
     <Compile Include="CodeCoverage\CodeCoverageWindowCommand.cs" />
     <Compile Include="CodeCoverage\CodeCoverageWindowControl.xaml.cs">
@@ -63,7 +65,7 @@
     </Compile>
     <Compile Include="CodeCoverage\CodeCoverageWindowPackage.cs" />
     <Compile Include="Extensions\TextBufferExtensions.cs" />
-    <Compile Include="Glyphs\Classifier.cs" />
+    <Compile Include="Glyphs\TestClassifier.cs" />
     <Compile Include="Glyphs\ClassifierProvider.cs" />
     <Compile Include="Glyphs\TodoGlyph.xaml.cs">
       <DependentUpon>TodoGlyph.xaml</DependentUpon>
@@ -81,8 +83,9 @@
     <Compile Include="Tests\TestsWindowControl.xaml.cs">
       <DependentUpon>TestsWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\VsSolutionViewModel.cs" />
-    <Compile Include="ViewModels\VsReportViewModel.cs" />
+    <Compile Include="Services\VsPowerShellTestDiscoverer.cs" />
+    <Compile Include="ViewModels\VsTestsViewModel.cs" />
+    <Compile Include="ViewModels\VsCodeCoverageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />

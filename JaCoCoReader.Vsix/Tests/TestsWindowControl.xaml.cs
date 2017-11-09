@@ -16,7 +16,7 @@ namespace JaCoCoReader.Vsix.Tests
         {
             this.InitializeComponent();
 
-            DataContext = CodeCoverageService.Current.Solution;
+            DataContext = PowershellService.Current.Tests;
         }
 
 

@@ -160,15 +160,16 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
                     foreach (Line line in Model.Lines)
                     {
                         Brush brush;
-                        if (line.Mi > 0)
-                        {
-                            brush = Brushes.Red;
-                        }
-                        else if (line.Ci > 0)
+
+                        if (line.Ci > 0)
                         {
                             brush = Brushes.Green;
                         }
-                        else
+                        else if(line.Mi > 0)
+                        {
+                            brush = Brushes.Red;
+                        }
+                        else 
                         {
                             brush = Colors.DefaultBackground;
                         }

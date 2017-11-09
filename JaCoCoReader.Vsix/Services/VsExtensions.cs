@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EnvDTE;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace JaCoCoReader.Vsix.Services
@@ -10,7 +11,7 @@ namespace JaCoCoReader.Vsix.Services
     {
         public static IEnumerable<Project> GetProjects()
         {
-            IVsSolution solution = (IVsSolution)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));
+            IVsSolution solution = (IVsSolution)Package.GetGlobalService(typeof(IVsSolution));
             foreach (Project project in GetProjects(solution))
             {
                 yield return project;
@@ -19,7 +20,7 @@ namespace JaCoCoReader.Vsix.Services
 
         public static IVsSolution GetSolution()
         {
-            return (IVsSolution)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(IVsSolution));
+            return (IVsSolution)Package.GetGlobalService(typeof(IVsSolution));
         }
 
         public static IEnumerable<Project> GetProjects(this IVsSolution solution)
@@ -72,6 +73,23 @@ namespace JaCoCoReader.Vsix.Services
 
             hierarchy.GetProperty(VSConstants.VSITEMID_ROOT, (int)__VSHPROPID.VSHPROPID_ExtObject, out object obj);
             return obj as Project;
+        }
+
+        public static ProjectItem FindProjectItem(string filename)
+        {
+            DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
+            return dte.Solution.FindProjectItem(filename);
+        }
+
+        public static void OpenProjectItem(string filename)
+        {
+            ProjectItem item = FindProjectItem(filename);
+            if (item != null
+                && !item.IsOpen[EnvDTE.Constants.vsViewKindTextView])
+            {
+                Window window = item.Open(EnvDTE.Constants.vsViewKindTextView);
+                window.Visible = true;
+            }
         }
     }
 }

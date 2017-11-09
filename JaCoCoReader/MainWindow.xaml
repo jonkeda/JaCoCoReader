@@ -28,7 +28,7 @@
 
     <TabControl>
         <TabItem Header="Tests" x:Name="Tests" d:DataContext="{d:DesignInstance Type=tests:TestsViewModel, IsDesignTimeCreatable=false}">
-            <DockPanel >
+            <DockPanel>
 
                 <views:TestsMenu DockPanel.Dock="Top"/>
 
@@ -202,7 +202,7 @@
 
                 </controls1:DockPanelSplitter>
 
-                <ContentControl Content="{Binding SelectedNode}">
+                <ContentControl  Content="{Binding SelectedNode}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type codeCoverage:SourcefileViewModel}">
                             <Grid>
@@ -243,7 +243,9 @@
                                                           LinesHit="{Binding LinesHit }"
                                                           ShowLinesHit="{Binding DataContext.ShowLinesHit, ElementName=CodeCoverage, Mode=OneWay}"/>
 
-                                <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill" Margin="0,15,0,40">
+                                <views:CodeCoverageMarginView Grid.Row="2" Grid.Column="1" DataContext="{Binding }" />
+                                
+                                <!--<Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill" Margin="0,15,0,40">
                                     <ItemsControl ItemsSource="{Binding BrushLines}" >
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -262,7 +264,7 @@
                                             </Style>
                                         </ItemsControl.ItemContainerStyle>
                                     </ItemsControl>
-                                </Viewbox>
+                                </Viewbox>-->
                             </Grid>
                         </DataTemplate>
 

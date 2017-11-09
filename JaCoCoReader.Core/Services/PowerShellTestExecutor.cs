@@ -205,7 +205,7 @@ namespace JaCoCoReader.Core.Services
 
                         describe.Output = testOutput.ToString();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         describe.SetOutcome(TestOutcome.Failed);
                         //foreach (var testCase in testSet.Contexts)
@@ -246,7 +246,7 @@ namespace JaCoCoReader.Core.Services
 
 
                 powerShell.AddCommand("Invoke-Pester")
-                    .AddParameter("Path", fi.Directory?.FullName)
+                    .AddParameter("Path", fi.FullName)
                     .AddParameter("TestName", describe.Name)
 
                     .AddParameter("DetailedCodeCoverage")
@@ -255,7 +255,8 @@ namespace JaCoCoReader.Core.Services
                     .AddParameter("PassThru");
 
                 string[] codecoverage = GetCodeCoverageFilenames(fi.Name, runContext);
-                if (codecoverage != null)
+                if (codecoverage != null
+                    && codecoverage.Length > 0)
                 {
                     powerShell.AddParameter("CodeCoverage", codecoverage);
                 }

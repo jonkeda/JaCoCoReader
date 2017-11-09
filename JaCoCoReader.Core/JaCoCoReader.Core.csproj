@@ -151,6 +151,9 @@
     <Compile Include="ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileViewModel.cs" />
     <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
+    <Compile Include="Views\CodeCoverageMarginView.xaml.cs">
+      <DependentUpon>CodeCoverageMarginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CodeCoverageMenu.xaml.cs">
       <DependentUpon>CodeCoverageMenu.xaml</DependentUpon>
     </Compile>
@@ -457,6 +460,10 @@
     <Page Include="UI\Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CodeCoverageMarginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CodeCoverageMenu.xaml">
       <SubType>Designer</SubType>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using System.Windows.Input;
 using JaCoCoReader.Core.Models.CodeCoverage;
@@ -9,12 +8,14 @@ using JaCoCoReader.Core.Services;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
+    public delegate void CodeCoverageChanged();
+
     public class CodeCoverageViewModel : FileViewModel<Report>
     {
-        private static List<Item<CoveredScripts>> _coveredScriptsItems = new List<Item<CoveredScripts>>
+        private static readonly List<Item<CoveredScripts>> _coveredScriptsItems = new List<Item<CoveredScripts>>
         {
             new Item<CoveredScripts>(CoveredScripts.SameNamedScripts, "Same named scripts"),
-            //new Item<CoveredScripts>(CoveredScripts.AllScripts, "All scripts"),
+            new Item<CoveredScripts>(CoveredScripts.AllScripts, "All scripts"),
             //new Item<CoveredScripts>(CoveredScripts.SelectedScript, "Selected scripts"),
             new Item<CoveredScripts>(CoveredScripts.FromDescribeParameter, "From Describe parameter")
         };
@@ -82,9 +83,20 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             OnModelChanged();
         }
 
+        public ICommand OpenFileCommand
+        {
+            get { return new TargetCommand(DoOpenFileCommand); }
+        }
+
+        protected virtual void DoOpenFileCommand()
+        {
+
+        }
+
         protected override void OnModelChanged()
         {
             _folders = null;
+            DoModelChanged();
            NotifyPropertyChanged(nameof(Folders));
         }
 
@@ -130,6 +142,13 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         public ICommand NextCommand
         {
             get { return new TargetCommand(DoNextCommand); }
+        }
+
+        public event CodeCoverageChanged ModelChanged;
+
+        private void DoModelChanged()
+        {
+            ModelChanged?.Invoke();
         }
 
         private void DoNextCommand()

@@ -23,9 +23,9 @@ namespace JaCoCoReader.Core.UI
 
         public void Execute(object parameter)
         {
-            if (parameter is T)
+            if (parameter is T variable)
             {
-                _method.Invoke((T)parameter);
+                _method.Invoke(variable);
             }
             else
             {
@@ -39,9 +39,9 @@ namespace JaCoCoReader.Core.UI
             {
                 return true;
             }
-            if (parameter is T)
+            if (parameter is T variable)
             {
-                return _canExecute((T)parameter);
+                return _canExecute(variable);
             }
             return _canExecute(default(T));
         }

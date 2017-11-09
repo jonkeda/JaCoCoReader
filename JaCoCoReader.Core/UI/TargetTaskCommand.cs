@@ -24,9 +24,9 @@ namespace JaCoCoReader.Core.UI
 
         public void Execute(object parameter)
         {
-            if (parameter is T)
+            if (parameter is T variable)
             {
-                Task task = _method((T)parameter);
+                Task task = _method(variable);
                 if (task.Status == TaskStatus.Created)
                 {
                     task.Start();
@@ -48,9 +48,9 @@ namespace JaCoCoReader.Core.UI
             {
                 return true;
             }
-            if (parameter is T)
+            if (parameter is T variable)
             {
-                Task<bool> task = _canExecute((T)parameter);
+                Task<bool> task = _canExecute(variable);
                 task.Wait();
                 return task.Result;
             }

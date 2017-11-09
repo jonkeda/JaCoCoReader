@@ -1,54 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using EnvDTE;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
-using JaCoCoReader.Core.ViewModels.CodeCoverage;
-using JaCoCoReader.Core.ViewModels.Tests;
-using JaCoCoReader.Vsix.Services;
 
-namespace JaCoCoReader.Vsix.ViewModels
+namespace JaCoCoReader.Vsix.Services
 {
-    public class VsSolutionViewModel : TestsViewModel
-    {
-        public VsSolutionViewModel(CodeCoverageViewModel report)
-            : base(report)
-        { }
-
-        public override Visibility RefreshVisibility
-        {
-            get { return Visibility.Collapsed; }
-        }
-
-        public override Visibility LoadVisibility
-        {
-            get { return Visibility.Visible; }
-        }
-
-        protected override void DoLoadCommand()
-        {
-            LoadFromSolution();
-
-            if (Model.Projects.Count == 0)
-            {
-                base.DoLoadCommand();
-            }
-        }
-
-        protected void LoadFromSolution()
-        {
-            Model.Projects.Clear();
-
-            foreach (TestProject testProject in VsPowerShellTestDiscoverer.GetTests())
-            {
-                Model.Projects.Add(testProject);
-            }
-        }
-    }
-
     public class VsPowerShellTestDiscoverer : PowerShellTestDiscoverer
     {
         internal static IEnumerable<TestProject> GetTests()
@@ -79,12 +37,11 @@ namespace JaCoCoReader.Vsix.ViewModels
             }
             foreach (Project​Item item in vsProjectProjectItems.OfType<Project​Item>())
             {
-                if (item.Kind == Constants.vsProjectItemKindPhysicalFolder)
+                if (item.ProjectItems.Count > 0)
                 {
-                    TestFolder folder = new TestFolder
+                        TestFolder folder = new TestFolder
                     {
                         Name = item.Name
-                        //Path = item.FileName
                     };
 
                     GetVsTests(item.ProjectItems, folder);
@@ -120,5 +77,7 @@ namespace JaCoCoReader.Vsix.ViewModels
                 }
             }
         }
+
+        
     }
 }

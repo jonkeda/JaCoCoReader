@@ -18,14 +18,31 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <DockPanel>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="200"/>
-        </Grid.RowDefinitions>
+        <views:TestsDetails DockPanel.Dock="Bottom" DataContext="{Binding SelectedNode}" />
 
-        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0" >
+        <controls1:DockPanelSplitter DockPanel.Dock="Bottom" >
+
+            <controls1:DockPanelSplitter.Template>
+                <ControlTemplate>
+                    <Border Background="{DynamicResource AccentColorBrush3}"
+                            BorderBrush="{DynamicResource AccentColorBrush3}"
+                            BorderThickness="1">
+                    </Border>
+                </ControlTemplate>
+
+            </controls1:DockPanelSplitter.Template>
+
+        </controls1:DockPanelSplitter>
+
+        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0">
+            <controls1:TreeViewEx.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding RunCommand}" Header="run" />
+                    <MenuItem Command="{Binding OpenFileCommand}" Header="open file" />
+                </ContextMenu>
+            </controls1:TreeViewEx.ContextMenu>
             <controls1:TreeViewEx.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">
@@ -34,39 +51,6 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </controls1:TreeViewEx.ItemTemplate>
-            <!--<controls1:TreeListView.Columns>
-            <GridViewColumn Header="Name" Width="250">
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
-                        <DockPanel>
-                            <ToggleButton x:Name="Expander" 
-                                                  Style="{StaticResource ExpandCollapseToggleStyle}" 
-                                                  Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
-                                                  IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
-                                                  ClickMode="Press"/>
-
-                            <TextBlock Text=" " Width="10" Background="{Binding Background}" />
-                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-                        </DockPanel>
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
-                                                 Value="False">
-                                <Setter TargetName="Expander"
-                                                Property="Visibility"
-                                                Value="Hidden"/>
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-            <GridViewColumn Header="Outcome" Width="80" >
-                <GridViewColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type codeCoverage11:TestModel}">
-                        <TextBlock TextAlignment="Center" Text="{Binding Outcome}" />
-                    </DataTemplate>
-                </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-            -->
 
             <!--<controls1:TreeViewEx.ItemContainerStyle>
                     <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
@@ -78,8 +62,8 @@
                 </controls1:TreeViewEx.ItemContainerStyle>-->
         </controls1:TreeViewEx>
 
-        <views:TestsDetails Grid.Row="1" DataContext="{Binding SelectedNode}" />
-    </Grid>
+
+    </DockPanel>
 
 </UserControl>
 

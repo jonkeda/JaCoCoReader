@@ -1,22 +1,14 @@
 ﻿using JaCoCoReader.Vsix.Services;
 
-namespace JaCoCoReader.Vsix
+namespace JaCoCoReader.Vsix.CodeCoverage
 {
-    using System.Windows.Controls;
-
-    /// <summary>
-    /// Interaction logic for CodeCoverageWindowControl.
-    /// </summary>
-    public partial class CodeCoverageWindowControl : UserControl
+    public partial class CodeCoverageWindowControl
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CodeCoverageWindowControl"/> class.
-        /// </summary>
         public CodeCoverageWindowControl()
         {
             InitializeComponent();
 
-            DataContext = CodeCoverageService.Current.Report;
+            DataContext = PowershellService.Current.CodeCoverage;
         }
     }
 }

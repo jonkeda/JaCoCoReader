@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Vsix.Extensions;
@@ -8,12 +7,8 @@ using JaCoCoReader.Vsix.Services;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
-using Brush = System.Windows.Media.Brush;
-using Color = System.Windows.Media.Color;
-using Colors = System.Windows.Media.Colors;
-using Pen = System.Windows.Media.Pen;
 
-namespace JaCoCoReader.Vsix
+namespace JaCoCoReader.Vsix.CodeCoverage
 {
     /// <summary>
     /// CodeCoverageAdornment places red boxes behind all the "a"s in the editor window
@@ -31,16 +26,6 @@ namespace JaCoCoReader.Vsix
         private readonly IWpfTextView _view;
 
         /// <summary>
-        /// Adornment brush.
-        /// </summary>
-        private readonly Brush _brush;
-
-        /// <summary>
-        /// Adornment pen.
-        /// </summary>
-        private readonly Pen _pen;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CodeCoverageAdornment"/> class.
         /// </summary>
         /// <param name="view">Text view to create the adornment for</param>
@@ -51,20 +36,10 @@ namespace JaCoCoReader.Vsix
                 throw new ArgumentNullException(nameof(view));
             }
 
-
             _layer = view.GetAdornmentLayer("CodeCoverageAdornment");
 
             _view = view;
             _view.LayoutChanged += OnLayoutChanged;
-
-            // Create the pen and brush to color the box behind the a's
-            _brush = new SolidColorBrush(Color.FromArgb(0x20, 0x00, 0x00, 0xff));
-            _brush.Freeze();
-
-            var penBrush = new SolidColorBrush(Colors.Red);
-            penBrush.Freeze();
-            _pen = new Pen(penBrush, 0.5);
-            _pen.Freeze();
         }
 
         /// <summary>
@@ -84,17 +59,17 @@ namespace JaCoCoReader.Vsix
                 _layer.RemoveAllAdornments();
             }
 
-            IWpfTextView textView = (IWpfTextView)sender;
-            ITextDocument textDocument = textView.TextBuffer.GetTextDocument();
-            SourcefileViewModel sourceFile = CodeCoverageService.Current.Report.GetSourceFileByPath(textDocument.FilePath);
+           
+            ITextDocument textDocument = _view.TextBuffer.GetTextDocument();
+            SourcefileViewModel sourceFile = PowershellService.Current.CodeCoverage.GetSourceFileByPath(textDocument.FilePath);
             if (sourceFile == null)
             {
                 return;
             }
-            double viewportWidth = textView.ViewportWidth;
+            double viewportWidth = _view.ViewportWidth;
             foreach (ITextViewLine line in e.NewOrReformattedLines)
             {
-                int lineNumber = textView.TextSnapshot.GetLineNumberFromPosition(line.Extent.Start) + 1;
+                int lineNumber = _view.TextSnapshot.GetLineNumberFromPosition(line.Extent.Start) + 1;
 
                 if (sourceFile.LinesHit.ContainsKey(lineNumber))
                 {
@@ -104,10 +79,10 @@ namespace JaCoCoReader.Vsix
                     {
                         Height = line.Height,
                         Width = viewportWidth,
-                        Fill = hit ? JaCoCoReader.Core.ViewModels.Colors.HitBackground : JaCoCoReader.Core.ViewModels.Colors.MissedBackground
+                        Fill = hit ? Core.ViewModels.Colors.HitBackground : Core.ViewModels.Colors.MissedBackground
                     };
 
-                    Canvas.SetLeft(rect, textView.ViewportLeft);
+                    Canvas.SetLeft(rect, _view.ViewportLeft);
                     Canvas.SetTop(rect, line.Top);
                     _layer.AddAdornment(line.Extent, null, rect);
                 }
