@@ -4,6 +4,7 @@ using System.Linq;
 using EnvDTE;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
+using JaCoCoReader.Vsix.Extensions;
 
 namespace JaCoCoReader.Vsix.Services
 {
@@ -37,7 +38,8 @@ namespace JaCoCoReader.Vsix.Services
             }
             foreach (Project​Item item in vsProjectProjectItems.OfType<Project​Item>())
             {
-                if (item.ProjectItems.Count > 0)
+                if (item.ProjectItems != null
+                    && item.ProjectItems.Count > 0)
                 {
                         TestFolder folder = new TestFolder
                     {

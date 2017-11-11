@@ -61,6 +61,8 @@ namespace JaCoCoReader.Core.Models.Tests
                 testIt.Outcome = GetOutcome(result.Properties["Result"].Value as string);
                 testIt.ErrorStackTrace = result.Properties["StackTrace"].Value as string;
                 testIt.ErrorMessage = result.Properties["FailureMessage"].Value as string;
+                testIt.Time = result.Properties["Time"].Value as TimeSpan?;
+
                 if (testIt.Outcome > outcome)
                 {
                     outcome = testIt.Outcome;

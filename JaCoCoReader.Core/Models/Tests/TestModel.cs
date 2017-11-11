@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.UI;
@@ -7,18 +8,20 @@ namespace JaCoCoReader.Core.Models.Tests
 {
     public abstract class TestModel : PropertyNotifier
     {
-        private TestOutcome _outcome;
-        private string _output;
         public string Name { get; set; }
-
+        public string ErrorStackTrace { get; set; }
+        public string ErrorMessage { get; set; }
+        public TimeSpan? Time { get; set; }
         public abstract string Type { get; }
 
+        private string _output;
         public string Output
         {
             get { return _output; }
             set { SetProperty(ref _output, value); }
         }
 
+        private TestOutcome _outcome;
         public TestOutcome Outcome
         {
             get { return _outcome; }

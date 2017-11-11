@@ -5,7 +5,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace JaCoCoReader.Vsix.Services
+namespace JaCoCoReader.Vsix.Extensions
 {
     public static class VsExtensions
     {
@@ -84,11 +84,17 @@ namespace JaCoCoReader.Vsix.Services
         public static void OpenProjectItem(string filename)
         {
             ProjectItem item = FindProjectItem(filename);
-            if (item != null
-                && !item.IsOpen[EnvDTE.Constants.vsViewKindTextView])
+            if (item != null)
             {
                 Window window = item.Open(EnvDTE.Constants.vsViewKindTextView);
-                window.Visible = true;
+                if (item.IsOpen[EnvDTE.Constants.vsViewKindTextView])
+                {
+                    window.Activate();
+                }
+                else
+                {
+                    window.Visible = true;
+                }
             }
         }
     }

@@ -4,21 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:tests="clr-namespace:JaCoCoReader.Core.Models.Tests"
+             xmlns:converters="clr-namespace:JaCoCoReader.Core.UI.Converters"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=tests:TestModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="150" d:DesignWidth="300">
-    <Grid>
+    <Grid Visibility="{Binding Converter={x:Static converters:VisibilityConverter.Instance}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Content="{Binding Type}" FontWeight="UltraBold" />
             <Label Content="{Binding Name}" FontWeight="Bold" />
         </StackPanel>
-        <Label Grid.Row="1" Content="{Binding Outcome}" />
-        <TextBox Grid.Row="2" Text="{Binding Output}" AcceptsReturn="True" IsReadOnly="True" 
-                 HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Outcome}" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Time}" />
+        
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" Text="{Binding ErrorMessage}" 
+                         Visibility="{Binding ErrorMessage, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+                
+                <TextBox Grid.Row="1" Text="{Binding ErrorStackTrace}" AcceptsReturn="True" IsReadOnly="True" 
+                         HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Height="150"
+                         Visibility="{Binding ErrorStackTrace, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+                
+                <TextBox Grid.Row="2" Text="{Binding Output}" AcceptsReturn="True" IsReadOnly="True" 
+                         HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                         Visibility="{Binding Output, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

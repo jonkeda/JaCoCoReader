@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             
-             xmlns:controls="clr-namespace:JaCoCoReader.Core.UI.Controls;assembly=JaCoCoReader.Core"
-             xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.Models.Tests;assembly=JaCoCoReader.Core"
+
              xmlns:views="clr-namespace:JaCoCoReader.Core.Views;assembly=JaCoCoReader.Core"
 
              Background="{DynamicResource VsBrush.Window}"

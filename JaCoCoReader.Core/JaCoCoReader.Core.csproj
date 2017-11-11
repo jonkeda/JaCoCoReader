@@ -173,8 +173,12 @@
   <ItemGroup>
     <None Include="Examples\Calculator\Add-Numbers.ps1" />
     <None Include="Examples\Calculator\Add-Numbers.Tests.ps1" />
+    <None Include="Examples\Fail\AddNumbersFail.ps1" />
+    <None Include="Examples\Fail\AddNumbersFail.Tests.ps1" />
     <None Include="Examples\Gherkin\Gherkin-Scope.feature" />
     <None Include="Examples\Gherkin\VariableScope.Steps.ps1" />
+    <None Include="Examples\If\AddNumbersIf.ps1" />
+    <None Include="Examples\If\AddNumbersIf.Tests.ps1" />
     <None Include="Examples\Planets\Get-Planet.ps1" />
     <None Include="Examples\Planets\Get-Planet.Tests.ps1" />
     <None Include="Examples\Validator\Validator.feature" />

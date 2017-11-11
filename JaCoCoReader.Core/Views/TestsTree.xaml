@@ -20,18 +20,17 @@
     </UserControl.Resources>
     <DockPanel>
 
-        <views:TestsDetails DockPanel.Dock="Bottom" DataContext="{Binding SelectedNode}" />
+        <views:TestsDetails DockPanel.Dock="Bottom" DataContext="{Binding SelectedNode}" Height="150" />
 
-        <controls1:DockPanelSplitter DockPanel.Dock="Bottom" >
+        <controls1:DockPanelSplitter DockPanel.Dock="Bottom" Height="3" >
 
             <controls1:DockPanelSplitter.Template>
                 <ControlTemplate>
-                    <Border Background="{DynamicResource AccentColorBrush3}"
-                            BorderBrush="{DynamicResource AccentColorBrush3}"
+                    <Border Background="White"
+                            BorderBrush="Black"
                             BorderThickness="1">
                     </Border>
                 </ControlTemplate>
-
             </controls1:DockPanelSplitter.Template>
 
         </controls1:DockPanelSplitter>

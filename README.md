@@ -15,6 +15,7 @@ CodeCoverage
 * ~~Improve treeview Scrolling~~
 * ~~Allow All scripts coverage~~
 * Allow Selected scripts coverage
+* Add No Coverage tags to Pester
 
 
 Code coverage editor
@@ -56,8 +57,13 @@ Tests tree
 Tests Bug
 * ~~Describe name is not taken correctly~~
 * ~~Row highlighting is two lines too low~~
-* Load Ing.Briard opens a window instead of loading powershell scripts
+* ~~Load Ing.Briard opens a window instead of loading powershell scripts~~
 * Powershell scripts aren't added to the code coverage
+* ~~Detail's can be too large~~
+* Run of tests is slow
+* ~~Open file doesn't show a file which is open~~
+* ~~Show/Hide code coverage buttons doens't always work~~
+* Open folder view from solution
 
 
 Test glyphs

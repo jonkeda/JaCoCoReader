@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
@@ -25,6 +27,8 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         /// </summary>
         private readonly IWpfTextView _view;
 
+        private readonly CodeCoverageViewModel _codeCoverage;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCoverageAdornment"/> class.
         /// </summary>
@@ -40,6 +44,22 @@ namespace JaCoCoReader.Vsix.CodeCoverage
 
             _view = view;
             _view.LayoutChanged += OnLayoutChanged;
+
+            _codeCoverage = PowershellService.Current.CodeCoverage;
+            _codeCoverage.ModelChanged += ShowHitsModelChanged;
+            _codeCoverage.ShowHitsModelChanged += ShowHitsModelChanged;
+        }
+
+        private void ShowHitsModelChanged()
+        {
+            if (!_codeCoverage.ShowLinesHit)
+            {
+                _layer.RemoveAllAdornments();
+            }
+            else
+            {
+                UpdateLines(_view.TextViewLines);
+            }
         }
 
         /// <summary>
@@ -59,15 +79,31 @@ namespace JaCoCoReader.Vsix.CodeCoverage
                 _layer.RemoveAllAdornments();
             }
 
-           
+            if (!_codeCoverage.ShowLinesHit)
+            {
+                _layer.RemoveAllAdornments();
+            }
+            else
+            {
+                UpdateLines(e.NewOrReformattedLines);
+            }
+
+        }
+
+        private void UpdateLines(IEnumerable<ITextViewLine> newOrReformattedLines)
+        {
             ITextDocument textDocument = _view.TextBuffer.GetTextDocument();
+            if (textDocument == null)
+            {
+                return;
+            }
             SourcefileViewModel sourceFile = PowershellService.Current.CodeCoverage.GetSourceFileByPath(textDocument.FilePath);
             if (sourceFile == null)
             {
                 return;
             }
             double viewportWidth = _view.ViewportWidth;
-            foreach (ITextViewLine line in e.NewOrReformattedLines)
+            foreach (ITextViewLine line in newOrReformattedLines)
             {
                 int lineNumber = _view.TextSnapshot.GetLineNumberFromPosition(line.Extent.Start) + 1;
 
@@ -88,6 +124,5 @@ namespace JaCoCoReader.Vsix.CodeCoverage
                 }
             }
         }
-
     }
 }

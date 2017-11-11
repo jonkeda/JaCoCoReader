@@ -7,7 +7,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
     /// <summary>
     /// Export a <see cref="IWpfTextViewMarginProvider"/>, which returns an instance of the margin for the editor to use.
     /// </summary>
-    //[Export(typeof(IWpfTextViewMarginProvider))]
+    [Export(typeof(IWpfTextViewMarginProvider))]
     [Name(CodeCoverageMargin.MarginName)]
     [Order(After = PredefinedMarginNames.VerticalScrollBar)]  // Ensure that the margin occurs below the horizontal scrollbar
     [MarginContainer(PredefinedMarginNames.Right)]             // Set the container to the bottom of the editor window

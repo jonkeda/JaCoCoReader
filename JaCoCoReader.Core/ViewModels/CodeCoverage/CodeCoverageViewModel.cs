@@ -10,6 +10,8 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
     public delegate void CodeCoverageChanged();
 
+    public delegate void CodeCoverageShowHitsChanged();
+
     public class CodeCoverageViewModel : FileViewModel<Report>
     {
         private static readonly List<Item<CoveredScripts>> _coveredScriptsItems = new List<Item<CoveredScripts>>
@@ -58,7 +60,10 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             get { return _showLinesHit; }
             set
             {
-                SetProperty(ref _showLinesHit, value);
+                if (SetProperty(ref _showLinesHit, value))
+                {
+                    DoShowHitsModelChanged();
+                }
             }
         }
 
@@ -149,6 +154,13 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         private void DoModelChanged()
         {
             ModelChanged?.Invoke();
+        }
+
+        public event CodeCoverageShowHitsChanged ShowHitsModelChanged;
+
+        private void DoShowHitsModelChanged()
+        {
+            ShowHitsModelChanged?.Invoke();
         }
 
         private void DoNextCommand()

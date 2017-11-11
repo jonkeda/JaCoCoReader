@@ -76,7 +76,7 @@
     <Compile Include="Glyphs\TodoTaggerProvider.cs" />
     <Compile Include="Models\Tests\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\VsExtensions.cs" />
+    <Compile Include="Extensions\VsExtensions.cs" />
     <Compile Include="Services\CodeCoverageService.cs" />
     <Compile Include="Tests\TestsWindow.cs" />
     <Compile Include="Tests\TestsWindowCommand.cs" />

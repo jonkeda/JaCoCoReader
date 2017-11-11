@@ -6,6 +6,7 @@ using EnvDTE;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.ViewModels.Tests;
+using JaCoCoReader.Vsix.Extensions;
 using JaCoCoReader.Vsix.Services;
 
 namespace JaCoCoReader.Vsix.ViewModels
@@ -68,7 +69,8 @@ namespace JaCoCoReader.Vsix.ViewModels
             }
             foreach (Project​Item item in vsProjectProjectItems.OfType<Project​Item>())
             {
-                if (item.ProjectItems.Count > 0)
+                if (item.ProjectItems != null
+                    && item.ProjectItems.Count > 0)
                 {
                     GetScriptFileNames(item.ProjectItems, fileNames);
                 }
