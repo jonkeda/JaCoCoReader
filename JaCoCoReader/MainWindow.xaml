@@ -243,28 +243,8 @@
                                                           LinesHit="{Binding LinesHit }"
                                                           ShowLinesHit="{Binding DataContext.ShowLinesHit, ElementName=CodeCoverage, Mode=OneWay}"/>
 
-                                <views:CodeCoverageMarginView Grid.Row="2" Grid.Column="1" DataContext="{Binding }" />
+                                <views:CodeCoverageMarginView Grid.Row="2" Grid.Column="1" DataContext="{Binding }" Margin="0,15,0,40" />
                                 
-                                <!--<Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill" Margin="0,15,0,40">
-                                    <ItemsControl ItemsSource="{Binding BrushLines}" >
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <Canvas Width="20" Height="{Binding LineHeight}"/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Rectangle Fill="{Binding Brush}" Width="10" Height="1000" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                        <ItemsControl.ItemContainerStyle>
-                                            <Style TargetType="ContentPresenter" >
-                                                <Setter Property="Canvas.Left" Value="1" />
-                                                <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-                                            </Style>
-                                        </ItemsControl.ItemContainerStyle>
-                                    </ItemsControl>
-                                </Viewbox>-->
                             </Grid>
                         </DataTemplate>
 

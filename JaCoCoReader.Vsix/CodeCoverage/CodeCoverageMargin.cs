@@ -17,6 +17,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
     internal class CodeCoverageMargin : Grid, IWpfTextViewMargin
     {
         private readonly IWpfTextView _textView;
+        private readonly IVerticalScrollBar _scrollBar;
 
         /// <summary>
         /// Margin name.
@@ -36,42 +37,65 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         /// Initializes a new instance of the <see cref="CodeCoverageMargin"/> class for a given <paramref name="textView"/>.
         /// </summary>
         /// <param name="textView">The <see cref="IWpfTextView"/> to attach the margin to.</param>
-        public CodeCoverageMargin(IWpfTextView textView)
+        /// <param name="scrollBar"></param>
+        public CodeCoverageMargin(IWpfTextView textView, IVerticalScrollBar scrollBar)
         {
             _textView = textView;
-            Width = 10; 
+            _scrollBar = scrollBar;
+            _scrollBar.TrackSpanChanged += ScrollBarOnTrackSpanChanged;
+            Width = 10;
 
             // Add a green colored label that says "Hello CodeCoverageMargin"
             _margin = new CodeCoverageMarginView();
+            UpdateScrollbarMargin();
 
             Children.Add(_margin);
 
             _codeCoverage = PowershellService.Current.CodeCoverage;
             SetCodeCoverageChanged();
             _codeCoverage.ModelChanged += SetCodeCoverageChanged;
+            _codeCoverage.ShowHitsModelChanged += SetCodeCoverageChanged;
+
+            if (!_codeCoverage.ShowLinesHit)
+            {
+                Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Visibility = Visibility.Visible;
+            }
+
+        }
+
+        private void ScrollBarOnTrackSpanChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateScrollbarMargin();
+        }
+
+        private void UpdateScrollbarMargin()
+        {
+            _margin.Margin = new Thickness(0, _scrollBar.TrackSpanTop, 0, _scrollBar.ThumbHeight + (_textView.ViewportHeight - _scrollBar.TrackSpanBottom ));
         }
 
         private void SetCodeCoverageChanged()
         {
-            ThreadDispatcher.Invoke(() =>
+            ITextDocument textDocument = _textView.TextBuffer.GetTextDocument();
+            if (textDocument == null)
             {
-                ITextDocument textDocument = _textView.TextBuffer.GetTextDocument();
-                if (textDocument == null)
-                {
-                    return;
-                }
-                SourcefileViewModel sourceFile = _codeCoverage.GetSourceFileByPath(textDocument.FilePath);
+                return;
+            }
+            SourcefileViewModel sourceFile = _codeCoverage.GetSourceFileByPath(textDocument.FilePath);
 
-                _margin.DataContext = sourceFile;
-                if (sourceFile == null)
-                {
-                    Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    Visibility = Visibility.Visible;
-                }
-            });
+            _margin.DataContext = sourceFile;
+            if (sourceFile == null
+                || !_codeCoverage.ShowLinesHit)
+            {
+                Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Visibility = Visibility.Visible;
+            }
         }
 
         #region IWpfTextViewMargin

@@ -10,7 +10,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
     [Export(typeof(IWpfTextViewMarginProvider))]
     [Name(CodeCoverageMargin.MarginName)]
     [Order(After = PredefinedMarginNames.VerticalScrollBar)]  // Ensure that the margin occurs below the horizontal scrollbar
-    [MarginContainer(PredefinedMarginNames.Right)]             // Set the container to the bottom of the editor window
+    [MarginContainer(PredefinedMarginNames.VerticalScrollBar)]             // Set the container to the bottom of the editor window
     [ContentType("Powershell")]                                       // Show this margin for all text-based types
     [TextViewRole(PredefinedTextViewRoles.Interactive)]
     internal sealed class CodeCoverageMarginFactory : IWpfTextViewMarginProvider
@@ -27,7 +27,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         /// </returns>
         public IWpfTextViewMargin CreateMargin(IWpfTextViewHost wpfTextViewHost, IWpfTextViewMargin marginContainer)
         {
-            return new CodeCoverageMargin(wpfTextViewHost.TextView);
+            return new CodeCoverageMargin(wpfTextViewHost.TextView, marginContainer as IVerticalScrollBar);
         }
 
         #endregion

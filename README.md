@@ -19,7 +19,7 @@ CodeCoverage
 
 
 Code coverage editor
-* show hit colors in the Margin
+* ~~show hit colors in the Margin~~
 
 
 Tests

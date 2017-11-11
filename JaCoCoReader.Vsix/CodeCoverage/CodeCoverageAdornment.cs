@@ -115,7 +115,8 @@ namespace JaCoCoReader.Vsix.CodeCoverage
                     {
                         Height = line.Height,
                         Width = viewportWidth,
-                        Fill = hit ? Core.ViewModels.Colors.HitBackground : Core.ViewModels.Colors.MissedBackground
+                        Fill = hit ? Core.ViewModels.Colors.HitBackground : Core.ViewModels.Colors.MissedBackground,
+
                     };
 
                     Canvas.SetLeft(rect, _view.ViewportLeft);

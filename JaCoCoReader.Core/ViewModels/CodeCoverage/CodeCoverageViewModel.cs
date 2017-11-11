@@ -5,6 +5,7 @@ using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.UI;
 using System.Collections.Generic;
 using JaCoCoReader.Core.Services;
+using JaCoCoReader.Core.Threading;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
@@ -153,14 +154,14 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 
         private void DoModelChanged()
         {
-            ModelChanged?.Invoke();
+            ThreadDispatcher.Dispatcher.Invoke(() => ModelChanged?.Invoke());
         }
 
         public event CodeCoverageShowHitsChanged ShowHitsModelChanged;
 
         private void DoShowHitsModelChanged()
         {
-            ShowHitsModelChanged?.Invoke();
+            ThreadDispatcher.Dispatcher.Invoke(() => ShowHitsModelChanged?.Invoke());
         }
 
         private void DoNextCommand()

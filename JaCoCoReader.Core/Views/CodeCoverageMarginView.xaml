@@ -8,15 +8,7 @@
 
              d:DataContext="{d:DesignInstance Type=codeCoverage:SourcefileViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel >
-        <TextBlock Background="Red" Text="b"></TextBlock>
-        <TextBlock Text="b"></TextBlock>
-        <TextBlock Text="b"></TextBlock>
-        <TextBlock Text="b"></TextBlock>
-        <TextBlock Text="b"></TextBlock>
-        <TextBlock Text="b"></TextBlock>
-    </StackPanel>
-    <!--<Viewbox  Stretch="Fill" Margin="0,15,0,40">
+    <Viewbox  Stretch="Fill">
         <ItemsControl ItemsSource="{Binding BrushLines}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -35,5 +27,5 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
-    </Viewbox>-->
+    </Viewbox>
 </UserControl>

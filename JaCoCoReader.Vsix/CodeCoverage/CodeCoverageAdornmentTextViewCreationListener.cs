@@ -9,7 +9,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
     /// that instantiates the adornment on the event of a <see cref="IWpfTextView"/>'s creation
     /// </summary>
     [Export(typeof(IWpfTextViewCreationListener))]
-    [ContentType("text")]
+    [ContentType("Powershell")]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     internal sealed class CodeCoverageAdornmentTextViewCreationListener : IWpfTextViewCreationListener
     {
@@ -22,7 +22,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         /// </summary>
         [Export(typeof(AdornmentLayerDefinition))]
         [Name("CodeCoverageAdornment")]
-        [Order(After = PredefinedAdornmentLayers.Selection, Before = PredefinedAdornmentLayers.Text)]
+        [Order(Before = PredefinedAdornmentLayers.Selection)]
         private AdornmentLayerDefinition editorAdornmentLayer;
 
 #pragma warning restore 649, 169
