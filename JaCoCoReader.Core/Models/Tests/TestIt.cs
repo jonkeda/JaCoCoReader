@@ -1,4 +1,5 @@
 using System.Management.Automation.Language;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
@@ -11,5 +12,14 @@ namespace JaCoCoReader.Core.Models.Tests
             get { return "It"; }
         }
 
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.Check; }
+        }
+
+        public override void CalculateOutcome()
+        {
+            
+        }
     }
 }

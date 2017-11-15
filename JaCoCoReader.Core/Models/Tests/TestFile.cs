@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
@@ -14,6 +15,11 @@ namespace JaCoCoReader.Core.Models.Tests
         public override string Type
         {
             get { return "File"; }
+        }
+
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.FileText; }
         }
 
         public override IEnumerable<TestModel> Items

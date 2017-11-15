@@ -5,6 +5,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Language;
 using JaCoCoReader.Core.Services;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
@@ -24,21 +25,26 @@ namespace JaCoCoReader.Core.Models.Tests
             get { return "Describe"; }
         }
 
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.Book; }
+        }
+
         public override IEnumerable<TestModel> Items
         {
             get { return Contexts; }
         }
 
-        public void ProcessTestResults(Array results)
+        public void ProcessTestResults(PSObject result)
         {
             TestOutcome outcome = TestOutcome.None;
 
-            foreach (PSObject result in results)
-            {
+            //foreach (PSObject result in results)
+            //{
                 string describe = result.Properties["Describe"].Value as string;
                 if (!HandleParseError(result, describe))
                 {
-                    break;
+                    return;
                 }
 
                 string context = result.Properties["Context"].Value as string;
@@ -55,7 +61,7 @@ namespace JaCoCoReader.Core.Models.Tests
                 TestIt testIt = testContext?.Its.FirstOrDefault(m => m.Name == name);
                 if (testIt == null)
                 {
-                    continue;
+                    return;
                 }
 
                 testIt.Outcome = GetOutcome(result.Properties["Result"].Value as string);
@@ -71,7 +77,7 @@ namespace JaCoCoReader.Core.Models.Tests
                 {
                     testContext.Outcome = testIt.Outcome;
                 }
-            }
+            //}
             Outcome = outcome;
         }
 

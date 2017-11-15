@@ -1,8 +1,8 @@
 ﻿namespace JaCoCoReader.Vsix.Glyphs
 {
-    public partial class TodoGlyph
+    public partial class PesterGlyph
     {
-        public TodoGlyph()
+        public PesterGlyph()
         {
             InitializeComponent();
         }

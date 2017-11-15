@@ -8,7 +8,7 @@ import-module $PSScriptRoot\Pester.psm1  -Scope Global
 #Invoke-Pester .\Pester.tests.ps1,.\Functions\Coverage.Tests.ps1 -detailedcodecoverage -CodeCoverageOutputFile pestercc.xml
 
 
-Invoke-Pester -Path Validator\Validator.Tests.ps1  -TestName MyValidator -OutputFile c:\temp\pesteroutput.xml  -detailedcodecoverage -CodeCoverageOutputFile pestercc.xml
+Invoke-Pester -Path $PSScriptRoot\..\Examples\Validator\Validator.Tests.ps1  -TestName MyValidator -OutputFile c:\temp\pesteroutput.xml  -detailedcodecoverage -CodeCoverageOutputFile pestercc.xml
 
 # -OutputFormat NUnitXml
 

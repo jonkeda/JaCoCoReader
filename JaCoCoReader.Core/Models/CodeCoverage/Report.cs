@@ -60,6 +60,14 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
             return this;
         }
 
+        public void Clear()
+        {
+            Sessioninfos.Clear();
+            Groups.Clear();
+            Packages.Clear();
+            Counters.Clear();
+        }
+
         public override string Key
         {
             get { return Name; }

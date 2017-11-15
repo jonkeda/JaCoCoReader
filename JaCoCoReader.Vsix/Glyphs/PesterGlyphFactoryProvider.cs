@@ -1,15 +1,5 @@
-﻿//***************************************************************************
-// 
-//    Copyright (c) Microsoft Corporation. All rights reserved.
-//    This code is licensed under the Visual Studio SDK license terms.
-//    THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-//    ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-//    IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-//    PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//***************************************************************************
-
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
+using JaCoCoReader.Vsix.FileExtension;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Utilities;
@@ -20,12 +10,14 @@ namespace JaCoCoReader.Vsix.Glyphs
     /// Export a <see cref="IGlyphFactoryProvider"/>
     /// </summary>
     [Export(typeof(IGlyphFactoryProvider))]
-    [Name("ToDoGlyph")]
+    [Name(Name)]
     [Order(Before = "VsTextMarker")]
-    [ContentType("code")]
-    [TagType(typeof(ToDoTag))]
-    internal sealed class ToDoGlyphFactoryProvider : IGlyphFactoryProvider
+    [ContentType(FileAndContentTypeDefinitions.ContentType)]
+    [TagType(typeof(PesterTag))]
+    internal sealed class PesterGlyphFactoryProvider : IGlyphFactoryProvider
     {
+        public const string Name = "PesterGlyph";
+
         /// <summary>
         /// This method creates an instance of our custom glyph factory for a given text view.
         /// </summary>
@@ -34,7 +26,7 @@ namespace JaCoCoReader.Vsix.Glyphs
         /// <returns>An instance of our custom glyph factory.</returns>
         public IGlyphFactory GetGlyphFactory(IWpfTextView view, IWpfTextViewMargin margin)
         {
-            return new ToDoGlyphFactory();
+            return new PesterGlyphFactory();
         }
 
     }

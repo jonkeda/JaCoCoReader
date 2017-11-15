@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using JaCoCoReader.Core.UI;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
@@ -15,6 +16,11 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         public override string Description
         {
             get { return Model.Name; }
+        }
+
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.FolderOpen; }
         }
 
         public Lazy<FolderCollectionViewModel> Folders { get; }

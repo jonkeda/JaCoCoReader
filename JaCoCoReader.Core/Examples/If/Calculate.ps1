@@ -1,5 +1,5 @@
-function Add-Numbers($a, $b) {
-    if ($a + $b -eq 5)
+function Add-Numbers($a, $o, $b) {
+    if ($0 -eq '+')
     {
         return $a + $b
     }

@@ -183,6 +183,7 @@ function New-PesterState
             $null = $script:TestGroupStack.Peek().Actions.Add($resultRecord)
 
             # Attempting some degree of backward compatibility for the TestResult collection for now; deprecated and will be removed in the future
+            $filename = ''
             $describe = ''
             $contexts = [System.Collections.ArrayList]@()
 
@@ -192,7 +193,13 @@ function New-PesterState
 
             foreach ($group in $reversedStack)
             {
-                if ($group.Hint -eq 'Root' -or $group.Hint -eq 'Script') { continue }
+                if ($group.Hint -eq 'Root') { continue }
+                if ($group.Hint -eq 'Script') 
+                { 
+                    $filename = $group.Name
+                    continue 
+                }
+
                 if ($describe -eq '')
                 {
                     $describe = $group.Name
@@ -209,6 +216,7 @@ function New-PesterState
                 Describe               = $describe
                 Context                = $context
                 Name                   = $Name
+                Filename               = $filename
                 Passed                 = $Passed
                 Result                 = $Result
                 Time                   = $Time

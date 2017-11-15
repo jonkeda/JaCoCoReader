@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.UI;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
@@ -21,6 +22,8 @@ namespace JaCoCoReader.Core.Models.Tests
             set { SetProperty(ref _output, value); }
         }
 
+        public abstract FontAwesomeIcon Icon { get; }
+
         private TestOutcome _outcome;
         public TestOutcome Outcome
         {
@@ -33,6 +36,21 @@ namespace JaCoCoReader.Core.Models.Tests
                 }
             }
         }
+
+        public virtual void CalculateOutcome()
+        {
+            TestOutcome outcome = TestOutcome.None;
+            foreach (TestModel model in Items)
+            {
+                model.CalculateOutcome();
+                if (model.Outcome > outcome)
+                {
+                    outcome = model.Outcome;
+                }
+            }
+            Outcome = outcome;
+        }
+
 
         public void SetOutcome(TestOutcome outcome)
         {
@@ -62,7 +80,7 @@ namespace JaCoCoReader.Core.Models.Tests
                     case TestOutcome.Passed:
                         return Brushes.DarkGreen;
                     default:
-                        return ViewModels.Colors.DefaultBackground;
+                        return Brushes.Black;
                 }
             }
         }

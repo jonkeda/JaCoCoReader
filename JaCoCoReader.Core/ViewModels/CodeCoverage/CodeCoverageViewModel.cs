@@ -193,8 +193,13 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             return null;
         }
 
-        public void Merge(ReportCollection reports)
+        public void Merge(ReportCollection reports, bool clearCodeCoverage)
         {
+            if (clearCodeCoverage)
+            {
+                Model.Clear();
+            }
+
             foreach (Report report in reports)
             {
                 Model.Merge(report);

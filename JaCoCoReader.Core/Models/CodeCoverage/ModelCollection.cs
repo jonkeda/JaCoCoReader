@@ -6,6 +6,12 @@ namespace JaCoCoReader.Core.Models.CodeCoverage
     public abstract class ModelCollection<T, TK> : Collection<T>
         where T : Model<T, TK>
     {
+        protected override void ClearItems()
+        {
+            base.ClearItems();
+            ModelsByKey = null;
+        }
+
         private class ModelDictionary : ConcurrentDictionary<TK, T>
         { }
 

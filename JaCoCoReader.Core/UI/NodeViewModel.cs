@@ -1,4 +1,5 @@
 ﻿using JaCoCoReader.Core.UI.Controls;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.UI
 {
@@ -13,6 +14,8 @@ namespace JaCoCoReader.Core.UI
         {
             Model = model;
         }
+
+        public abstract FontAwesomeIcon Icon { get; }
     }
 
     public abstract class NodeViewModel : ViewModel , ITreeViewItem

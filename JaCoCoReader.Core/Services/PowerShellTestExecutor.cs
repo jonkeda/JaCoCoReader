@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace JaCoCoReader.Core.Services
     {
         public const string ExecutorUriString = "executor://PowerShellTestExecutor/v1";
         public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
-        private volatile bool _mCancelled;
 
         #region Setup Execution Policy
 
@@ -55,24 +55,20 @@ namespace JaCoCoReader.Core.Services
 
         public void RunTestSolution(TestSolution solution, RunContext runContext)
         {
-            _mCancelled = false;
-
             SetupExecutionPolicy();
 
             solution.SetOutcome(TestOutcome.None);
 
             RunTestSolutionEx(solution, runContext);
+
+            RunTests(runContext);
         }
 
         private void RunTestSolutionEx(TestSolution tests, RunContext runContext)
         {
             foreach (TestProject project in tests.Projects)
             {
-                if (_mCancelled)
-                {
-                    break;
-                }
-                RunTestFolderEx(project, runContext);
+                CollectTestFolder(project, runContext);
             }
         }
 
@@ -82,53 +78,34 @@ namespace JaCoCoReader.Core.Services
 
         public void RunTestProject(TestProject project, RunContext runContext)
         {
-            _mCancelled = false;
-
             SetupExecutionPolicy();
 
             project.SetOutcome(TestOutcome.None);
 
-            RunTestFolderEx(project, runContext);
+            CollectTestFolder(project, runContext);
+            RunTests(runContext);
         }
 
         public void RunTestFolder(TestFolder folder, RunContext runContext)
         {
-            _mCancelled = false;
-
             SetupExecutionPolicy();
 
             folder.SetOutcome(TestOutcome.None);
 
-            RunTestFolderEx(folder, runContext);
+            CollectTestFolder(folder, runContext);
+            RunTests(runContext);
         }
 
-        private void RunTestFolderEx(TestFolder parentFolder, RunContext runContext)
+        private void CollectTestFolder(TestFolder parentFolder, RunContext runContext)
         {
             foreach (TestFolder folder in parentFolder.Folders)
             {
-                if (_mCancelled)
-                {
-                    break;
-                }
-                RunTestFolderEx(folder, runContext);
-                if (folder.Outcome > parentFolder.Outcome)
-                {
-                    parentFolder.Outcome = folder.Outcome;
-                }
+                CollectTestFolder(folder, runContext);
             }
 
             foreach (TestFile file in parentFolder.Files)
             {
-                if (_mCancelled)
-                {
-                    break;
-                }
-                RunTestFileEx(file, runContext);
-                if (file.Outcome > parentFolder.Outcome)
-                {
-                    parentFolder.Outcome = file.Outcome;
-                }
-
+                runContext.TestFiles.Add(file.Path, file);
             }
         }
 
@@ -138,36 +115,19 @@ namespace JaCoCoReader.Core.Services
 
         public void RunTestFile(TestFile file, RunContext runContext)
         {
-            _mCancelled = false;
-
             SetupExecutionPolicy();
 
             file.SetOutcome(TestOutcome.None);
 
-            RunTestFileEx(file, runContext);
-        }
-
-        private void RunTestFileEx(TestFile file, RunContext runContext)
-        {
-            foreach (TestDescribe describe in file.Describes)
-            {
-                if (_mCancelled)
-                {
-                    break;
-                }
-                RunTestDescribeEx(describe, runContext);
-                if (describe.Outcome > file.Outcome)
-                {
-                    file.Outcome = describe.Outcome;
-                }
-            }
+            runContext.TestFiles.Add(file.Path, file);
+            RunTests(runContext);
         }
 
         #endregion
 
         public void Cancel()
         {
-            _mCancelled = true;
+            //_mCancelled = true;
         }
 
         public void RunTestDescribe(TestDescribe describe, RunContext runContext)
@@ -176,10 +136,16 @@ namespace JaCoCoReader.Core.Services
 
             describe.SetOutcome(TestOutcome.None);
 
-            RunTestDescribeEx(describe, runContext);
+            runContext.TestFiles.Add(describe.Parent.Path, describe.Parent);
+            RunTests(runContext);
         }
 
-        private void RunTestDescribeEx(TestDescribe describe, RunContext runContext)
+        private void RunTests(RunContext runContext)
+        {
+            RunTests(runContext, null);
+        }
+
+        private void RunTests(RunContext runContext, string describeName)
         {
             StringBuilder testOutput = new StringBuilder();
             TestAdapterHost testAdapter = new TestAdapterHost();
@@ -201,13 +167,14 @@ namespace JaCoCoReader.Core.Services
 
                     try
                     {
-                        RunTestDescribeEx(powerShell, describe, runContext);
+                        RunTests(powerShell, describeName, runContext);
 
-                        describe.Output = testOutput.ToString();
+                        //describe.Output = testOutput.ToString();
                     }
                     catch (Exception)
                     {
-                        describe.SetOutcome(TestOutcome.Failed);
+                        // todo
+                        //describe.SetOutcome(TestOutcome.Failed);
                         //foreach (var testCase in testSet.Contexts)
                         //{
                         //    var testResult = new TestResult(testCase);
@@ -221,13 +188,12 @@ namespace JaCoCoReader.Core.Services
             }
         }
 
-
-        private void RunTestDescribeEx(PowerShell powerShell, TestDescribe describe, RunContext runContext)
+        private void RunTests(PowerShell powerShell, string describeName, RunContext runContext)
         {
             string tempFile = Path.GetTempFileName();
             try
             {
-                runContext.UpdateRunningTest(describe.Name);
+                runContext.UpdateRunningTest("All tests");
 
                 string module = FindModule("Pester", runContext);
                 powerShell.AddCommand("Import-Module").AddParameter("Name", module);
@@ -242,19 +208,22 @@ namespace JaCoCoReader.Core.Services
                     throw new Exception($"FailedToLoadPesterModule {errorMessage}");
                 }
 
-                FileInfo fi = new FileInfo(describe.Path);
+                string[] pathObjects = runContext.TestFiles.Keys.ToArray();
 
 
                 powerShell.AddCommand("Invoke-Pester")
-                    .AddParameter("Path", fi.FullName)
-                    .AddParameter("TestName", describe.Name)
-
+                    .AddParameter("Path", pathObjects)
                     .AddParameter("DetailedCodeCoverage")
                     .AddParameter("CodeCoverageOutputFile", tempFile)
 
                     .AddParameter("PassThru");
+                if (!string.IsNullOrEmpty(describeName))
+                {
+                    powerShell.AddParameter("TestName", describeName);
+                }
 
-                string[] codecoverage = GetCodeCoverageFilenames(fi.Name, runContext);
+
+                string[] codecoverage = GetCodeCoverageFilenames(runContext);
                 if (codecoverage != null
                     && codecoverage.Length > 0)
                 {
@@ -268,12 +237,29 @@ namespace JaCoCoReader.Core.Services
                 Array results = GetTestResults(pesterResults);
                 if (results.Length == 0)
                 {
-                    describe.SetOutcome(TestOutcome.Failed);
+                    foreach (TestFile file in runContext.TestFiles.Values)
+                    {
+                        file.SetOutcome(TestOutcome.Failed);
+                    }
                 }
                 else
                 {
-                    describe.ProcessTestResults(results);
-
+                    foreach (PSObject result in results)
+                    {
+                        string filename = result.Properties["Filename"].Value as string;
+                        string describe = result.Properties["Describe"].Value as string;
+                        if (filename != null
+                            && runContext.TestFiles.TryGetValue(filename, out TestFile file))
+                        {
+                            foreach (TestDescribe testDescribe in file.Describes)
+                            {
+                                if (testDescribe.Name == describe)
+                                {
+                                    testDescribe.ProcessTestResults(result);
+                                }
+                            }
+                        }
+                    }
                     Report report = Report.Load(tempFile);
                     if (report != null)
                     {
@@ -287,29 +273,46 @@ namespace JaCoCoReader.Core.Services
             }
         }
 
-        private string[] GetCodeCoverageFilenames(string name, RunContext context)
+        private string[] GetCodeCoverageFilenames(RunContext context)
         {
-            string filename = name.Substring(0, name.Length - ".tests.ps1".Length);
             switch (context.CoveredScripts)
             {
                 case CoveredScripts.AllScripts:
-                {
-                    return context.ScriptFileNames.ToArray();
-                }
+                    {
+                        return context.ScriptFileNames.ToArray();
+                    }
                 case CoveredScripts.FromDescribeParameter:
-                {
-                    return null;
-                }
+                    {
+                        return null;
+                    }
                 case CoveredScripts.SelectedScript:
-                {
-                    return null;
-                }
+                    {
+                        return null;
+                    }
                 case CoveredScripts.SameNamedScripts:
-                {
+                    {
+                        Dictionary<string, string> testScriptFilenames = new Dictionary<string, string>();
 
-                    return context.ScriptFileNames.Where(s => s.EndsWith($"{filename}.ps1", StringComparison.InvariantCultureIgnoreCase) 
-                    || s.EndsWith($"{filename}.psm1", StringComparison.InvariantCultureIgnoreCase)).ToArray();
-                }
+                        foreach (TestFile testfile in context.TestFiles.Values)
+                        {
+                            string name = Path.GetFileName(testfile.Path);
+                            string filename = name.Substring(0, name.Length - ".tests.ps1".Length) + ".ps1";
+                            if (!testScriptFilenames.ContainsKey(filename))
+                            {
+                                testScriptFilenames.Add(filename, testfile.Path);
+                            }
+                        }
+                        List<string> coverageFilenames = new List<string>();
+                        foreach (string fileName in context.ScriptFileNames)
+                        {
+                            string name = Path.GetFileName(fileName);
+                            if (testScriptFilenames.ContainsKey(name))
+                            {
+                                coverageFilenames.Add(fileName);
+                            }
+                        }
+                        return coverageFilenames.ToArray();
+                    }
             }
             return null;
         }

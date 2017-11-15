@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:tests="clr-namespace:JaCoCoReader.Core.Models.Tests"
              xmlns:converters="clr-namespace:JaCoCoReader.Core.UI.Converters"
+             xmlns:icons="clr-namespace:JaCoCoReader.Core.UI.Icons"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=tests:TestModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="150" d:DesignWidth="300">
@@ -20,8 +21,8 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label Content="{Binding Type}" FontWeight="UltraBold" />
-            <Label Content="{Binding Name}" FontWeight="Bold" />
+            <Label Content="{Binding Type}" FontWeight="UltraBold" Margin="5,0,0,0" />
+            <Label Content="{Binding Name}" FontWeight="Bold" Margin="5,0,0,0" />
         </StackPanel>
         
         <Label Grid.Row="1" Grid.Column="0" Content="{Binding Outcome}" />
@@ -34,6 +35,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                
+                
                 <TextBox Grid.Row="0" Text="{Binding ErrorMessage}" 
                          Visibility="{Binding ErrorMessage, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
                 

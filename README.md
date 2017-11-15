@@ -3,19 +3,19 @@ backlog
 * Change menu to Icons
 
 CodeCoverage
-* ~~Clear button~~
-* add icons
 * add button tooltips
+* allow sorting on line and percentages
+* Allow Selected scripts coverage
+* Add No Coverage tags to Pester
+* ~~Clear button~~
+* ~~add icons~~
 * ~~fix hit score~~
 * ~~Fix line count~~
 * ~~Context menu should open sourcefile~~
 * ~~Coloring is not always correct~~
 * ~~show line count~~
-* allow sorting on line and percentages
 * ~~Improve treeview Scrolling~~
 * ~~Allow All scripts coverage~~
-* Allow Selected scripts coverage
-* Add No Coverage tags to Pester
 
 
 Code coverage editor
@@ -25,13 +25,14 @@ Code coverage editor
 Tests
 * ~~Running Status~~
 * ~~Check if already running~~
-* Add file
-* auto clear code coverage
 * ~~run Context only~~
 * ~~run It only~~
 * ~~Improve Scrolling~~
+* Add file
+* auto clear code coverage
 * Allow for running of all Solution, folder, project, file, context, tests in one session
 * Add timecounter when running scripts
+
 
 Tests Details
 * ~~Allow resize~~
@@ -39,12 +40,13 @@ Tests Details
 * Show totals Passed / Failed
 * Split output per It
 
+
 Tests window
 * ~~List view~~
 
 
 Tests tree
-* Add icons
+* ~~Add icons~~
 * ~~Add traffic light~~
 * ~~Run tests if nothing is selected~~
 * ~~Remove outcome column~~
@@ -55,15 +57,15 @@ Tests tree
 
 
 Tests Bug
+* Powershell scripts aren't added to the code coverage
+* Run of tests is slow
+* Open folder view from solution
 * ~~Describe name is not taken correctly~~
 * ~~Row highlighting is two lines too low~~
 * ~~Load Ing.Briard opens a window instead of loading powershell scripts~~
-* Powershell scripts aren't added to the code coverage
 * ~~Detail's can be too large~~
-* Run of tests is slow
 * ~~Open file doesn't show a file which is open~~
 * ~~Show/Hide code coverage buttons doens't always work~~
-* Open folder view from solution
 
 
 Test glyphs

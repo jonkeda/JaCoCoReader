@@ -8,10 +8,13 @@
              d:DesignHeight="40" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal">
         <Button Command="{Binding LoadCommand}" Margin="5" Content="Add Code Coverage file" />
-        <Button Command="{Binding RefreshCommand}" Margin="5" Content="Clear" />
+        <Button Command="{Binding ClearCommand}" Margin="5" Content="Clear" />
+        
         <TextBlock Margin="5,0,0,0"  Text="Cover scripts" VerticalAlignment="Center" />
+        
         <ComboBox Margin="5,0,0,0" ItemsSource="{Binding CoveredScriptsItems}" SelectedItem="{Binding SelectedCoveredScriptsItem}" VerticalAlignment="Center"/>
         <TextBlock Margin="5,0,0,0" Text="Show code coverage coloring" VerticalAlignment="Center" />
+        
         <CheckBox IsChecked="{Binding ShowLinesHit}" Margin="5" VerticalAlignment="Center"/>
         
     </StackPanel>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using JaCoCoReader.Core.Threading;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.Views;
 using JaCoCoReader.Vsix.Extensions;

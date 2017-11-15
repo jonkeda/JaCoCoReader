@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.UI;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
@@ -16,6 +17,11 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         public override string Description
         {
             get { return FileName; }
+        }
+
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.File; }
         }
 
         private string _text;
@@ -163,11 +169,11 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 
                         if (line.Ci > 0)
                         {
-                            brush = Brushes.Green;
+                            brush = Brushes.DarkGreen;
                         }
                         else if(line.Mi > 0)
                         {
-                            brush = Brushes.Red;
+                            brush = Brushes.DarkRed;
                         }
                         else 
                         {

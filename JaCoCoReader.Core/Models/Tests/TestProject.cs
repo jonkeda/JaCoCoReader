@@ -1,3 +1,5 @@
+using JaCoCoReader.Core.UI.Icons;
+
 namespace JaCoCoReader.Core.Models.Tests
 {
     public class TestProject : TestFolder
@@ -5,6 +7,11 @@ namespace JaCoCoReader.Core.Models.Tests
         public override string Type
         {
             get { return "Project"; }
+        }
+
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.List; }
         }
     }
 }

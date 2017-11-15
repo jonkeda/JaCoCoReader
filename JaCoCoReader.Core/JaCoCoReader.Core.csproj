@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Models\CodeCoverage\Class.cs" />
     <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
+    <Compile Include="Models\Tests\ITestFileModel.cs" />
     <Compile Include="Models\Tests\TestFileModel.cs" />
     <Compile Include="Models\Tests\TestModelCollection.cs" />
     <Compile Include="Models\Tests\TestModel.cs" />
@@ -125,6 +126,18 @@
     <Compile Include="UI\Converters\BooleanConverter.cs" />
     <Compile Include="UI\Converters\LevelToIndentConverter.cs" />
     <Compile Include="UI\Converters\VisibilityConverter.cs" />
+    <Compile Include="UI\Icons\Attributes.cs" />
+    <Compile Include="UI\Icons\Awesome.cs" />
+    <Compile Include="UI\Icons\ControlExtensions.cs" />
+    <Compile Include="UI\Icons\Converters\CssClassNameConverter.cs" />
+    <Compile Include="UI\Icons\Converters\DescriptionConverter.cs" />
+    <Compile Include="UI\Icons\Converters\ImageSourceConverter.cs" />
+    <Compile Include="UI\Icons\FontAwesome.cs" />
+    <Compile Include="UI\Icons\FontAwesomeIcon.cs" />
+    <Compile Include="UI\Icons\IFlippable.cs" />
+    <Compile Include="UI\Icons\ImageAwesome.cs" />
+    <Compile Include="UI\Icons\IRotatable.cs" />
+    <Compile Include="UI\Icons\ISpinable.cs" />
     <Compile Include="UI\ModelViewModel.cs" />
     <Compile Include="UI\FileViewModel.cs" />
     <Compile Include="UI\Interfaces\IDialog.cs" />
@@ -177,8 +190,8 @@
     <None Include="Examples\Fail\AddNumbersFail.Tests.ps1" />
     <None Include="Examples\Gherkin\Gherkin-Scope.feature" />
     <None Include="Examples\Gherkin\VariableScope.Steps.ps1" />
-    <None Include="Examples\If\AddNumbersIf.ps1" />
-    <None Include="Examples\If\AddNumbersIf.Tests.ps1" />
+    <None Include="Examples\If\Calculate.ps1" />
+    <None Include="Examples\If\Calculate.Tests.ps1" />
     <None Include="Examples\Planets\Get-Planet.ps1" />
     <None Include="Examples\Planets\Get-Planet.Tests.ps1" />
     <None Include="Examples\Validator\Validator.feature" />
@@ -203,6 +216,12 @@
     <None Include="Pester\Examples\Validator\Validator.ps1" />
     <None Include="Pester\Examples\Validator\Validator.Steps.ps1" />
     <None Include="Pester\Examples\Validator\Validator.Tests.ps1" />
+    <Content Include="Documentation\Hits in sources.PNG" />
+    <Content Include="Documentation\Menu options.PNG" />
+    <Content Include="Documentation\Other Windows.PNG" />
+    <Content Include="Documentation\Powershell Code Coverage.PNG" />
+    <Content Include="Documentation\Powershell Details.PNG" />
+    <Content Include="Documentation\Powershell Tests.PNG" />
     <Content Include="Pester\Functions\Assertions\Be.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -459,6 +478,7 @@
     <None Include="Pester\Snippets\ShouldThrow.snippets.ps1xml" />
     <None Include="Pester\TestDeploy.bat" />
     <None Include="Pester\vendor\packages.config" />
+    <Resource Include="UI\Icons\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Resources\Styles.xaml">

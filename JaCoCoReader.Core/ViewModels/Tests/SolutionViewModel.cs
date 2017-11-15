@@ -15,11 +15,11 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 {
     public class TestsViewModel : ModelViewModel<TestSolution>
     {
-        private readonly CodeCoverageViewModel _report;
+        private readonly CodeCoverageViewModel _codeCoverage;
 
-        public TestsViewModel(CodeCoverageViewModel report)
+        public TestsViewModel(CodeCoverageViewModel codeCoverage)
         {
-            _report = report;
+            _codeCoverage = codeCoverage;
         }
 
         private TestModel _selectedNode;
@@ -30,6 +30,12 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         {
             get { return _selectedNode; }
             set { SetProperty(ref _selectedNode, value); }
+        }
+
+        public bool ClearCodeCoverage
+        {
+            get { return _clearCodeCoverage; }
+            set { SetProperty(ref _clearCodeCoverage, value); }
         }
 
         public virtual Visibility RefreshVisibility
@@ -142,6 +148,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         }
 
         private PowerShellTestExecutor _executor;
+        private bool _clearCodeCoverage = true;
 
         private void DoRunCommandAsync()
         {
@@ -153,7 +160,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 }
                 Running = true;
 
-                RunContext content = new RunContext(UpdateRunningTest, _report.SelectedCoveredScripts, GetScriptFileNames());
+                RunContext content = new RunContext(UpdateRunningTest, _codeCoverage.SelectedCoveredScripts, GetScriptFileNames());
                 _executor = new PowerShellTestExecutor();
 
                 switch (SelectedNode)
@@ -177,7 +184,10 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                         _executor.RunTestDescribe(testDescribe, content);
                         break;
                 }
-                _report.Merge(content.Reports);
+
+                Model.CalculateOutcome();
+
+                _codeCoverage.Merge(content.Reports, ClearCodeCoverage);
             }
             finally
             {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
@@ -20,5 +21,11 @@ namespace JaCoCoReader.Core.Models.Tests
         {
             get { return "Context"; }
         }
+
+        public override FontAwesomeIcon Icon
+        {
+            get { return FontAwesomeIcon.Reorder; }
+        }
+
     }
 }

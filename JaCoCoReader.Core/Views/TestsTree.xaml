@@ -7,6 +7,8 @@
              xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls"
              xmlns:codeCoverage11="clr-namespace:JaCoCoReader.Core.Models.Tests"
              xmlns:views="clr-namespace:JaCoCoReader.Core.Views"
+             xmlns:icons="clr-namespace:JaCoCoReader.Core.UI.Icons"
+
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=tests1:TestsViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -45,7 +47,7 @@
             <controls1:TreeViewEx.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" " Width="10" Background="{Binding Background}" />
+                        <icons:FontAwesome Icon="{Binding Icon}" Foreground="{Binding Background}" />
                         <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>

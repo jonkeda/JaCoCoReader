@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JaCoCoReader.Core.Models.CodeCoverage;
+using JaCoCoReader.Core.Models.Tests;
 
 namespace JaCoCoReader.Core.Services
 {
@@ -9,6 +10,8 @@ namespace JaCoCoReader.Core.Services
         private readonly Action<string> _running;
         public List<string> ScriptFileNames { get; }
         public CoveredScripts CoveredScripts { get; }
+
+        public Dictionary<string, TestFile> TestFiles { get; } = new Dictionary<string, TestFile>();
 
         public RunContext(Action<string> running, CoveredScripts coveredScripts, List<string> scriptFileNames)
         {

@@ -24,5 +24,7 @@
                    Visibility="{Binding Running, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
         
         <TextBlock Text="{Binding RunningTest}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+
+        <CheckBox IsChecked="{Binding ClearCodeCoverage}" Content="Clear codecoverage" Margin="5,0,0,0" VerticalAlignment="Center"/>
     </StackPanel>
 </UserControl>
