@@ -173,6 +173,10 @@ namespace JaCoCoReader.Core.Services
                     }
                     catch (Exception)
                     {
+                        foreach (TestFile file in runContext.TestFiles.Values)
+                        {
+                            file.SetOutcome(TestOutcome.Failed);
+                        }
                         // todo
                         //describe.SetOutcome(TestOutcome.Failed);
                         //foreach (var testCase in testSet.Contexts)
