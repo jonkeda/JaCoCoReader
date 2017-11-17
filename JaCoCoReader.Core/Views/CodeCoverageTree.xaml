@@ -6,8 +6,10 @@
              xmlns:controls1="clr-namespace:JaCoCoReader.Core.UI.Controls"
              xmlns:codeCoverage1="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage"
              xmlns:icons="clr-namespace:JaCoCoReader.Core.UI.Icons"
+             xmlns:converters="clr-namespace:JaCoCoReader.Core.Converters"
              d:DataContext="{d:DesignInstance Type=codeCoverage1:CodeCoverageViewModel, IsDesignTimeCreatable=false}"
              mc:Ignorable="d" 
+             x:Name="CodeCoverageTreeName"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
@@ -18,15 +20,27 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <controls1:TreeListView ItemsSource="{Binding Folders.Nodes}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
+    <controls1:TreeListView SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
                                   BorderThickness="0">
+        <controls1:TreeListView.ItemsSource>
+
+            <MultiBinding Converter="{x:Static converters:CoverageOrderMultiValueConvertor.Instance}" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Folders.Nodes"  />
+                <Binding Path="Order" />
+                <Binding Path="OrderDescending"  />
+            </MultiBinding>
+
+        </controls1:TreeListView.ItemsSource>
         <controls1:TreeListView.ContextMenu>
             <ContextMenu>
                 <MenuItem Command="{Binding OpenFileCommand}" Header="open file" />
             </ContextMenu>
         </controls1:TreeListView.ContextMenu>
         <controls1:TreeListView.Columns>
-            <GridViewColumn Header="Name" Width="250">
+            <GridViewColumn  Width="250">
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickNameCommand}" Content="Name"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <DockPanel>
@@ -35,7 +49,6 @@
                                                   Margin="{Binding Level,Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
-
                             <icons:FontAwesome Icon="{Binding Icon}" Foreground="{Binding Background}" />
                             <TextBlock Text="{Binding Description}" Margin="5,0,0,0"/>
                         </DockPanel>
@@ -51,7 +64,10 @@
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
 
-            <GridViewColumn Header="Covered" Width="70" >
+            <GridViewColumn Width="70"  >
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickCoveredCommand}" Content="Covered"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding CoveredLines}" />
@@ -59,7 +75,10 @@
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
 
-            <GridViewColumn Header="%" Width="50" >
+            <GridViewColumn Width="50" >
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickCoveredPercentageCommand}" Content="%"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
@@ -67,7 +86,10 @@
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
 
-            <GridViewColumn Header="Missed" Width="70" >
+            <GridViewColumn Width="70" >
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickMissedCommand}" Content="Missed"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding MissedLines}"  />
@@ -75,7 +97,10 @@
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
 
-            <GridViewColumn Header="%" Width="50" >
+            <GridViewColumn Width="50" >
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickMissedPercentageCommand}" Content="%"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
@@ -83,7 +108,10 @@
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
 
-            <GridViewColumn Header="Total" Width="70" >
+            <GridViewColumn Width="70" >
+                <GridViewColumn.Header>
+                    <GridViewColumnHeader Command="{Binding ClickTotalCommand}" Content="Total"/>
+                </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
                         <TextBlock TextAlignment="Right" Text="{Binding TotalLines}"  />
@@ -95,20 +123,29 @@
 
         <controls1:TreeListView.Resources>
 
-            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}" ItemsSource="{Binding Items}"/>
+            <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}" >
+                <HierarchicalDataTemplate.ItemsSource>
 
+                    <MultiBinding Converter="{x:Static converters:CoverageOrderMultiValueConvertor.Instance}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="Items"  />
+                        <Binding Path="DataContext.Order" ElementName="CodeCoverageTreeName" />
+                        <Binding Path="DataContext.OrderDescending"  ElementName="CodeCoverageTreeName" />
+                    </MultiBinding>
+
+                </HierarchicalDataTemplate.ItemsSource>
+            </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type codeCoverage1:SourcefileViewModel}"/>
 
         </controls1:TreeListView.Resources>
 
         <!--<controls1:TreeViewEx.ItemContainerStyle>
-                    <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
-                        <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
-                    </Style>
-                </controls1:TreeViewEx.ItemContainerStyle>-->
+            <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
+                <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
+            </Style>
+        </controls1:TreeViewEx.ItemContainerStyle>-->
     </controls1:TreeListView>
 </UserControl>
 

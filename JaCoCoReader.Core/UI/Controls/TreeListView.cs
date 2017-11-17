@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace JaCoCoReader.Core.UI.Controls
@@ -34,4 +35,26 @@ namespace JaCoCoReader.Core.UI.Controls
 
         #endregion
     }
+
+    //public class GridViewColumnCollectionEx : GridViewColumnCollection
+    //{
+    //    protected override void InsertItem(int index, GridViewColumn column)
+    //    {
+    //        GridViewColumnHeader header = new GridViewColumnHeader
+    //        {
+    //            Content = column.Header
+    //        };
+    //        header.Click += HeaderOnClick;
+
+
+    //        column.Header = header;
+
+    //        base.InsertItem(index, column);
+    //    }
+
+    //    private void HeaderOnClick(object sender, RoutedEventArgs routedEventArgs)
+    //    {
+
+    //    }
+    //}
 }

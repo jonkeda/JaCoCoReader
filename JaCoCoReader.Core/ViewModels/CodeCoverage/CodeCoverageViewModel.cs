@@ -4,6 +4,7 @@ using System.Windows.Input;
 using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.UI;
 using System.Collections.Generic;
+using JaCoCoReader.Core.Converters;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.Threading;
 
@@ -27,6 +28,8 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         private IFolderNodeViewModel _selectedNode;
         private bool _showLinesHit = true;
         private Item<CoveredScripts> _selectedCoveredScripts;
+        private CodeCoverageOrder _order;
+        private bool _orderDescending;
 
         public List<Item<CoveredScripts>> CoveredScriptsItems
         {
@@ -48,6 +51,18 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 return SelectedCoveredScriptsItem?.Value ?? CoveredScripts.FromDescribeParameter;
             }
+        }
+
+        public CodeCoverageOrder Order
+        {
+            get { return _order; }
+            set { SetProperty(ref _order, value); }
+        }
+
+        public bool OrderDescending
+        {
+            get { return _orderDescending; }
+            set { SetProperty(ref _orderDescending, value); }
         }
 
         public IFolderNodeViewModel SelectedNode
@@ -103,7 +118,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         {
             _folders = null;
             DoModelChanged();
-           NotifyPropertyChanged(nameof(Folders));
+            NotifyPropertyChanged(nameof(Folders));
         }
 
         public FolderCollectionViewModel Folders
@@ -129,7 +144,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
                             }
                         }
                         _folders = new FolderCollectionViewModel(folders);
-                        
+
                     }
                 }
                 return _folders;
@@ -148,6 +163,48 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         public ICommand NextCommand
         {
             get { return new TargetCommand(DoNextCommand); }
+        }
+
+        public ICommand ClickNameCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.Description)); }
+        }
+
+        public ICommand ClickCoveredCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.Covered)); }
+        }
+
+        public ICommand ClickCoveredPercentageCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.CoveredPercentage)); }
+        }
+
+        public ICommand ClickMissedCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.Missed)); }
+        }
+
+        public ICommand ClickMissedPercentageCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.MissedPercentage)); }
+        }
+
+        public ICommand ClickTotalCommand
+        {
+            get { return new TargetCommand(() => SetOrder(CodeCoverageOrder.Total)); }
+        }
+
+        private void SetOrder(CodeCoverageOrder order)
+        {
+            if (Order == order)
+            {
+                OrderDescending = !OrderDescending;
+            }
+            else
+            {
+                Order = order;
+            }
         }
 
         public event CodeCoverageChanged ModelChanged;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using JaCoCoReader.Core.UI;
 
 namespace JaCoCoReader.Core.ViewModels.CodeCoverage
@@ -12,19 +14,24 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
         }
 
         public override string Description { get; } = "Folders";
+        private Collection<FolderViewModel> _nodes;
         public override IEnumerable<FolderViewModel> Nodes
         {
             get
             {
                 if (Model == null)
                 {
-                    yield break;
+                    return null;
                 }
-
-                foreach (Folder node in Model)
+                if (_nodes == null)
                 {
-                    yield return new FolderViewModel(node);
+                    _nodes = new Collection<FolderViewModel>();
+                    foreach (Folder node in Model)
+                    {
+                        _nodes.Add(new FolderViewModel(node));
+                    }
                 }
+                return _nodes;
             }
         }
 

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using JaCoCoReader.Core.UI;
 using JaCoCoReader.Core.UI.Icons;
@@ -23,8 +26,12 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             get { return FontAwesomeIcon.FolderOpen; }
         }
 
+        //public Lazy<ObservableViewModelCollection<FolderViewModel, Folder> Folders { get; }
+
         public Lazy<FolderCollectionViewModel> Folders { get; }
         public Lazy<SourcefileCollectionViewModel> Sourcefiles { get; }
+
+        private Collection<IFolderNodeViewModel> _items;
 
         public IEnumerable<IFolderNodeViewModel> Items
         {
@@ -32,17 +39,24 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (Model == null)
                 {
-                    yield break;
+                    return null;
                 }
-                foreach (FolderViewModel folder in Folders.Value.Nodes)
+                if (_items == null)
                 {
-                    yield return folder;
+                    _items = new Collection<IFolderNodeViewModel>();
+                    foreach (FolderViewModel folder in Folders.Value.Nodes)
+                    {
+                        _items.Add(folder);
+                        //yield return folder;
+                    }
+                    foreach (SourcefileViewModel sourceFiles in Sourcefiles.Value.Nodes)
+                    {
+                        _items.Add(sourceFiles);
+                        //yield return sourceFiles;
+                    }
                 }
-                foreach (SourcefileViewModel sourceFiles in Sourcefiles.Value.Nodes)
-                {
-                    yield return sourceFiles;
-                }
-
+                return _items;
+               
             }
         }
 

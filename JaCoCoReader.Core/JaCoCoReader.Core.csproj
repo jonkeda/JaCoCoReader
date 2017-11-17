@@ -57,6 +57,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\CoverageOrderMultiValueConvertor.cs" />
+    <Compile Include="ViewModels\CodeCoverage\CodeCoverageOrder.cs" />
     <Compile Include="Models\CodeCoverage\Class.cs" />
     <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
     <Compile Include="Models\Tests\ITestFileModel.cs" />

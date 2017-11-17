@@ -4,13 +4,15 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 {
     public class Folder
     {
+        public Folder()
+        { }
+
         public Folder(string name)
         {
             Name = name;
         }
 
         public string Name { get; set; }
-
 
         public FolderCollection Folders { get; } = new FolderCollection();
 

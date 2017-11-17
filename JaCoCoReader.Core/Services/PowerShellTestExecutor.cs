@@ -177,17 +177,7 @@ namespace JaCoCoReader.Core.Services
                         {
                             file.SetOutcome(TestOutcome.Failed);
                         }
-                        // todo
-                        //describe.SetOutcome(TestOutcome.Failed);
-                        //foreach (var testCase in testSet.Contexts)
-                        //{
-                        //    var testResult = new TestResult(testCase);
-                        //    testResult.Outcome = TestOutcome.Failed;
-                        //    testResult.ErrorMessage = ex.Message;
-                        //    testResult.ErrorStackTrace = ex.StackTrace;
-                        //    frameworkHandle.RecordResult(testResult);
-                        //}
-                    }
+  }
                 }
             }
         }

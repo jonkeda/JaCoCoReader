@@ -2,9 +2,10 @@ backlog
 * ~~Add tests window to VisualStudio~~
 * Change menu to Icons
 
+
 CodeCoverage
 * add button tooltips
-* allow sorting on line and percentages
+* ~~allow sorting on line and percentages~~
 * Allow Selected scripts coverage
 * Add No Coverage tags to Pester
 * ~~Clear button~~
@@ -23,22 +24,22 @@ Code coverage editor
 
 
 Tests
+* Add file
+* Add timecounter when running scripts
 * ~~Running Status~~
 * ~~Check if already running~~
 * ~~run Context only~~
 * ~~run It only~~
 * ~~Improve Scrolling~~
-* Add file
-* auto clear code coverage
-* Allow for running of all Solution, folder, project, file, context, tests in one session
-* Add timecounter when running scripts
+* ~~auto clear code coverage~~
+* ~~Allow for running of all Solution, folder, project, file, context, tests in one session~~
 
 
 Tests Details
-* ~~Allow resize~~
 * Add button to Open toolwindow with output
 * Show totals Passed / Failed
 * Split output per It
+* ~~Allow resize~~
 
 
 Tests window
@@ -46,20 +47,20 @@ Tests window
 
 
 Tests tree
+* add gherkin features
+* add button to open code coverage window
 * ~~Add icons~~
 * ~~Add traffic light~~
 * ~~Run tests if nothing is selected~~
 * ~~Remove outcome column~~
 * ~~load folders and files from solutions and folders~~
 * ~~Context menu should open testfile~~
-* add gherkin features
-* add button to open code coverage window
 
 
 Tests Bug
 * Powershell scripts aren't added to the code coverage
-* Run of tests is slow
 * Open folder view from solution
+* ~~Run of tests is slow~~
 * ~~Describe name is not taken correctly~~
 * ~~Row highlighting is two lines too low~~
 * ~~Load Ing.Briard opens a window instead of loading powershell scripts~~
