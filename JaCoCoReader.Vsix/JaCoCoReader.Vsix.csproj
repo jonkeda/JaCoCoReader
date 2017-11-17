@@ -66,17 +66,6 @@
     <Compile Include="CodeCoverage\CodeCoverageWindowPackage.cs" />
     <Compile Include="Extensions\TextBufferExtensions.cs" />
     <Compile Include="FileExtension\PesterFileAndContentTypeDefinitions.cs" />
-    <Compile Include="Glyphs\PesterClassifier.cs" />
-    <Compile Include="Glyphs\PesterClassifierProvider.cs" />
-    <Compile Include="Glyphs\PesterFormat.cs" />
-    <Compile Include="Glyphs\PesterGlyph.xaml.cs">
-      <DependentUpon>PesterGlyph.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Glyphs\PesterGlyphFactory.cs" />
-    <Compile Include="Glyphs\PesterGlyphFactoryProvider.cs" />
-    <Compile Include="Glyphs\PesterTag.cs" />
-    <Compile Include="Glyphs\PesterTagger.cs" />
-    <Compile Include="Glyphs\PesterTaggerProvider.cs" />
     <Compile Include="Models\Tests\VsTestContext.cs" />
     <Compile Include="Models\Tests\VsTestDescribe.cs" />
     <Compile Include="Models\Tests\VsTestFile.cs" />
@@ -87,6 +76,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\VsExtensions.cs" />
     <Compile Include="Services\CodeCoverageService.cs" />
+    <Compile Include="Tests\TestsAdornment.cs" />
+    <Compile Include="Tests\TestsAdornmentTextViewCreationListener.cs" />
     <Compile Include="Tests\TestsWindow.cs" />
     <Compile Include="Tests\TestsWindowCommand.cs" />
     <Compile Include="Tests\TestsWindowControl.xaml.cs">
@@ -233,10 +224,6 @@
     <Page Include="CodeCoverage\CodeCoverageWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Glyphs\PesterGlyph.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>

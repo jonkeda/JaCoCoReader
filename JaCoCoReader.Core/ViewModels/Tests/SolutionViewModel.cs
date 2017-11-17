@@ -13,6 +13,8 @@ using JaCoCoReader.Core.ViewModels.CodeCoverage;
 
 namespace JaCoCoReader.Core.ViewModels.Tests
 {
+    public delegate void TestModelChanged();
+
     public class TestsViewModel : ModelViewModel<TestSolution>
     {
         private readonly CodeCoverageViewModel _codeCoverage;
@@ -137,6 +139,15 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             get { return new TargetCommand(DoOpenFileCommand); }
         }
 
+        public bool ShowLines
+        {
+            get { return _showLines; }
+            set { SetProperty(ref _showLines, value); }
+        }
+
+        public event TestModelChanged ModelChanged;
+        public event TestModelChanged ShowLinesModelChanged;
+
         protected virtual void DoOpenFileCommand()
         {
             
@@ -149,6 +160,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
         private PowerShellTestExecutor _executor;
         private bool _clearCodeCoverage = true;
+        private bool _showLines = true;
 
         private void DoRunCommandAsync()
         {
@@ -194,6 +206,11 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 Running = false;
                 RunningTest = "";
             }
+        }
+
+        public TestFile GetSourceFileByPath(string textDocumentFilePath)
+        {
+            return null;
         }
     }
 }
