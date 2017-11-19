@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Shapes;
+using System.Windows.Media;
 using JaCoCoReader.Core.Models.Tests;
+using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.ViewModels.Tests;
 using JaCoCoReader.Vsix.Extensions;
@@ -13,6 +13,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
+using Colors = JaCoCoReader.Core.ViewModels.Colors;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace JaCoCoReader.Vsix.Tests
 {
@@ -113,11 +115,11 @@ namespace JaCoCoReader.Vsix.Tests
             {
                 return;
             }
-            //TestFile sourceFile = _tests.GetSourceFileByPath(textDocument.FilePath);
-            //if (sourceFile == null)
-            //{
-            //    return;
-            //}
+            TestFile sourceFile = _tests.GetSourceFileByPath(textDocument.FilePath);
+            if (sourceFile == null)
+            {
+                return;
+            }
             double viewportWidth = _view.ViewportWidth;
             foreach (ITextViewLine line in newOrReformattedLines)
             {
@@ -125,35 +127,34 @@ namespace JaCoCoReader.Vsix.Tests
 
                 IList<ClassificationSpan> classifiers = _classifier.GetClassificationSpans(line.Extent);
 
-                ClassificationSpan cspan = classifiers.FirstOrDefault(c =>
-                    c.ClassificationType.Classification.Contains("PowerShellCommand"));
+                //ClassificationSpan cspan = classifiers.FirstOrDefault(c =>
+                //    c.ClassificationType.Classification.Contains("PowerShellCommand"));
 
-                bool found = false;
-                string text = cspan?.Span.GetText();
-                if (string.Equals(text, "describe", StringComparison.InvariantCultureIgnoreCase))
+                TestOutcome? outcome = sourceFile.GetOutcome(lineNumber);
+                if (outcome != null)
                 {
-                    found = true;
-                }
-                else if (string.Equals(text, "context", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    found = true;
-                }
-                else if (string.Equals(text, "it", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    found = true;
-                }
-
-                //line.Snapshot;
-
-                if (found)
-                {
-                    bool hit = true;
+                    Brush brush;
+                    switch (outcome)
+                    {
+                        case TestOutcome.Failed:
+                            brush = Colors.MissedBackground;
+                            break;
+                        case TestOutcome.Passed:
+                            brush = Colors.HitBackground;
+                            break;
+                        case TestOutcome.None:
+                        case TestOutcome.Skipped:
+                        case TestOutcome.NotFound:
+                        default:
+                            brush = Colors.NotRunBackground;
+                            break;
+                    }
 
                     Rectangle rect = new Rectangle
                     {
                         Height = line.Height,
                         Width = viewportWidth,
-                        Fill = hit ? Core.ViewModels.Colors.NotRunBackground : Core.ViewModels.Colors.MissedBackground,
+                        Fill = brush
 
                     };
 

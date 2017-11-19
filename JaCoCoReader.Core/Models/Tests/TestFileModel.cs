@@ -1,11 +1,10 @@
 using System;
 using System.IO;
-using JaCoCoReader.Core.UI.Icons;
 
 namespace JaCoCoReader.Core.Models.Tests
 {
     public abstract class TestFileModel<TC> : TestModel<TC>, ITestFileModel
-        where TC : TestModel
+        where TC : TestModel 
     {
         public string Path { get; set; }
 
@@ -28,6 +27,5 @@ namespace JaCoCoReader.Core.Models.Tests
                 return _text;
             }
         }
-
     }
 }

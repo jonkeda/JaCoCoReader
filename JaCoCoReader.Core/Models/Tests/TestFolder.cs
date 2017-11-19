@@ -41,5 +41,15 @@ namespace JaCoCoReader.Core.Models.Tests
                 }
             }
         }
+
+        protected override void DoMerge(TestModel model)
+        {
+            if (model is TestFolder testFolders)
+            {
+                Folders.Merge(testFolders.Folders);
+                Files.Merge(testFolders.Files);
+            }
+        }
+
     }
 }

@@ -39,11 +39,17 @@ namespace JaCoCoReader.Vsix.ViewModels
 
         protected void LoadFromSolution()
         {
-            Model.Projects.Clear();
+            //Model.Projects.Clear();
 
             foreach (TestProject testProject in VsPowerShellTestDiscoverer.GetTests())
             {
-                Model.Projects.Add(testProject);
+                TestSolution solution = new TestSolution();
+                solution.Projects.Add(testProject);
+                Model.Merge(solution);
+                CleartestFilesByPath();
+                OnModelChanged();
+
+                //Model.Projects.Add(testProject);
             }
         }
 

@@ -21,5 +21,9 @@ namespace JaCoCoReader.Core.Models.Tests
         {
             
         }
+
+        protected override void DoMerge(TestModel model)
+        {
+        }
     }
 }

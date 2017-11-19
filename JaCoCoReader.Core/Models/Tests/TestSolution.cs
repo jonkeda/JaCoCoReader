@@ -21,5 +21,13 @@ namespace JaCoCoReader.Core.Models.Tests
         {
             get { return Projects; }
         }
+
+        protected override void DoMerge(TestModel model)
+        {
+            if (model is TestSolution testSolution)
+            {
+                Projects.Merge(testSolution.Projects);
+            }
+        }
     }
 }

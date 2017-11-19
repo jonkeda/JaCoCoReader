@@ -37,6 +37,8 @@ namespace JaCoCoReader.Core.Models.Tests
             }
         }
 
+        public int LineNr { get; set; }
+
         public virtual void CalculateOutcome()
         {
             TestOutcome outcome = TestOutcome.None;
@@ -84,9 +86,20 @@ namespace JaCoCoReader.Core.Models.Tests
                 }
             }
         }
+
+
+        public void Merge(TestModel model)
+        {
+            LineNr = model.LineNr;
+            DoMerge(model);
+        }
+
+        protected abstract void DoMerge(TestModel model);
+
     }
 
     public abstract class TestModel<T> : TestModel
+        where T : TestModel
     {
         public T Parent { get; set; }
     }

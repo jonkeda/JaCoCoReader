@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\CoverageOrderMultiValueConvertor.cs" />
+    <Compile Include="Models\Tests\TestModelByLine.cs" />
+    <Compile Include="Models\Tests\TestModelsByName.cs" />
     <Compile Include="ViewModels\CodeCoverage\CodeCoverageOrder.cs" />
     <Compile Include="Models\CodeCoverage\Class.cs" />
     <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileViewModel.cs" />
     <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestModelChanged.cs" />
     <Compile Include="Views\CodeCoverageMarginView.xaml.cs">
       <DependentUpon>CodeCoverageMarginView.xaml</DependentUpon>
     </Compile>

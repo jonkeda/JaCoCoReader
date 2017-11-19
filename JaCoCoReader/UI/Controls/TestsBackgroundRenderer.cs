@@ -6,19 +6,19 @@ using Colors = JaCoCoReader.Core.ViewModels.Colors;
 
 namespace JaCoCoReader.UI.Controls
 {
-    public class CoverageBackgroundRenderer : IBackgroundRenderer
+    public class TestsBackgroundRenderer : IBackgroundRenderer
     {
         static readonly Pen Pen;
 
         readonly CodeCoverageTextEditor _editor;
 
-        static CoverageBackgroundRenderer()
+        static TestsBackgroundRenderer()
         {
             SolidColorBrush blackBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0)); blackBrush.Freeze();
             Pen = new Pen(blackBrush, 0.0);
         }
 
-        public CoverageBackgroundRenderer(CodeCoverageTextEditor editor)
+        public TestsBackgroundRenderer(CodeCoverageTextEditor editor)
         {
             this._editor = editor;
         }

@@ -67,13 +67,13 @@ namespace JaCoCoReader.Vsix.Services
                                 Path = fileName
                             };
 
-                            DiscoverPesterTests(fileName, file.Describes, null);
-
-                            if (file.Describes.Count > 0)
+                            if (DiscoverPesterTests(fileName, file.Describes, null))
                             {
-                                parentFolder.Files.Add(file);
+                                if (file.Describes.Count > 0)
+                                {
+                                    parentFolder.Files.Add(file);
+                                }
                             }
-
                         }
                     }
                 }

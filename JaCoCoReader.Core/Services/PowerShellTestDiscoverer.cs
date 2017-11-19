@@ -48,20 +48,24 @@ namespace JaCoCoReader.Core.Services
                     Name = Path.GetFileNameWithoutExtension(source),
                     Path = source
                 };
-
-                DiscoverPesterTests(source, file.Describes, logger);
-
-                if (file.Describes.Count > 0)
+                if (DiscoverPesterTests(source, file.Describes, logger))
                 {
-                    parentFolder.Files.Add(file);
+                    if (file.Describes.Count > 0)
+                    {
+                        parentFolder.Files.Add(file);
+                    }
                 }
             }
         }
 
-        protected static void DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
+        protected static bool DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
         {
+            if (!File.Exists(source))
+            {
+                return false;
+            }
             //SendMessage(TestMessageLevel.Informational, string.Format(Resources.SearchingForTestsFormat, source), logger);
-            Token[] tokens;
+                Token[] tokens;
             ParseError[] errors;
             ScriptBlockAst ast = Parser.ParseFile(source, out tokens, out errors);
 
@@ -78,7 +82,7 @@ namespace JaCoCoReader.Core.Services
                 ast.FindAll(
                     m =>
                         (m is CommandAst) &&
-                        string.Equals("describe", ((CommandAst) m).GetCommandName(), StringComparison.OrdinalIgnoreCase), true);
+                        string.Equals("describe", ((CommandAst)m).GetCommandName(), StringComparison.OrdinalIgnoreCase), true);
 
             foreach (Ast describeAst in testSuites)
             {
@@ -116,7 +120,9 @@ namespace JaCoCoReader.Core.Services
                     {
                         Name = itName,
                         Ast = itAst,
-                        Path = source
+                        Path = source,
+                        LineNr = itAst.Extent.StartLineNumber
+
                     };
 
                     context.Its.Add(it);
@@ -127,7 +133,8 @@ namespace JaCoCoReader.Core.Services
                     {
                         Name = describeName,
                         Ast = describeAst,
-                        Path = source
+                        Path = source,
+                        LineNr = describeAst.Extent.StartLineNumber
                     };
                     foreach (TestContext context in contextByName.Values)
                     {
@@ -136,6 +143,7 @@ namespace JaCoCoReader.Core.Services
                     tests.Add(describe);
                 }
             }
+            return true;
         }
 
         private static string GetParentContextName(IMessageLogger logger, Ast ast)

@@ -67,6 +67,7 @@
     <Compile Include="UI\Controls\BindableTextEditor.cs" />
     <Compile Include="UI\Controls\CodeCoverageTextEditor.cs" />
     <Compile Include="UI\Controls\CoverageBackgroundRenderer.cs" />
+    <Compile Include="UI\Controls\TestsBackgroundRenderer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

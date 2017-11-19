@@ -8,13 +8,12 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
+using JaCoCoReader.Core.Threading;
 using JaCoCoReader.Core.UI;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 
 namespace JaCoCoReader.Core.ViewModels.Tests
 {
-    public delegate void TestModelChanged();
-
     public class TestsViewModel : ModelViewModel<TestSolution>
     {
         private readonly CodeCoverageViewModel _codeCoverage;
@@ -27,6 +26,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         private TestModel _selectedNode;
         private bool _running;
         private string _runningTest;
+        private TestFilesByPath _testFilesByPath;
 
         public TestModel SelectedNode
         {
@@ -70,9 +70,14 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             get { return new TargetCommand(DoStopCommand); }
         }
 
+        protected override void OnModelChanged()
+        {
+            DoModelChanged();
+        }
+
         protected virtual void DoLoadCommand()
         {
-            Model.Projects.Clear();
+            //Model.Projects.Clear();
 
             FolderBrowserDialog ofd = new FolderBrowserDialog();
 #if DEBUG
@@ -84,8 +89,18 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             {
                 RootPath = ofd.SelectedPath;
                 TestProject testProject = PowerShellTestDiscoverer.GetTests(ofd.SelectedPath, null);
-                Model.Projects.Add(testProject);
+
+                TestSolution solution = new TestSolution();
+                solution.Projects.Add(testProject);
+                Model.Merge(solution);
+                CleartestFilesByPath();
+                OnModelChanged();
             }
+        }
+
+        protected void CleartestFilesByPath()
+        {
+            _testFilesByPath = null;
         }
 
         private string RootPath { get; set; }
@@ -146,6 +161,12 @@ namespace JaCoCoReader.Core.ViewModels.Tests
         }
 
         public event TestModelChanged ModelChanged;
+
+        private void DoModelChanged()
+        {
+            ThreadDispatcher.Dispatcher.Invoke(() => ModelChanged?.Invoke());
+        }
+
         public event TestModelChanged ShowLinesModelChanged;
 
         protected virtual void DoOpenFileCommand()
@@ -200,6 +221,8 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 Model.CalculateOutcome();
 
                 _codeCoverage.Merge(content.Reports, ClearCodeCoverage);
+
+                OnModelChanged();
             }
             finally
             {
@@ -208,9 +231,41 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             }
         }
 
-        public TestFile GetSourceFileByPath(string textDocumentFilePath)
+        public TestFile GetSourceFileByPath(string path)
         {
+            if (_testFilesByPath == null)
+            {
+                TestFilesByPath testFilesByPath = new TestFilesByPath();
+                GetSourceFilePaths(Model, testFilesByPath);
+                _testFilesByPath = testFilesByPath;
+            }
+
+            if (_testFilesByPath.TryGetValue(path, out TestFile testFile))
+            {
+                return testFile;
+            }
             return null;
         }
+
+        private void GetSourceFilePaths(TestModel model, TestFilesByPath testFilesByPath)
+        {
+            foreach (TestModel item in model.Items)
+            {
+                if (item is TestFile file)
+                {
+                    if (!testFilesByPath.ContainsKey(file.Path))
+                    {
+                        testFilesByPath.Add(file.Path, file);
+                    }
+                }
+                else
+                {
+                    GetSourceFilePaths(item, testFilesByPath);
+                }
+            }
+        }
     }
+
+    public class TestFilesByPath : Dictionary<string, TestFile>
+    { }
 }

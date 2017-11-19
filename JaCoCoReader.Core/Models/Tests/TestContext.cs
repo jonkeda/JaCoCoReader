@@ -27,5 +27,13 @@ namespace JaCoCoReader.Core.Models.Tests
             get { return FontAwesomeIcon.Reorder; }
         }
 
+
+        protected override void DoMerge(TestModel model)
+        {
+            if (model is TestContext testContexts)
+            {
+                Its.Merge(testContexts.Its);
+            }
+        }
     }
 }

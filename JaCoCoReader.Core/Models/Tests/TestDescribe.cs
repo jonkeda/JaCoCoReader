@@ -128,5 +128,14 @@ namespace JaCoCoReader.Core.Models.Tests
             }
             return TestOutcome.Failed;
         }
+
+        protected override void DoMerge(TestModel model)
+        {
+            if (model is TestDescribe testDescribe)
+            {
+                Contexts.Merge(testDescribe.Contexts);
+            }
+        }
+
     }
 }
