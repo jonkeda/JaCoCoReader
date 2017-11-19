@@ -40,7 +40,7 @@ namespace JaCoCoReader.Core.Models.Tests
             }
         }
 
-        public TestOutcome? GetOutcome(int line)
+        public TestOutcome GetOutcome(int line)
         {
             if (_testModelByLine == null)
             {
@@ -53,7 +53,7 @@ namespace JaCoCoReader.Core.Models.Tests
             {
                 return model.Outcome;
             }
-            return null;
+            return TestOutcome.None;
         }
 
         private void GetLineNumbers(TestModel model, TestModelByLine byLine)

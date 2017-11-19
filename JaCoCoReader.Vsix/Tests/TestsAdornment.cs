@@ -116,10 +116,7 @@ namespace JaCoCoReader.Vsix.Tests
                 return;
             }
             TestFile sourceFile = _tests.GetSourceFileByPath(textDocument.FilePath);
-            if (sourceFile == null)
-            {
-                return;
-            }
+
             double viewportWidth = _view.ViewportWidth;
             foreach (ITextViewLine line in newOrReformattedLines)
             {
@@ -127,12 +124,30 @@ namespace JaCoCoReader.Vsix.Tests
 
                 IList<ClassificationSpan> classifiers = _classifier.GetClassificationSpans(line.Extent);
 
-                //ClassificationSpan cspan = classifiers.FirstOrDefault(c =>
-                //    c.ClassificationType.Classification.Contains("PowerShellCommand"));
+                ClassificationSpan cspan = classifiers.FirstOrDefault(c =>
+                    c.ClassificationType.Classification.Contains("PowerShellCommand"));
 
-                TestOutcome? outcome = sourceFile.GetOutcome(lineNumber);
-                if (outcome != null)
+                bool found = false;
+                string text = cspan?.Span.GetText();
+                if (string.Equals(text, "describe", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    found = true;
+                }
+                else if (string.Equals(text, "context", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    found = true;
+                }
+                else if (string.Equals(text, "it", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    found = true;
+                }
+                if (found)
+                {
+                    TestOutcome outcome = TestOutcome.None;
+                    if (sourceFile != null)
+                    {
+                        outcome = sourceFile.GetOutcome(lineNumber);
+                    }
                     Brush brush;
                     switch (outcome)
                     {
