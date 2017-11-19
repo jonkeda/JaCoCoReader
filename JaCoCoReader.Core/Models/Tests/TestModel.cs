@@ -63,6 +63,24 @@ namespace JaCoCoReader.Core.Models.Tests
             }
         }
 
+        public TestModel FindModelByLineNumber(int lineNumber)
+        {
+            if (lineNumber == LineNr)
+            {
+                return this;
+            }
+            foreach (TestModel model in Items)
+            {
+                TestModel found = model.FindModelByLineNumber(lineNumber);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+            return null;
+        }
+
+
         public virtual IEnumerable<TestModel> Items
         {
             get
@@ -87,6 +105,11 @@ namespace JaCoCoReader.Core.Models.Tests
             }
         }
 
+
+        public void NotifyItemsChanged()
+        {
+            NotifyPropertyChanged(nameof(Items));
+        }
 
         public void Merge(TestModel model)
         {

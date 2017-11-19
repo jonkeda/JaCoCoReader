@@ -70,10 +70,10 @@ Tests Bug
 
 
 Test glyphs
-* Show glyphs next to describe, Context and It
-* Show colored glyphs
-* Allow for start of tests in editor
-* Add pester content type
+* ~~Show glyphs next to describe, Context and It~~
+* ~~Show colored glyphs~~
+* ~~Allow for start of tests in editor~~
+* ~~Add pester content type~~
 
 
 

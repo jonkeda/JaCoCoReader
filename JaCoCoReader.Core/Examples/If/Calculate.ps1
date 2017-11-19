@@ -1,4 +1,4 @@
-function Add-Numbers($a, $o, $b) {
+function Calculate-Numbers($a, $o, $b) {
     if ($o -eq '+')
     {
         return $a + $b

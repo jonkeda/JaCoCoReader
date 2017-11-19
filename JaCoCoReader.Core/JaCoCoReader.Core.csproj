@@ -167,7 +167,8 @@
     <Compile Include="ViewModels\CodeCoverage\CodeCoverageViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs" />
     <Compile Include="ViewModels\CodeCoverage\SourcefileViewModel.cs" />
-    <Compile Include="ViewModels\Tests\SolutionViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestsViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestFilesByPath.cs" />
     <Compile Include="ViewModels\Tests\TestModelChanged.cs" />
     <Compile Include="Views\CodeCoverageMarginView.xaml.cs">
       <DependentUpon>CodeCoverageMarginView.xaml</DependentUpon>

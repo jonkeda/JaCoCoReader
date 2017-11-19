@@ -185,6 +185,11 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
         private void DoRunCommandAsync()
         {
+            DoRunCommandAsync(SelectedNode);
+        }
+
+        private void DoRunCommandAsync(TestModel node)
+        {
             try
             {
                 if (Running)
@@ -196,7 +201,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 RunContext content = new RunContext(UpdateRunningTest, _codeCoverage.SelectedCoveredScripts, GetScriptFileNames());
                 _executor = new PowerShellTestExecutor();
 
-                switch (SelectedNode)
+                switch (node)
                 {
                     case null:
                         _executor.RunTestSolution(Model, content);
@@ -216,6 +221,13 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                     case TestDescribe testDescribe:
                         _executor.RunTestDescribe(testDescribe, content);
                         break;
+                    case TestContext testContext:
+                        _executor.RunTestDescribe(testContext.Parent, content);
+                        break;
+                    case TestIt testIt:
+                        _executor.RunTestDescribe(testIt.Parent.Parent, content);
+                        break;
+
                 }
 
                 Model.CalculateOutcome();
@@ -231,7 +243,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
             }
         }
 
-        public TestFile GetSourceFileByPath(string path)
+        public TestFile GetTestFileByPath(string path)
         {
             if (_testFilesByPath == null)
             {
@@ -264,8 +276,40 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 }
             }
         }
-    }
 
-    public class TestFilesByPath : Dictionary<string, TestFile>
-    { }
+        public void RunTests(string filePath, int lineNumber)
+        {
+            TestFile testFile = GetTestFileByPath(filePath);
+            TestFile newFile = PowerShellTestDiscoverer.DiscoverTestFile(filePath);
+            if (testFile == null)
+            {
+                testFile = newFile;
+                AddTestFile(testFile);
+            }
+            else
+            {
+                testFile.Merge(newFile);
+            }
+            TestModel model = testFile.FindModelByLineNumber(lineNumber);
+            if (model != null)
+            {
+                DoRunCommandAsync(model);
+            }
+        }
+
+        private void AddTestFile(TestFile testFile)
+        {
+            TestProject project = Model.Projects.FirstOrDefault(p => p.Name == "new");
+            if (project == null)
+            {
+                project = new TestProject
+                {
+                    Name = "new"
+                };
+                Model.Projects.Add(project);
+            }
+            project.Files.Add(testFile);
+            project.NotifyItemsChanged();
+        }
+    }
 }

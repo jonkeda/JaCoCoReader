@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
-using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.ViewModels.Tests;
 using JaCoCoReader.Vsix.Extensions;
 using JaCoCoReader.Vsix.Services;
@@ -115,32 +113,13 @@ namespace JaCoCoReader.Vsix.Tests
             {
                 return;
             }
-            TestFile sourceFile = _tests.GetSourceFileByPath(textDocument.FilePath);
+            TestFile sourceFile = _tests.GetTestFileByPath(textDocument.FilePath);
 
             double viewportWidth = _view.ViewportWidth;
             foreach (ITextViewLine line in newOrReformattedLines)
             {
-                int lineNumber = _view.TextSnapshot.GetLineNumberFromPosition(line.Extent.Start) + 1;
-
-                IList<ClassificationSpan> classifiers = _classifier.GetClassificationSpans(line.Extent);
-
-                ClassificationSpan cspan = classifiers.FirstOrDefault(c =>
-                    c.ClassificationType.Classification.Contains("PowerShellCommand"));
-
-                bool found = false;
-                string text = cspan?.Span.GetText();
-                if (string.Equals(text, "describe", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    found = true;
-                }
-                else if (string.Equals(text, "context", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    found = true;
-                }
-                else if (string.Equals(text, "it", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    found = true;
-                }
+                int lineNumber;
+                bool found = line.Extent.FindTest(_view, _classifier, out lineNumber);
                 if (found)
                 {
                     TestOutcome outcome = TestOutcome.None;

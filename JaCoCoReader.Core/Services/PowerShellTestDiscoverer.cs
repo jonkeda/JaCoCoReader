@@ -58,6 +58,20 @@ namespace JaCoCoReader.Core.Services
             }
         }
 
+        public static TestFile DiscoverTestFile(string source)
+        {
+            TestFile file = new TestFile
+            {
+                Name = Path.GetFileNameWithoutExtension(source),
+                Path = source
+            };
+            if (DiscoverPesterTests(source, file.Describes, null))
+            {
+                return file;
+            }
+            return null;
+        }
+
         protected static bool DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
         {
             if (!File.Exists(source))

@@ -4,7 +4,16 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 Describe -Tags "Example" "Calculate" {
 
     It "Calculate addition numbers" {
-        Add-Numbers 2 '+' 3  | Should Be 6
+        Calculate-Numbers 2 '+' 3  | Should Be 6
     }
+
+    It "Calculate addition numbers2" {
+        Calculate-Numbers 2 '+' 3  | Should Be 5
+    }
+
+    It "Calculate addition numbers 3" {
+        Calculate-Numbers 2 '-' 3  | Should Be 5
+    }
+
 }
 
