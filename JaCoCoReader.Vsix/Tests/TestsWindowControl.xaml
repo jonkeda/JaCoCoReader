@@ -28,7 +28,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <views:TestsMenu Grid.Row="0" />
-            <views:TestsTree Grid.Row="1" />
+            <views:TestsMenu Grid.Row="0" 
+                             Background="{Binding Background, ElementName=TestsToolWindow}"
+                             Foreground="{Binding Foreground, ElementName=TestsToolWindow}"/>
+        <views:TestsTree Grid.Row="1"  
+                         Background="{Binding Background, ElementName=TestsToolWindow}"
+                         Foreground="{Binding Foreground, ElementName=TestsToolWindow}"/>
     </Grid>
 </UserControl>

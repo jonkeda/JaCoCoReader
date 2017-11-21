@@ -8,7 +8,7 @@
              xmlns:codeCoverage11="clr-namespace:JaCoCoReader.Core.Models.Tests"
              xmlns:views="clr-namespace:JaCoCoReader.Core.Views"
              xmlns:icons="clr-namespace:JaCoCoReader.Core.UI.Icons"
-
+             x:Name="TestsTreeName"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=tests1:TestsViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -22,7 +22,9 @@
     </UserControl.Resources>
     <DockPanel>
 
-        <views:TestsDetails DockPanel.Dock="Bottom" DataContext="{Binding SelectedNode}" Height="150" />
+        <views:TestsDetails DockPanel.Dock="Bottom" DataContext="{Binding SelectedNode}" Height="150" 
+                            Background="{Binding Background, ElementName=TestsTreeName}" 
+                            Foreground="{Binding Foreground, ElementName=TestsTreeName}" />
 
         <controls1:DockPanelSplitter DockPanel.Dock="Bottom" Height="3" >
 
@@ -37,7 +39,9 @@
 
         </controls1:DockPanelSplitter>
 
-        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0">
+        <controls1:TreeViewEx ItemsSource="{Binding Model.Projects}" SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" BorderThickness="0"
+                              Background="{Binding Background, ElementName=TestsTreeName}" 
+                              Foreground="{Binding Foreground, ElementName=TestsTreeName}" >
             <controls1:TreeViewEx.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding RunCommand}" Header="run" />
@@ -48,7 +52,8 @@
                 <HierarchicalDataTemplate DataType="{x:Type codeCoverage11:TestModel}" ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">
                         <icons:FontAwesome Icon="{Binding Icon}" Foreground="{Binding Background}" />
-                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0" 
+                                   Foreground="{Binding Foreground, ElementName=TestsTreeName}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </controls1:TreeViewEx.ItemTemplate>

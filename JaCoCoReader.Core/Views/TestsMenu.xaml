@@ -6,6 +6,7 @@
              xmlns:tests1="clr-namespace:JaCoCoReader.Core.ViewModels.Tests"
              xmlns:converters="clr-namespace:JaCoCoReader.Core.UI.Converters"
              mc:Ignorable="d" 
+             x:Name="TestsMenuName"
              d:DataContext="{d:DesignInstance Type=tests1:TestsViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="40" d:DesignWidth="300">
     
@@ -25,6 +26,7 @@
         
         <TextBlock Text="{Binding RunningTest}" VerticalAlignment="Center" Margin="5,0,0,0"/>
 
-        <CheckBox IsChecked="{Binding ClearCodeCoverage}" Content="Clear codecoverage" Margin="5,0,0,0" VerticalAlignment="Center"/>
+        <CheckBox IsChecked="{Binding ClearCodeCoverage}" Content="Clear codecoverage" Margin="5,0,0,0" VerticalAlignment="Center"
+                  Foreground="{Binding Foreground, ElementName=TestsMenuName}"/>
     </StackPanel>
 </UserControl>

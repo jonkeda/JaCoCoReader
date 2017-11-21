@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:codeCoverage="clr-namespace:JaCoCoReader.Core.ViewModels.CodeCoverage"
+             x:Name="CodeCoverageMenuName"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=codeCoverage:CodeCoverageViewModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="40" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal">
@@ -12,10 +13,12 @@
         
         <TextBlock Margin="5,0,0,0"  Text="Cover scripts" VerticalAlignment="Center" />
         
-        <ComboBox Margin="5,0,0,0" ItemsSource="{Binding CoveredScriptsItems}" SelectedItem="{Binding SelectedCoveredScriptsItem}" VerticalAlignment="Center"/>
+        <ComboBox Margin="5,0,0,0" ItemsSource="{Binding CoveredScriptsItems}" SelectedItem="{Binding SelectedCoveredScriptsItem}" 
+                  VerticalAlignment="Center"/>
         <TextBlock Margin="5,0,0,0" Text="Show code coverage coloring" VerticalAlignment="Center" />
         
-        <CheckBox IsChecked="{Binding ShowLinesHit}" Margin="5" VerticalAlignment="Center"/>
+        <CheckBox IsChecked="{Binding ShowLinesHit}" Margin="5" VerticalAlignment="Center"
+                  Foreground="{Binding Foreground, ElementName=CodeCoverageMenuName}"/>
         
     </StackPanel>
 </UserControl>

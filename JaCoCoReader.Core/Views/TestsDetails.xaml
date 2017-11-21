@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:tests="clr-namespace:JaCoCoReader.Core.Models.Tests"
              xmlns:converters="clr-namespace:JaCoCoReader.Core.UI.Converters"
-             xmlns:icons="clr-namespace:JaCoCoReader.Core.UI.Icons"
              mc:Ignorable="d" 
+             x:Name="TestsDetailsName"
              d:DataContext="{d:DesignInstance Type=tests:TestModel, IsDesignTimeCreatable=false}"
              d:DesignHeight="150" d:DesignWidth="300">
     <Grid Visibility="{Binding Converter={x:Static converters:VisibilityConverter.Instance}}">
@@ -21,12 +21,12 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label Content="{Binding Type}" FontWeight="UltraBold" Margin="5,0,0,0" />
-            <Label Content="{Binding Name}" FontWeight="Bold" Margin="5,0,0,0" />
+            <TextBlock Text="{Binding Type}" FontWeight="UltraBold" Margin="5" />
+            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5" />
         </StackPanel>
-        
-        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Outcome}" />
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Time}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Outcome}" Margin="5" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Time}" Margin="5" />
         
         <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
             <Grid>
@@ -38,15 +38,21 @@
                 
                 
                 <TextBox Grid.Row="0" Text="{Binding ErrorMessage}" 
-                         Visibility="{Binding ErrorMessage, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+                         Visibility="{Binding ErrorMessage, Converter={x:Static converters:VisibilityConverter.Instance}}"
+                         Background="{Binding Background, ElementName=TestsDetailsName}"
+                         Foreground="{Binding Foreground, ElementName=TestsDetailsName}"/>
                 
                 <TextBox Grid.Row="1" Text="{Binding ErrorStackTrace}" AcceptsReturn="True" IsReadOnly="True" 
                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Height="150"
-                         Visibility="{Binding ErrorStackTrace, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+                         Visibility="{Binding ErrorStackTrace, Converter={x:Static converters:VisibilityConverter.Instance}}"
+                         Background="{Binding Background, ElementName=TestsDetailsName}"
+                         Foreground="{Binding Foreground, ElementName=TestsDetailsName}"/>
                 
                 <TextBox Grid.Row="2" Text="{Binding Output}" AcceptsReturn="True" IsReadOnly="True" 
                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
-                         Visibility="{Binding Output, Converter={x:Static converters:VisibilityConverter.Instance}}"/>
+                         Visibility="{Binding Output, Converter={x:Static converters:VisibilityConverter.Instance}}"
+                         Background="{Binding Background, ElementName=TestsDetailsName}"
+                         Foreground="{Binding Foreground, ElementName=TestsDetailsName}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -21,7 +21,9 @@
     </UserControl.Resources>
 
     <controls1:TreeListView SelectedNodeItem="{Binding SelectedNode, Mode=TwoWay}" 
-                                  BorderThickness="0">
+                                  BorderThickness="0"
+                            Background="{Binding Background, ElementName=CodeCoverageTreeName}"
+                            Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}">
         <controls1:TreeListView.ItemsSource>
 
             <MultiBinding Converter="{x:Static converters:CoverageOrderMultiValueConvertor.Instance}" UpdateSourceTrigger="PropertyChanged">
@@ -50,7 +52,8 @@
                                                   IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}"
                                                   ClickMode="Press"/>
                             <icons:FontAwesome Icon="{Binding Icon}" Foreground="{Binding Background}" />
-                            <TextBlock Text="{Binding Description}" Margin="5,0,0,0"/>
+                            <TextBlock Text="{Binding Description}" Margin="5,0,0,0"
+                                       Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}"/>
                         </DockPanel>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Path=HasItems,RelativeSource={RelativeSource AncestorType={x:Type controls1:TreeListViewItem}}}" 
@@ -70,7 +73,8 @@
                 </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLines}" />
+                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLines}"
+                                   Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}" />
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
@@ -81,7 +85,8 @@
                 </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" />
+                        <TextBlock TextAlignment="Right" Text="{Binding CoveredLinesPercentage, StringFormat={}{0:p0}}" 
+                                   Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}"/>
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
@@ -92,7 +97,8 @@
                 </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding MissedLines}"  />
+                        <TextBlock TextAlignment="Right" Text="{Binding MissedLines}"  
+                                   Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}"/>
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
@@ -103,7 +109,8 @@
                 </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  />
+                        <TextBlock TextAlignment="Right" Text="{Binding MissedLinesPercentage, StringFormat={}{0:p0}}"  
+                                   Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}"/>
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
@@ -114,7 +121,8 @@
                 </GridViewColumn.Header>
                 <GridViewColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type codeCoverage1:FolderViewModel}">
-                        <TextBlock TextAlignment="Right" Text="{Binding TotalLines}"  />
+                        <TextBlock TextAlignment="Right" Text="{Binding TotalLines}"  
+                                   Foreground="{Binding Foreground, ElementName=CodeCoverageTreeName}"/>
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>

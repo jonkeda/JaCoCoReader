@@ -3,8 +3,9 @@ function Calculate-Numbers($a, $o, $b) {
     {
         return $a + $b
     }
-    else
+    if ($o -eq '*')
     {
-        return $a - $b
+        return $a * $b
     }
+    return $a - $b
 }
