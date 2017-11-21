@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Rendering;
-using Colors = JaCoCoReader.Core.ViewModels.Colors;
+using Brushes = JaCoCoReader.Core.ViewModels.Brushes;
 
 namespace JaCoCoReader.UI.Controls
 {
@@ -48,11 +48,11 @@ namespace JaCoCoReader.UI.Controls
                     Brush brush;
                     if (hit)
                     {
-                        brush = Colors.HitBackground;
+                        brush = Brushes.HitBackground;
                     }
                     else
                     {
-                        brush = Colors.MissedBackground;
+                        brush = Brushes.MissedBackground;
                     }
 
                     drawingContext.DrawRectangle(brush, Pen,

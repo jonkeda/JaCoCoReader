@@ -146,13 +146,13 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (MissedLines > 0)
                 {
-                    return Brushes.DarkRed;
+                    return System.Windows.Media.Brushes.DarkRed;
                 }
                 if (CoveredLines > 0)
                 {
-                    return Brushes.DarkGreen;
+                    return System.Windows.Media.Brushes.DarkGreen;
                 }
-                return Colors.DefaultBackground;
+                return Brushes.DefaultBackground;
             }
         }
 
@@ -169,15 +169,15 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
 
                         if (line.Ci > 0)
                         {
-                            brush = Brushes.DarkGreen;
+                            brush = System.Windows.Media.Brushes.DarkGreen;
                         }
                         else if(line.Mi > 0)
                         {
-                            brush = Brushes.DarkRed;
+                            brush = System.Windows.Media.Brushes.DarkRed;
                         }
                         else 
                         {
-                            brush = Colors.DefaultBackground;
+                            brush = Brushes.DefaultBackground;
                         }
                         _brushLines.Add(new LineBrush(brush, line.Nr * 1000));
                     }

@@ -94,13 +94,13 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (MissedLines > 0)
                 {
-                    return Brushes.DarkRed;
+                    return System.Windows.Media.Brushes.DarkRed;
                 }
                 if (CoveredLines > 0)
                 {
-                    return Brushes.DarkGreen;
+                    return System.Windows.Media.Brushes.DarkGreen;
                 }
-                return Colors.DefaultBackground;
+                return Brushes.DefaultBackground;
             }
         }
 

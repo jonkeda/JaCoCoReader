@@ -56,6 +56,10 @@
   <ItemGroup>
     <Compile Include="CodeCoverage\CodeCoverageAdornment.cs" />
     <Compile Include="CodeCoverage\CodeCoverageAdornmentTextViewCreationListener.cs" />
+    <Compile Include="CodeCoverage\Classifier\CodeCoverageClassifier.cs" />
+    <Compile Include="CodeCoverage\Classifier\CodeCoverageClassifierType.cs" />
+    <Compile Include="CodeCoverage\Classifier\CodeCoverageClassifierFormat.cs" />
+    <Compile Include="CodeCoverage\Classifier\CodeCoverageClassifierProvider.cs" />
     <Compile Include="CodeCoverage\CodeCoverageMargin.cs" />
     <Compile Include="CodeCoverage\CodeCoverageMarginFactory.cs" />
     <Compile Include="CodeCoverage\CodeCoverageWindow.cs" />

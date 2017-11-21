@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
+using JaCoCoReader.Vsix.CodeCoverage.Classifier;
 using JaCoCoReader.Vsix.Extensions;
 using JaCoCoReader.Vsix.Services;
 using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
 
@@ -28,16 +31,34 @@ namespace JaCoCoReader.Vsix.CodeCoverage
 
         private readonly CodeCoverageViewModel _codeCoverage;
 
+        public Brush HitBackground = Core.ViewModels.Brushes.HitBackground;
+        public Brush MissedBackground = Core.ViewModels.Brushes.MissedBackground;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCoverageAdornment"/> class.
         /// </summary>
         /// <param name="view">Text view to create the adornment for</param>
-        public CodeCoverageAdornment(IWpfTextView view)
+        /// <param name="classificationRegistry"></param>
+        /// <param name="formatMap"></param>
+        public CodeCoverageAdornment(IWpfTextView view, 
+            IClassificationTypeRegistryService classificationRegistry,
+            IClassificationFormatMapService formatMap)
         {
             if (view == null)
             {
                 throw new ArgumentNullException(nameof(view));
             }
+
+            IClassificationType missClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Miss);
+            IClassificationFormatMap missFormat = formatMap.GetClassificationFormatMap(view);
+            TextFormattingRunProperties missText = missFormat.GetTextProperties(missClassificationType);
+            MissedBackground = missText.BackgroundBrush;
+
+            IClassificationType hitClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Miss);
+            IClassificationFormatMap hitFormat = formatMap.GetClassificationFormatMap(view);
+            TextFormattingRunProperties hitText = hitFormat.GetTextProperties(hitClassificationType);
+            HitBackground = hitText.BackgroundBrush;
+
 
             _layer = view.GetAdornmentLayer("CodeCoverageAdornment");
 
@@ -114,7 +135,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
                     {
                         Height = line.Height,
                         Width = viewportWidth,
-                        Fill = hit ? Core.ViewModels.Colors.HitBackground : Core.ViewModels.Colors.MissedBackground,
+                        Fill = hit ? HitBackground : MissedBackground,
 
                     };
 

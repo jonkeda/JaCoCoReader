@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
-using Colors = JaCoCoReader.Core.ViewModels.Colors;
+using Brushes = JaCoCoReader.Core.ViewModels.Brushes;
 using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace JaCoCoReader.Vsix.Tests
@@ -131,16 +131,16 @@ namespace JaCoCoReader.Vsix.Tests
                     switch (outcome)
                     {
                         case TestOutcome.Failed:
-                            brush = Colors.MissedBackground;
+                            brush = Brushes.MissedBackground;
                             break;
                         case TestOutcome.Passed:
-                            brush = Colors.HitBackground;
+                            brush = Brushes.HitBackground;
                             break;
                         case TestOutcome.None:
                         case TestOutcome.Skipped:
                         case TestOutcome.NotFound:
                         default:
-                            brush = Colors.NotRunBackground;
+                            brush = Brushes.NotRunBackground;
                             break;
                     }
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
 
@@ -25,6 +26,13 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         [Order(Before = PredefinedAdornmentLayers.Selection)]
         private AdornmentLayerDefinition editorAdornmentLayer;
 
+        [Import]
+        private IClassificationFormatMapService _formatMap;
+
+        [Import]
+        private IClassificationTypeRegistryService _classificationRegistry;
+
+
 #pragma warning restore 649, 169
 
         #region IWpfTextViewCreationListener
@@ -37,7 +45,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         public void TextViewCreated(IWpfTextView textView)
         {
             // The adornment will listen to any event that changes the layout (text changes, scrolling, etc)
-            new CodeCoverageAdornment(textView);
+            new CodeCoverageAdornment(textView, _classificationRegistry, _formatMap);
         }
 
         #endregion
