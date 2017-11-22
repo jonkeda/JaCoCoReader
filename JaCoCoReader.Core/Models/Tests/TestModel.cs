@@ -96,11 +96,11 @@ namespace JaCoCoReader.Core.Models.Tests
                 switch (Outcome)
                 {
                     case TestOutcome.Failed:
-                        return Brushes.DarkRed;
+                        return Brushes.OrangeRed;
                     case TestOutcome.Passed:
-                        return Brushes.DarkGreen;
+                        return Brushes.Green;
                     default:
-                        return Brushes.Black;
+                        return Brushes.DarkGray;
                 }
             }
         }

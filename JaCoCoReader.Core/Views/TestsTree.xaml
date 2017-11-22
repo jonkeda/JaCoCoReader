@@ -57,15 +57,13 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </controls1:TreeViewEx.ItemTemplate>
-
-            <!--<controls1:TreeViewEx.ItemContainerStyle>
-                    <Style TargetType="{x:Type controls1:TreeViewItemEx}" BasedOn="{StaticResource MetroTreeViewItem}">
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="IsHighlighted" Value="{Binding IsHighlighted, Mode=TwoWay}" />
-                        <Setter Property="DoBringIntoView" Value="{Binding BringIntoView, Mode=TwoWay}" />
-                    </Style>
-                </controls1:TreeViewEx.ItemContainerStyle>-->
+            <controls1:TreeViewEx.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                    Color="{Binding Background, ElementName=TestsTreeName}" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                    Color="{Binding Foreground, ElementName=TestsTreeName}"/>
+            </controls1:TreeViewEx.Resources>
+    
         </controls1:TreeViewEx>
 
 

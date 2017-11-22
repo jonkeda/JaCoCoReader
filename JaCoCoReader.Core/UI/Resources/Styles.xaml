@@ -160,14 +160,14 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd"
                         Property="Background"
-                        Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
                             <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
                         </MultiTrigger>
                         <Trigger Property="IsEnabled"
                        Value="false">
                             <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

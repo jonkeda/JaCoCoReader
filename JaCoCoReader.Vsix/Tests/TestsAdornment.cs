@@ -148,8 +148,8 @@ namespace JaCoCoReader.Vsix.Tests
                     {
                         Height = line.Height,
                         Width = viewportWidth,
-                        Fill = brush
-
+                        Fill = brush,
+                        Opacity = 0.35
                     };
 
                     Canvas.SetLeft(rect, _view.ViewportLeft);

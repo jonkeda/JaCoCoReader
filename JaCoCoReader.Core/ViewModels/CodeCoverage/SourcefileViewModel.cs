@@ -146,7 +146,7 @@ namespace JaCoCoReader.Core.ViewModels.CodeCoverage
             {
                 if (MissedLines > 0)
                 {
-                    return System.Windows.Media.Brushes.DarkRed;
+                    return System.Windows.Media.Brushes.OrangeRed;
                 }
                 if (CoveredLines > 0)
                 {

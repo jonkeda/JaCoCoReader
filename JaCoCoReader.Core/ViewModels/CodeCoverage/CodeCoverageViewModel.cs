@@ -4,7 +4,6 @@ using System.Windows.Input;
 using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.UI;
 using System.Collections.Generic;
-using JaCoCoReader.Core.Converters;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.Threading;
 

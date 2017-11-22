@@ -14,20 +14,30 @@ namespace JaCoCoReader.Vsix.Services
         {
             foreach (Project vsProject in VsExtensions.GetProjects())
             {
-                TestProject project = new TestProject
-                {
-                    Name = vsProject.Name,
-                    Path = vsProject.FileName
-                };
-
-
-                GetVsTests(vsProject.ProjectItems, project);
-                if (project.Folders.Count > 0
-                    || project.Files.Count > 0)
+                TestProject project = CreateProject(vsProject);
+                if (project != null)
                 {
                     yield return project;
                 }
             }
+        }
+
+        internal static TestProject CreateProject(Project vsProject)
+        {
+            TestProject project = new TestProject
+            {
+                Name = vsProject.Name,
+                Path = vsProject.FileName
+            };
+
+
+            GetVsTests(vsProject.ProjectItems, project);
+            if (project.Folders.Count > 0
+                || project.Files.Count > 0)
+            {
+                return project;
+            }
+            return null;
         }
 
         private static void GetVsTests(ProjectItems vsProjectProjectItems, TestFolder parentFolder)
@@ -41,7 +51,7 @@ namespace JaCoCoReader.Vsix.Services
                 if (item.ProjectItems != null
                     && item.ProjectItems.Count > 0)
                 {
-                        TestFolder folder = new TestFolder
+                    TestFolder folder = new TestFolder
                     {
                         Name = item.Name
                     };
@@ -80,6 +90,6 @@ namespace JaCoCoReader.Vsix.Services
             }
         }
 
-        
+
     }
 }

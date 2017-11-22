@@ -136,7 +136,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
                         Height = line.Height,
                         Width = viewportWidth,
                         Fill = hit ? HitBackground : MissedBackground,
-
+                        Opacity = 0.35
                     };
 
                     Canvas.SetLeft(rect, _view.ViewportLeft);
