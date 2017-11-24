@@ -31,8 +31,8 @@ namespace JaCoCoReader.Vsix.CodeCoverage
 
         private readonly CodeCoverageViewModel _codeCoverage;
 
-        public Brush HitBackground = Core.ViewModels.Brushes.HitBackground;
-        public Brush MissedBackground = Core.ViewModels.Brushes.MissedBackground;
+        public Brush HitBackground;
+        public Brush MissedBackground;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeCoverageAdornment"/> class.

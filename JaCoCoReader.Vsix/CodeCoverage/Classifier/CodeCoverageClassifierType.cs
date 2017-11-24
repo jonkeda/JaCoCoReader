@@ -16,7 +16,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name(Miss)]
-        private static ClassificationTypeDefinition MissDefinition;
+        private static ClassificationTypeDefinition _missDefinition;
 
         [Export(typeof(EditorFormatDefinition))]
         [ClassificationType(ClassificationTypeNames = Miss)]
@@ -37,7 +37,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name(Hit)]
-        private static ClassificationTypeDefinition HitDefinition;
+        private static ClassificationTypeDefinition _hitDefinition;
 
         [Export(typeof(EditorFormatDefinition))]
         [ClassificationType(ClassificationTypeNames = Hit)]
@@ -59,7 +59,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name(None)]
-        private static ClassificationTypeDefinition NoneDefinition;
+        private static ClassificationTypeDefinition _noneDefinition;
 
         [Export(typeof(EditorFormatDefinition))]
         [ClassificationType(ClassificationTypeNames = None)]
@@ -75,5 +75,26 @@ namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
             }
         }
 
+
+        // NotRun
+        public const string NotRun = "CodeCoverageClassifierNotRun";
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(NotRun)]
+        private static ClassificationTypeDefinition _notRunDefinition;
+
+        [Export(typeof(EditorFormatDefinition))]
+        [ClassificationType(ClassificationTypeNames = NotRun)]
+        [Name(NotRun)]
+        [UserVisible(true)]
+        [Order(Before = Priority.Default)]
+        internal sealed class CodeCoverageNotRunClassifierFormat : ClassificationFormatDefinition
+        {
+            public CodeCoverageNotRunClassifierFormat()
+            {
+                DisplayName = "PowerShell Code Coverage Not run";
+                BackgroundColor = Colors.NotRunBackground;
+            }
+        }
     }
 }

@@ -16,27 +16,28 @@ namespace JaCoCoReader.Vsix.ViewModels
     {
         public VsTestsViewModel(CodeCoverageViewModel report)
             : base(report)
-        { 
-            //DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
+        {
+            DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
 
-            //dte.Events.SolutionEvents.ProjectAdded += SolutionEventsOnProjectAdded;
+            dte.Events.SolutionEvents.Opened += SolutionEventsOnOpened;
+            dte.Events.SolutionEvents.ProjectAdded += SolutionEventsOnProjectAdded;
         }
 
-        //private void SolutionEventsOnProjectAdded(Project project)
-        //{
-        //    TestProject testProject = VsPowerShellTestDiscoverer.CreateProject(project);
-        //    if (testProject != null)
-        //    {
-        //        TestSolution solution = new TestSolution();
-        //        solution.Projects.Add(testProject);
-        //        Model.Merge(solution);
-        //    }
-        //}
+        private void SolutionEventsOnProjectAdded(Project project)
+        {
+            TestProject testProject = VsPowerShellTestDiscoverer.CreateProject(project);
+            if (testProject != null)
+            {
+                TestSolution solution = new TestSolution();
+                solution.Projects.Add(testProject);
+                Model.Merge(solution);
+            }
+        }
 
-        //private void SolutionEventsOnOpened()
-        //{
-        //    LoadFromSolution();
-        //}
+        private void SolutionEventsOnOpened()
+        {
+            LoadFromSolution();
+        }
 
         public override Visibility RefreshVisibility
         {

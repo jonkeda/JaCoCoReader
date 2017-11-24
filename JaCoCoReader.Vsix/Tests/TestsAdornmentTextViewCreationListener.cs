@@ -31,6 +31,12 @@ namespace JaCoCoReader.Vsix.Tests
         [Order(Before = PredefinedAdornmentLayers.Selection)]
         private AdornmentLayerDefinition editorAdornmentLayer;
 
+        [Import]
+        private IClassificationFormatMapService _formatMap;
+
+        [Import]
+        private IClassificationTypeRegistryService _classificationRegistry;
+
 #pragma warning restore 649, 169
 
         #region IWpfTextViewCreationListener
@@ -45,7 +51,7 @@ namespace JaCoCoReader.Vsix.Tests
             IClassifier classifier = _classifierService.GetClassifier(textView.TextBuffer);
 
             // The adornment will listen to any event that changes the layout (text changes, scrolling, etc)
-            new TestsAdornment(textView, classifier);
+            new TestsAdornment(textView, classifier, _classificationRegistry, _formatMap);
         }
 
         #endregion

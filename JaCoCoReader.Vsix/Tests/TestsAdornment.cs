@@ -5,13 +5,13 @@ using System.Windows.Media;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.ViewModels.Tests;
+using JaCoCoReader.Vsix.CodeCoverage.Classifier;
 using JaCoCoReader.Vsix.Extensions;
 using JaCoCoReader.Vsix.Services;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
-using Brushes = JaCoCoReader.Core.ViewModels.Brushes;
 using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace JaCoCoReader.Vsix.Tests
@@ -35,17 +35,42 @@ namespace JaCoCoReader.Vsix.Tests
 
         private readonly TestsViewModel _tests;
 
+        public Brush HitBackground;
+        public Brush MissedBackground;
+        public Brush NotRunBackground;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TestsAdornment"/> class.
         /// </summary>
         /// <param name="view">Text view to create the adornment for</param>
         /// <param name="classifier"></param>
-        public TestsAdornment(IWpfTextView view, IClassifier classifier)
+        /// <param name="classificationRegistry"></param>
+        /// <param name="formatMap"></param>
+        public TestsAdornment(IWpfTextView view, IClassifier classifier,
+            IClassificationTypeRegistryService classificationRegistry,
+            IClassificationFormatMapService formatMap)
         {
             if (view == null)
             {
                 throw new ArgumentNullException(nameof(view));
             }
+
+            IClassificationType missClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Miss);
+            IClassificationFormatMap missFormat = formatMap.GetClassificationFormatMap(view);
+            TextFormattingRunProperties missText = missFormat.GetTextProperties(missClassificationType);
+            MissedBackground = missText.BackgroundBrush;
+
+            IClassificationType hitClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Hit);
+            IClassificationFormatMap hitFormat = formatMap.GetClassificationFormatMap(view);
+            TextFormattingRunProperties hitText = hitFormat.GetTextProperties(hitClassificationType);
+            HitBackground = hitText.BackgroundBrush;
+
+            IClassificationType notRunClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.NotRun);
+            IClassificationFormatMap notRunFormat = formatMap.GetClassificationFormatMap(view);
+            TextFormattingRunProperties notRunText = notRunFormat.GetTextProperties(notRunClassificationType);
+            NotRunBackground = notRunText.BackgroundBrush;
+
 
             _layer = view.GetAdornmentLayer("TestsAdornment");
 
@@ -125,16 +150,16 @@ namespace JaCoCoReader.Vsix.Tests
                     switch (outcome)
                     {
                         case TestOutcome.Failed:
-                            brush = Brushes.MissedBackground;
+                            brush = MissedBackground;
                             break;
                         case TestOutcome.Passed:
-                            brush = Brushes.HitBackground;
+                            brush = HitBackground;
                             break;
                         case TestOutcome.None:
                         case TestOutcome.Skipped:
                         case TestOutcome.NotFound:
                         default:
-                            brush = Brushes.NotRunBackground;
+                            brush = NotRunBackground;
                             break;
                     }
 

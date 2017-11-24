@@ -28,7 +28,8 @@ Tests
 * Add file
 * Add timecounter when running scripts
 * Show output during run
-* Color according to formats
+* Automatically load files when solution opens or files are added
+* ~~Color according to formats~~
 * ~~Save file before running~~
 * ~~Running Status~~
 * ~~Check if already running~~
@@ -62,9 +63,9 @@ Tests tree
 
 
 Tests Bug
-* Powershell scripts aren't added to the code coverage
 * Open folder view from solution
-* Tests aren't loaded correctly for code coverage
+* ~~Powershell scripts aren't added to the code coverage~~
+* ~~Tests aren't loaded correctly for code coverage~~
 * ~~stop isn't implemented~~
 * ~~Colors of test editor don't change automatically~~
 * ~~Run of tests is slow~~
