@@ -171,9 +171,14 @@ https://kevinmarquette.github.io/2017-04-30-Powershell-Gherkin-advanced-features
         [Parameter(Mandatory = $True, ParameterSetName = "RetestFailed")]
         [switch]$FailedLast,
 
-        [Parameter(Position=0,Mandatory=$False)]
-        [Alias('Script','relative_path')]
-        [string]$Path = $Pwd,
+        #[Parameter(Position=0,Mandatory=$False)]
+        #[Alias('Script','relative_path')]
+        #[string]$Path = $Pwd,
+
+        [Parameter(Position=0,Mandatory=0)]
+        [Alias('Path', 'relative_path')]
+        [object[]]$Script = '.',
+
 
         [Parameter(Position=1,Mandatory=$False)]
         [Alias("Name","TestName")]
@@ -189,6 +194,13 @@ https://kevinmarquette.github.io/2017-04-30-Powershell-Gherkin-advanced-features
         [string[]]$ExcludeTag,
 
         [object[]] $CodeCoverage = @(),
+        
+        [string] $CodeCoverageOutputFile,
+
+        [ValidateSet('JaCoCo')]
+        [String]$CodeCoverageOutputFileFormat = "JaCoCo",
+
+        [Switch]$DetailedCodeCoverage = $false,
 
         [Switch]$Strict,
 
@@ -273,8 +285,10 @@ https://kevinmarquette.github.io/2017-04-30-Powershell-Gherkin-advanced-features
 
         Enter-CoverageAnalysis -CodeCoverage $CodeCoverage -PesterState $pester
 
-        foreach($FeatureFile in Microsoft.PowerShell.Management\Get-ChildItem $Path -Filter "*.feature" -Recurse ) {
-            Invoke-GherkinFeature $FeatureFile -Pester $pester
+        $testScripts = @(ResolveTestScripts $Script)
+
+        foreach($FeatureFile in $testScripts) {
+            Invoke-GherkinFeature $FeatureFile.Path -Pester $pester
         }
 
         # Remove all the steps
@@ -285,7 +299,17 @@ https://kevinmarquette.github.io/2017-04-30-Powershell-Gherkin-advanced-features
 
         $pester | Write-PesterReport
         $coverageReport = Get-CoverageReport -PesterState $pester
-        Write-CoverageReport -CoverageReport $coverageReport
+
+        if ($DetailedCodeCoverage -eq $false)
+        {
+            Write-CoverageReport -CoverageReport $coverageReport
+        }
+        if ((& $script:SafeCommands['Get-Variable'] -Name CodeCoverageOutputFile -ValueOnly -ErrorAction $script:IgnoreErrorPreference) `
+            -and (& $script:SafeCommands['Get-Variable'] -Name CodeCoverageOutputFileFormat -ValueOnly -ErrorAction $script:IgnoreErrorPreference) -eq 'JaCoCo') {
+            $jaCoCoReport = Get-JaCoCoReportXml -PesterState $pester -CoverageReport $coverageReport -DetailedCodeCoverage:$DetailedCodeCoverage
+            $jaCoCoReport | & $SafeCommands['Out-File'] $CodeCoverageOutputFile -Encoding utf8
+        }
+
         Exit-CoverageAnalysis -PesterState $pester
 
         if(Microsoft.PowerShell.Utility\Get-Variable -Name OutputFile -ValueOnly -ErrorAction $script:IgnoreErrorPreference) {

@@ -63,6 +63,7 @@ Tests tree
 
 
 Tests Bug
+* There are no try catches loading a file
 * Open folder view from solution
 * ~~Powershell scripts aren't added to the code coverage~~
 * ~~Tests aren't loaded correctly for code coverage~~
@@ -84,4 +85,18 @@ Test glyphs
 * ~~Add pester content type~~
 
 
+Gherkin
+* Replace example values
+* Color scenarios
+* Light bulbs to start test 
+* ~~Load Features~~
+* ~~Run Features~~
+* ~~Load examples~~
+* ~~Run Examples~~
+* ~~Open feature file~~
+
+Pester
+* File path in results
+* Gherkin can read multiple files
+* Gherkin has codecoverage output
 

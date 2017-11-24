@@ -36,6 +36,10 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gherkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=86496cfa5b4a5851, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gherkin.4.0.0\lib\net45\Gherkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -59,8 +63,14 @@
   <ItemGroup>
     <Compile Include="Constants\Constant.cs" />
     <Compile Include="Converters\CoverageOrderMultiValueConvertor.cs" />
+    <Compile Include="Models\Tests\TestFeatureCollection.cs" />
+    <Compile Include="Models\Tests\TestScenario.cs" />
+    <Compile Include="Models\Tests\TestScenarioCollection.cs" />
+    <Compile Include="Models\Tests\TestFeature.cs" />
     <Compile Include="Models\Tests\TestModelByLine.cs" />
     <Compile Include="Models\Tests\TestModelsByName.cs" />
+    <Compile Include="Models\Tests\TestStep.cs" />
+    <Compile Include="Models\Tests\TestStepCollection.cs" />
     <Compile Include="ViewModels\CodeCoverage\CodeCoverageOrder.cs" />
     <Compile Include="Models\CodeCoverage\Class.cs" />
     <Compile Include="Models\CodeCoverage\ReportCollection.cs" />
@@ -228,6 +238,7 @@
     <Content Include="Documentation\Other Windows.PNG" />
     <Content Include="Documentation\Powershell Code Coverage.PNG" />
     <Content Include="Documentation\Powershell Details.PNG" />
+    <Content Include="Documentation\Powershell Fonts and Colors.PNG" />
     <Content Include="Documentation\Powershell Tests Lightbulb.PNG" />
     <Content Include="Documentation\Powershell Tests.PNG" />
     <Content Include="Pester\Functions\Assertions\Be.ps1">
@@ -444,6 +455,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pester\Functions\TestsRunningInCleanRunspace.Tests.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pester\Functions\ResolveTestScripts.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Pester\LICENSE" />

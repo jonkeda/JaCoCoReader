@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using JaCoCoReader.Core.Constants;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Core.Threading;
@@ -112,9 +113,13 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                 return new List<string>();
             }
 
-            List<string> filenames = Directory.GetFiles(RootPath, "*.ps1", SearchOption.AllDirectories).Where(filename => !filename.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase)).ToList();
+            List<string> filenames = Directory.GetFiles(RootPath, "*.ps1", SearchOption.AllDirectories)
+                .Where(filename => !filename.EndsWith(Constant.TestsPs1, StringComparison.InvariantCultureIgnoreCase)
+                                    && !filename.EndsWith(Constant.StepsPs1, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            filenames.AddRange(Directory.GetFiles(RootPath, "*.psm1", SearchOption.AllDirectories).Where(filename => !filename.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase)));
+            filenames.AddRange(Directory.GetFiles(RootPath, $"*{Constant.Psm1}", SearchOption.AllDirectories)
+                .Where(filename => !filename.EndsWith(Constant.TestsPs1, StringComparison.InvariantCultureIgnoreCase)
+                && !filename.EndsWith(Constant.StepsPs1, StringComparison.InvariantCultureIgnoreCase)));
 
             return filenames;
         }
@@ -226,6 +231,13 @@ namespace JaCoCoReader.Core.ViewModels.Tests
                         break;
                     case TestIt testIt:
                         _executor.RunTestDescribe(testIt.Parent.Parent, content);
+                        break;
+
+                    case TestFeature testFeature:
+                        _executor.RunTestFeature(testFeature, content);
+                        break;
+                    case TestScenario testScenario:
+                        _executor.RunTestScenario(testScenario, content);
                         break;
 
                 }

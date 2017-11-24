@@ -9,11 +9,14 @@ namespace JaCoCoReader.Core.Models.Tests
         {
             Folders = new TestFolderCollection(this);
             Files = new TestFileCollection(this);
+            Features = new TestFeatureCollection(this);
         }
 
         public TestFolderCollection Folders { get; } 
 
         public TestFileCollection Files { get; }
+
+        public TestFeatureCollection Features { get; }
 
         public string Path { get; set; }
 
@@ -39,6 +42,10 @@ namespace JaCoCoReader.Core.Models.Tests
                 {
                     yield return file;
                 }
+                foreach (TestFeature feature in Features)
+                {
+                    yield return feature;
+                }
             }
         }
 
@@ -48,6 +55,7 @@ namespace JaCoCoReader.Core.Models.Tests
             {
                 Folders.Merge(testFolders.Folders);
                 Files.Merge(testFolders.Files);
+                Features.Merge(testFolders.Features);
             }
         }
 

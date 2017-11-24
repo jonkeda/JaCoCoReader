@@ -13,6 +13,8 @@ namespace JaCoCoReader.Core.Services
 
         public Dictionary<string, TestFile> TestFiles { get; } = new Dictionary<string, TestFile>();
 
+        public Dictionary<string, TestFeature> TestFeatures { get; } = new Dictionary<string, TestFeature>();
+
         public RunContext(Action<string> running, CoveredScripts coveredScripts, List<string> scriptFileNames)
         {
             _running = running;

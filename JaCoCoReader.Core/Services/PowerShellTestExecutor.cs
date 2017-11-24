@@ -6,6 +6,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Text;
+using JaCoCoReader.Core.Constants;
 using JaCoCoReader.Core.Models.CodeCoverage;
 using JaCoCoReader.Core.Models.Tests;
 using Microsoft.PowerShell;
@@ -109,6 +110,12 @@ namespace JaCoCoReader.Core.Services
             {
                 runContext.TestFiles.Add(file.Path, file);
             }
+
+            foreach (TestFeature feature in parentFolder.Features)
+            {
+                runContext.TestFeatures.Add(feature.Path, feature);
+            }
+
         }
 
         #endregion
@@ -127,13 +134,27 @@ namespace JaCoCoReader.Core.Services
 
         #endregion
 
+        #region Feature
+
+        public void RunTestFeature(TestFeature feature, RunContext runContext)
+        {
+            SetupExecutionPolicy();
+
+            feature.SetOutcome(TestOutcome.None);
+
+            runContext.TestFeatures.Add(feature.Path, feature);
+            RunTests(runContext);
+        }
+
+        #endregion
+
         public void Cancel()
         {
             try
             {
                 _powerShell?.Stop();
             }
-            catch 
+            catch
             {
                 // don't do anything
             }
@@ -146,15 +167,26 @@ namespace JaCoCoReader.Core.Services
             describe.SetOutcome(TestOutcome.None);
 
             runContext.TestFiles.Add(describe.Parent.Path, describe.Parent);
-            RunTests(runContext);
+            RunTests(runContext, describe.Name, null);
         }
+
+        public void RunTestScenario(TestScenario scenario, RunContext runContext)
+        {
+            SetupExecutionPolicy();
+
+            scenario.SetOutcome(TestOutcome.None);
+
+            runContext.TestFeatures.Add(scenario.Parent.Path, scenario.Parent);
+            RunTests(runContext, null, scenario.Name);
+        }
+
 
         private void RunTests(RunContext runContext)
         {
-            RunTests(runContext, null);
+            RunTests(runContext, null, null);
         }
 
-        private void RunTests(RunContext runContext, string describeName)
+        private void RunTests(RunContext runContext, string describeName, string scenarioName)
         {
             StringBuilder testOutput = new StringBuilder();
             TestAdapterHost testAdapter = new TestAdapterHost();
@@ -176,49 +208,139 @@ namespace JaCoCoReader.Core.Services
 
                     try
                     {
-                        RunTests(describeName, runContext);
-
-                        //describe.Output = testOutput.ToString();
+                        RunTests(describeName, scenarioName, runContext);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         foreach (TestFile file in runContext.TestFiles.Values)
                         {
                             file.SetOutcome(TestOutcome.None);
+                        }
+                        foreach (TestFeature feature in runContext.TestFeatures.Values)
+                        {
+                            feature.SetOutcome(TestOutcome.None);
                         }
                     }
                 }
             }
         }
 
-        private void RunTests(string describeName, RunContext runContext)
+        private void RunTests(string describeName, string scenarioName, RunContext runContext)
+        {
+
+            runContext.UpdateRunningTest("All tests");
+
+            string module = FindModule("Pester", runContext);
+            _powerShell.AddCommand("Import-Module").AddParameter("Name", module);
+            _powerShell.Invoke();
+            _powerShell.Commands.Clear();
+
+            if (_powerShell.HadErrors)
+            {
+                ErrorRecord errorRecord = _powerShell.Streams.Error.FirstOrDefault();
+                string errorMessage = errorRecord?.ToString() ?? string.Empty;
+
+                throw new Exception($"FailedToLoadPesterModule {errorMessage}");
+            }
+
+            RunTestFiles(describeName, runContext);
+
+            RunTestScenarios(scenarioName, runContext);
+        }
+
+        private void RunTestScenarios(string scenarioName, RunContext runContext)
         {
             string tempFile = Path.GetTempFileName();
             try
             {
-                runContext.UpdateRunningTest("All tests");
-
-                string module = FindModule("Pester", runContext);
-                _powerShell.AddCommand("Import-Module").AddParameter("Name", module);
-                _powerShell.Invoke();
-                _powerShell.Commands.Clear();
-
-                if (_powerShell.HadErrors)
+                string[] pathObjects = runContext.TestFeatures.Keys.ToArray();
+                if (pathObjects.Length == 0)
                 {
-                    ErrorRecord errorRecord = _powerShell.Streams.Error.FirstOrDefault();
-                    string errorMessage = errorRecord?.ToString() ?? string.Empty;
-
-                    throw new Exception($"FailedToLoadPesterModule {errorMessage}");
+                    return;
                 }
 
-                string[] pathObjects = runContext.TestFiles.Keys.ToArray();
+                _powerShell.AddCommand("Invoke-Gherkin")
+                    .AddParameter("Path", pathObjects)
+                    //.AddParameter("DetailedCodeCoverage")
+                    .AddParameter("CodeCoverageOutputFile", tempFile)
+                    .AddParameter("PassThru");
+                if (!string.IsNullOrEmpty(scenarioName))
+                {
+                    _powerShell.AddParameter("ScenarioName", scenarioName);
+                }
 
+                string[] codecoverage = GetCodeCoverageFilenames(runContext, name => name.Substring(0, name.Length - Constant.TestsPs1.Length));
+                if (codecoverage != null
+                    && codecoverage.Length > 0)
+                {
+                    _powerShell.AddParameter("CodeCoverage", codecoverage);
+                }
+
+                Collection<PSObject> pesterResults = _powerShell.Invoke();
+                _powerShell.Commands.Clear();
+
+                // The test results are not necessary stored in the first PSObject.
+                Array results = GetTestResults(pesterResults);
+                if (results.Length == 0)
+                {
+                    foreach (TestFeature file in runContext.TestFeatures.Values)
+                    {
+                        file.SetOutcome(TestOutcome.Failed);
+                    }
+                }
+                else
+                {
+                    int i = 0;
+                    TestScenario lastScenario = null;
+                    foreach (PSObject result in results)
+                    {
+                        string filename = result.Properties["Filename"].Value as string;
+                        string scenario = result.Properties["Describe"].Value as string;
+                        if (filename != null
+                            && runContext.TestFeatures.TryGetValue(filename, out TestFeature feature))
+                        {
+                            TestScenario testScenario = feature.Scenarios.FirstOrDefault(s => s.Name == scenario);
+                            if (testScenario != null)
+                            { 
+                                if (lastScenario != testScenario)
+                                {
+                                    i = 0;
+                                    lastScenario = testScenario;
+                                }
+                                testScenario.ProcessTestResults(result, i);
+                            }
+                        }
+                        i++;
+                    }
+                    Report report = Report.Load(tempFile);
+                    if (report != null)
+                    {
+                        runContext.AddCodeCoverageReport(report);
+                    }
+                }
+            }
+            finally
+            {
+                File.Delete(tempFile);
+            }
+        }
+
+
+        private void RunTestFiles(string describeName, RunContext runContext)
+        {
+            string tempFile = Path.GetTempFileName();
+            try
+            {
+                string[] pathObjects = runContext.TestFiles.Keys.ToArray();
+                if (pathObjects.Length == 0)
+                {
+                    return;
+                }
 
                 _powerShell.AddCommand("Invoke-Pester")
                     .AddParameter("Path", pathObjects)
                     .AddParameter("DetailedCodeCoverage")
                     .AddParameter("CodeCoverageOutputFile", tempFile)
-
                     .AddParameter("PassThru");
                 if (!string.IsNullOrEmpty(describeName))
                 {
@@ -226,7 +348,7 @@ namespace JaCoCoReader.Core.Services
                 }
 
 
-                string[] codecoverage = GetCodeCoverageFilenames(runContext);
+                string[] codecoverage = GetCodeCoverageFilenames(runContext, name => name.Substring(0, name.Length - Constant.TestsPs1.Length));
                 if (codecoverage != null
                     && codecoverage.Length > 0)
                 {
@@ -276,7 +398,7 @@ namespace JaCoCoReader.Core.Services
             }
         }
 
-        private string[] GetCodeCoverageFilenames(RunContext context)
+        private string[] GetCodeCoverageFilenames(RunContext context, Func<string, string> getName)
         {
             switch (context.CoveredScripts)
             {
@@ -298,13 +420,13 @@ namespace JaCoCoReader.Core.Services
 
                         foreach (TestFile testfile in context.TestFiles.Values)
                         {
-                            string name = Path.GetFileName(testfile.Path);
-                            string filename = name.Substring(0, name.Length - ".tests.ps1".Length) + ".ps1";
+                            string name = getName(Path.GetFileName(testfile.Path));
+                            string filename = name + Constant.Ps1;
                             if (!testScriptFilenames.ContainsKey(filename))
                             {
                                 testScriptFilenames.Add(filename, testfile.Path);
                             }
-                            filename = name.Substring(0, name.Length - ".tests.ps1".Length) + ".psm1";
+                            filename = name + Constant.Psm1;
                             if (!testScriptFilenames.ContainsKey(filename))
                             {
                                 testScriptFilenames.Add(filename, testfile.Path);

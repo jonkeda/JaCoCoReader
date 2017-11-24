@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
+using JaCoCoReader.Core.Constants;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.Services;
 using JaCoCoReader.Vsix.Extensions;
@@ -69,7 +70,7 @@ namespace JaCoCoReader.Vsix.Services
                     for (short i = 1; i <= item.FileCount; i++)
                     {
                         string fileName = item.FileNames[i];
-                        if (fileName.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase))
+                        if (fileName.EndsWith(Constant.TestsPs1, StringComparison.InvariantCultureIgnoreCase))
                         {
                             TestFile file = new TestFile
                             {
@@ -83,6 +84,15 @@ namespace JaCoCoReader.Vsix.Services
                                 {
                                     parentFolder.Files.Add(file);
                                 }
+                            }
+                        }
+                        else if (fileName.EndsWith(Constant.Feature, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            TestFeature feature = DiscoverPesterFeatures(fileName, null);
+
+                            if (feature != null)
+                            {
+                                parentFolder.Features.Add(feature);
                             }
                         }
                     }

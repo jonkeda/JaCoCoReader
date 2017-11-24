@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using EnvDTE;
+using JaCoCoReader.Core.Constants;
 using JaCoCoReader.Core.Models.Tests;
 using JaCoCoReader.Core.ViewModels.CodeCoverage;
 using JaCoCoReader.Core.ViewModels.Tests;
@@ -107,10 +108,11 @@ namespace JaCoCoReader.Vsix.ViewModels
                     for (short i = 1; i <= item.FileCount; i++)
                     {
                         string fileName = item.FileNames[i];
-                        if (fileName.EndsWith(".ps1", StringComparison.InvariantCultureIgnoreCase)
-                            || fileName.EndsWith(".psm1", StringComparison.InvariantCultureIgnoreCase))
+                        if (fileName.EndsWith(Constant.Ps1, StringComparison.InvariantCultureIgnoreCase)
+                            || fileName.EndsWith(Constant.Psm1, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            if (!fileName.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase))
+                            if (!fileName.EndsWith(Constant.TestsPs1, StringComparison.InvariantCultureIgnoreCase)
+                                && !fileName.EndsWith(Constant.StepsPs1, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 fileNames.Add(fileName);
                             }

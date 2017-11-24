@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation.Language;
+using Gherkin.Ast;
+using JaCoCoReader.Core.Constants;
 using JaCoCoReader.Core.Models.Tests;
 
 namespace JaCoCoReader.Core.Services
@@ -41,7 +43,7 @@ namespace JaCoCoReader.Core.Services
                     parentFolder.Folders.Add(folder);
                 }
             }
-            foreach (string source in Directory.EnumerateFiles(folderPath, "*.tests.ps1"))
+            foreach (string source in Directory.EnumerateFiles(folderPath, $"*{Constant.TestsPs1}"))
             {
                 TestFile file = new TestFile
                 {
@@ -54,6 +56,14 @@ namespace JaCoCoReader.Core.Services
                     {
                         parentFolder.Files.Add(file);
                     }
+                }
+            }
+            foreach (string source in Directory.EnumerateFiles(folderPath, $"*{Constant.Feature}"))
+            {
+                TestFeature feature = DiscoverPesterFeatures(source, null);
+                if (feature != null)
+                {
+                    parentFolder.Features.Add(feature);
                 }
             }
         }
@@ -72,6 +82,85 @@ namespace JaCoCoReader.Core.Services
             return null;
         }
 
+        protected static TestFeature DiscoverPesterFeatures(string source, IMessageLogger logger)
+        {
+            if (!File.Exists(source))
+            {
+                return null;
+            }
+
+            Gherkin.Parser parser = new Gherkin.Parser();
+
+            GherkinDocument document = parser.Parse(source);
+
+            TestFeature feature = new TestFeature
+            {
+                Name = Path.GetFileNameWithoutExtension(source),
+                Path = source,
+                Document = document
+
+            };
+
+            foreach (ScenarioDefinition scenario in document.Feature.Children)
+            {
+
+
+                if (scenario is ScenarioOutline outline)
+                {
+                    foreach (Examples example in outline.Examples)
+                    {
+                        TestScenario testScenario = new TestScenario()
+                        {
+                            Name = $"{scenario.Name}\n  Examples:{example.Name}",
+                            Path = source,
+                            Scenario = scenario
+                        };
+                        feature.Scenarios.Add(testScenario);
+                        foreach (TableRow row in example.TableBody)
+                        {
+                            foreach (Step step in scenario.Steps)
+                            {
+                                TestStep testStep = new TestStep()
+                                {
+                                    Name = step.Text,
+                                    Path = source,
+                                    Step = step
+                                };
+                                testScenario.Steps.Add(testStep);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    TestScenario testScenario = new TestScenario()
+                    {
+                        Name = scenario.Name,
+                        Path = source,
+                        Scenario = scenario
+                    };
+
+                    feature.Scenarios.Add(testScenario);
+
+                    foreach (Step step in scenario.Steps)
+                    {
+                        TestStep testStep = new TestStep()
+                        {
+                            Name = step.Text,
+                            Path = source,
+                            Step = step
+                        };
+                        testScenario.Steps.Add(testStep);
+                    }
+                }
+            }
+            if (feature.Scenarios.Count == 0)
+            {
+                return null;
+            }
+            return feature;
+        }
+
         protected static bool DiscoverPesterTests(string source, TestDescribeCollection tests, IMessageLogger logger)
         {
             if (!File.Exists(source))
@@ -79,7 +168,7 @@ namespace JaCoCoReader.Core.Services
                 return false;
             }
             //SendMessage(TestMessageLevel.Informational, string.Format(Resources.SearchingForTestsFormat, source), logger);
-                Token[] tokens;
+            Token[] tokens;
             ParseError[] errors;
             ScriptBlockAst ast = Parser.ParseFile(source, out tokens, out errors);
 
