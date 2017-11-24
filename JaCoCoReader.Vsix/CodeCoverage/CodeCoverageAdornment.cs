@@ -54,7 +54,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
             TextFormattingRunProperties missText = missFormat.GetTextProperties(missClassificationType);
             MissedBackground = missText.BackgroundBrush;
 
-            IClassificationType hitClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Miss);
+            IClassificationType hitClassificationType = classificationRegistry.GetClassificationType(CodeCoverageClassifierType.Hit);
             IClassificationFormatMap hitFormat = formatMap.GetClassificationFormatMap(view);
             TextFormattingRunProperties hitText = hitFormat.GetTextProperties(hitClassificationType);
             HitBackground = hitText.BackgroundBrush;
@@ -72,11 +72,8 @@ namespace JaCoCoReader.Vsix.CodeCoverage
 
         private void ShowHitsModelChanged()
         {
-            if (!_codeCoverage.ShowLinesHit)
-            {
-                _layer.RemoveAllAdornments();
-            }
-            else
+            _layer.RemoveAllAdornments();
+            if (_codeCoverage.ShowLinesHit)
             {
                 UpdateLines(_view.TextViewLines);
             }
@@ -93,21 +90,26 @@ namespace JaCoCoReader.Vsix.CodeCoverage
         /// <param name="e">The event arguments.</param>
         internal void OnLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-            if (e.OldSnapshot != e.NewSnapshot 
+            if (e.OldSnapshot != e.NewSnapshot
                 && e.OldSnapshot.Version.Changes.IncludesLineChanges)
             {
                 _layer.RemoveAllAdornments();
-            }
-
-            if (!_codeCoverage.ShowLinesHit)
-            {
-                _layer.RemoveAllAdornments();
+                if (_codeCoverage.ShowLinesHit)
+                {
+                    UpdateLines(_view.TextViewLines);
+                }
             }
             else
             {
-                UpdateLines(e.NewOrReformattedLines);
+                if (!_codeCoverage.ShowLinesHit)
+                {
+                    _layer.RemoveAllAdornments();
+                }
+                else
+                {
+                    UpdateLines(e.NewOrReformattedLines);
+                }
             }
-
         }
 
         private void UpdateLines(IEnumerable<ITextViewLine> newOrReformattedLines)

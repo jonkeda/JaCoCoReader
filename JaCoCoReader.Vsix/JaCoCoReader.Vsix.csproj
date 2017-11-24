@@ -79,6 +79,7 @@
     <Compile Include="Models\Tests\VsTestSolution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\VsExtensions.cs" />
+    <Compile Include="Services\ContentTypeProvider.cs" />
     <Compile Include="Services\CodeCoverageService.cs" />
     <Compile Include="Tests\RunTestSuggestedAction.cs" />
     <Compile Include="Tests\TestsAdornment.cs" />

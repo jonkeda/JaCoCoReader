@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using JaCoCoReader.Core.Constants;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
@@ -10,7 +11,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage
     /// that instantiates the adornment on the event of a <see cref="IWpfTextView"/>'s creation
     /// </summary>
     [Export(typeof(IWpfTextViewCreationListener))]
-    [ContentType("Powershell")]
+    [ContentType(Constant.PowerShell)]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     internal sealed class CodeCoverageAdornmentTextViewCreationListener : IWpfTextViewCreationListener
     {

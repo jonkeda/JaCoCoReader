@@ -1,12 +1,14 @@
-﻿namespace JaCoCoReader.Vsix.FileExtension
+﻿using JaCoCoReader.Core.Constants;
+
+namespace JaCoCoReader.Vsix.FileExtension
 {
     public class FileAndContentTypeDefinitions
     {
-        public const string ContentType = "Powershell";
+        public const string ContentType = Constant.PowerShell;
 
         //[Export(typeof(ContentTypeDefinition))]
         //[Name(ContentType)]
-        //[BaseDefinition("Powershell")]
+        //[BaseDefinition(Constant.PowerShell)]
         //public ContentTypeDefinition HidingContentTypeDefinition { get; set; }
 
         //[Export(typeof(FileExtensionToContentTypeDefinition))]

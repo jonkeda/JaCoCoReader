@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using JaCoCoReader.Core.Constants;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -10,7 +11,7 @@ namespace JaCoCoReader.Vsix.Tests
 {
     [Export(typeof(ISuggestedActionsSourceProvider))]
     [Name("Run Test Suggested Actions")]
-    [ContentType("Powershell")]
+    [ContentType(Constant.PowerShell)]
     internal class TestSuggestedActionsSourceProvider : ISuggestedActionsSourceProvider
     {
         [Import(typeof(ITextStructureNavigatorSelectorService))]

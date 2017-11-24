@@ -114,7 +114,7 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 
             List<string> filenames = Directory.GetFiles(RootPath, "*.ps1", SearchOption.AllDirectories).Where(filename => !filename.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            filenames.AddRange(Directory.GetFiles(RootPath, "*.psm1", SearchOption.AllDirectories).Where(filename => !filename.EndsWith(".tests.psm1", StringComparison.InvariantCultureIgnoreCase)));
+            filenames.AddRange(Directory.GetFiles(RootPath, "*.psm1", SearchOption.AllDirectories).Where(filename => !filename.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase)));
 
             return filenames;
         }

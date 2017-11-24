@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Constant.cs" />
     <Compile Include="Converters\CoverageOrderMultiValueConvertor.cs" />
     <Compile Include="Models\Tests\TestModelByLine.cs" />
     <Compile Include="Models\Tests\TestModelsByName.cs" />
@@ -227,6 +228,7 @@
     <Content Include="Documentation\Other Windows.PNG" />
     <Content Include="Documentation\Powershell Code Coverage.PNG" />
     <Content Include="Documentation\Powershell Details.PNG" />
+    <Content Include="Documentation\Powershell Tests Lightbulb.PNG" />
     <Content Include="Documentation\Powershell Tests.PNG" />
     <Content Include="Pester\Functions\Assertions\Be.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

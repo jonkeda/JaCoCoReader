@@ -60,11 +60,8 @@ namespace JaCoCoReader.Vsix.Tests
 
         private void ShowHitsModelChanged()
         {
-            if (!_tests.ShowLines)
-            {
-                _layer.RemoveAllAdornments();
-            }
-            else
+            _layer.RemoveAllAdornments();
+            if (_tests.ShowLines)
             {
                 UpdateLines(_view.TextViewLines);
             }
@@ -84,11 +81,8 @@ namespace JaCoCoReader.Vsix.Tests
             if (e.OldSnapshot != e.NewSnapshot
                 && e.OldSnapshot.Version.Changes.IncludesLineChanges)
             {
-                if (!_tests.ShowLines)
-                {
-                    _layer.RemoveAllAdornments();
-                }
-                else
+                _layer.RemoveAllAdornments();
+                if (_tests.ShowLines)
                 {
                     UpdateLines(_view.TextViewLines);
                 }

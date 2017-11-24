@@ -97,5 +97,11 @@ namespace JaCoCoReader.Vsix.Extensions
                 }
             }
         }
+
+        public static void SaveProjectItem(string filename)
+        {
+            ProjectItem item = FindProjectItem(filename);
+            item?.Save();
+        }
     }
 }

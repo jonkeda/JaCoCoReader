@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
+using JaCoCoReader.Core.Constants;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
 
 namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
@@ -10,7 +10,7 @@ namespace JaCoCoReader.Vsix.CodeCoverage.Classifier
     /// Classifier provider. It adds the classifier to the set of classifiers.
     /// </summary>
     [Export(typeof(IClassifierProvider))]
-    [ContentType("Powershell")] // This classifier applies to all text files.
+    [ContentType(Constant.PowerShell)] // This classifier applies to all text files.
     internal class CodeCoverageClassifierProvider : IClassifierProvider
     {
 #pragma warning disable 649

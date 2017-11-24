@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using JaCoCoReader.Core.ViewModels.Tests;
+using JaCoCoReader.Vsix.Extensions;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Language.Intellisense;
 
@@ -90,6 +91,7 @@ namespace JaCoCoReader.Vsix.Tests
             {
                 return;
             }
+            VsExtensions.SaveProjectItem(_filePath);
             _tests.RunTests(_filePath, _lineNumber);
         }
 

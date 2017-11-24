@@ -1,13 +1,14 @@
 backlog
-* ~~Add tests window to VisualStudio~~
 * Change menu to Icons
+* ~~add powershell file connection classes~~
+* ~~Add tests window to VisualStudio~~
 
 
 CodeCoverage
 * add button tooltips
-* ~~allow sorting on line and percentages~~
 * Allow Selected scripts coverage
 * Add No Coverage tags to Pester
+* ~~allow sorting on line and percentages~~
 * ~~Clear button~~
 * ~~add icons~~
 * ~~fix hit score~~
@@ -26,6 +27,9 @@ Code coverage editor
 Tests
 * Add file
 * Add timecounter when running scripts
+* Show output during run
+* Color according to formats
+* ~~Save file before running~~
 * ~~Running Status~~
 * ~~Check if already running~~
 * ~~run Context only~~
@@ -60,6 +64,9 @@ Tests tree
 Tests Bug
 * Powershell scripts aren't added to the code coverage
 * Open folder view from solution
+* Tests aren't loaded correctly for code coverage
+* ~~stop isn't implemented~~
+* ~~Colors of test editor don't change automatically~~
 * ~~Run of tests is slow~~
 * ~~Describe name is not taken correctly~~
 * ~~Row highlighting is two lines too low~~

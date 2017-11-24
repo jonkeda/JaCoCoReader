@@ -109,8 +109,7 @@ namespace JaCoCoReader.Vsix.ViewModels
                         if (fileName.EndsWith(".ps1", StringComparison.InvariantCultureIgnoreCase)
                             || fileName.EndsWith(".psm1", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            if (!fileName.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase)
-                            || !fileName.EndsWith(".tests.psm1", StringComparison.InvariantCultureIgnoreCase))
+                            if (!fileName.EndsWith(".tests.ps1", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 fileNames.Add(fileName);
                             }

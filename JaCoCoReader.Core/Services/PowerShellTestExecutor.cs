@@ -51,6 +51,8 @@ namespace JaCoCoReader.Core.Services
 
         #endregion
 
+        private PowerShell _powerShell;
+
         #region TestSolution
 
         public void RunTestSolution(TestSolution solution, RunContext runContext)
@@ -127,7 +129,14 @@ namespace JaCoCoReader.Core.Services
 
         public void Cancel()
         {
-            //_mCancelled = true;
+            try
+            {
+                _powerShell?.Stop();
+            }
+            catch 
+            {
+                // don't do anything
+            }
         }
 
         public void RunTestDescribe(TestDescribe describe, RunContext runContext)
@@ -161,13 +170,13 @@ namespace JaCoCoReader.Core.Services
             {
                 runspace.Open();
 
-                using (PowerShell powerShell = PowerShell.Create())
+                using (_powerShell = PowerShell.Create())
                 {
-                    powerShell.Runspace = runspace;
+                    _powerShell.Runspace = runspace;
 
                     try
                     {
-                        RunTests(powerShell, describeName, runContext);
+                        RunTests(describeName, runContext);
 
                         //describe.Output = testOutput.ToString();
                     }
@@ -175,14 +184,14 @@ namespace JaCoCoReader.Core.Services
                     {
                         foreach (TestFile file in runContext.TestFiles.Values)
                         {
-                            file.SetOutcome(TestOutcome.Failed);
+                            file.SetOutcome(TestOutcome.None);
                         }
-  }
+                    }
                 }
             }
         }
 
-        private void RunTests(PowerShell powerShell, string describeName, RunContext runContext)
+        private void RunTests(string describeName, RunContext runContext)
         {
             string tempFile = Path.GetTempFileName();
             try
@@ -190,13 +199,13 @@ namespace JaCoCoReader.Core.Services
                 runContext.UpdateRunningTest("All tests");
 
                 string module = FindModule("Pester", runContext);
-                powerShell.AddCommand("Import-Module").AddParameter("Name", module);
-                powerShell.Invoke();
-                powerShell.Commands.Clear();
+                _powerShell.AddCommand("Import-Module").AddParameter("Name", module);
+                _powerShell.Invoke();
+                _powerShell.Commands.Clear();
 
-                if (powerShell.HadErrors)
+                if (_powerShell.HadErrors)
                 {
-                    ErrorRecord errorRecord = powerShell.Streams.Error.FirstOrDefault();
+                    ErrorRecord errorRecord = _powerShell.Streams.Error.FirstOrDefault();
                     string errorMessage = errorRecord?.ToString() ?? string.Empty;
 
                     throw new Exception($"FailedToLoadPesterModule {errorMessage}");
@@ -205,7 +214,7 @@ namespace JaCoCoReader.Core.Services
                 string[] pathObjects = runContext.TestFiles.Keys.ToArray();
 
 
-                powerShell.AddCommand("Invoke-Pester")
+                _powerShell.AddCommand("Invoke-Pester")
                     .AddParameter("Path", pathObjects)
                     .AddParameter("DetailedCodeCoverage")
                     .AddParameter("CodeCoverageOutputFile", tempFile)
@@ -213,7 +222,7 @@ namespace JaCoCoReader.Core.Services
                     .AddParameter("PassThru");
                 if (!string.IsNullOrEmpty(describeName))
                 {
-                    powerShell.AddParameter("TestName", describeName);
+                    _powerShell.AddParameter("TestName", describeName);
                 }
 
 
@@ -221,11 +230,11 @@ namespace JaCoCoReader.Core.Services
                 if (codecoverage != null
                     && codecoverage.Length > 0)
                 {
-                    powerShell.AddParameter("CodeCoverage", codecoverage);
+                    _powerShell.AddParameter("CodeCoverage", codecoverage);
                 }
 
-                Collection<PSObject> pesterResults = powerShell.Invoke();
-                powerShell.Commands.Clear();
+                Collection<PSObject> pesterResults = _powerShell.Invoke();
+                _powerShell.Commands.Clear();
 
                 // The test results are not necessary stored in the first PSObject.
                 Array results = GetTestResults(pesterResults);
@@ -295,6 +304,12 @@ namespace JaCoCoReader.Core.Services
                             {
                                 testScriptFilenames.Add(filename, testfile.Path);
                             }
+                            filename = name.Substring(0, name.Length - ".tests.ps1".Length) + ".psm1";
+                            if (!testScriptFilenames.ContainsKey(filename))
+                            {
+                                testScriptFilenames.Add(filename, testfile.Path);
+                            }
+
                         }
                         List<string> coverageFilenames = new List<string>();
                         foreach (string fileName in context.ScriptFileNames)
