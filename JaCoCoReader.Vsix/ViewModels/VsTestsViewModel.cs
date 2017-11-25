@@ -52,7 +52,16 @@ namespace JaCoCoReader.Vsix.ViewModels
 
         protected override void DoLoadCommand()
         {
-            LoadFromSolution();
+            if (VsExtensions.IsFolder())
+            {
+                DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
+
+                LoadFromFolder(dte.Solution.FileName);
+            }
+            else
+            {
+                LoadFromSolution();
+            }
 
             if (Model.Projects.Count == 0)
             {
@@ -78,6 +87,11 @@ namespace JaCoCoReader.Vsix.ViewModels
 
         public override List<string> GetScriptFileNames()
         {
+            if (VsExtensions.IsFolder())
+            {
+                return base.GetScriptFileNames();
+            }
+
             List<string> fileNames = new List<string>();
             foreach (Project vsProject in VsExtensions.GetProjects())
             {

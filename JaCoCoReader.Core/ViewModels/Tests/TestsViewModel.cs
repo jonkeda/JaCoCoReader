@@ -88,9 +88,16 @@ namespace JaCoCoReader.Core.ViewModels.Tests
 #endif
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                RootPath = ofd.SelectedPath;
-                TestProject testProject = PowerShellTestDiscoverer.GetTests(ofd.SelectedPath, null);
+                LoadFromFolder(ofd.SelectedPath);
+            }
+        }
 
+        protected void LoadFromFolder(string path)
+        {
+            RootPath = path;
+            TestProject testProject = PowerShellTestDiscoverer.GetFolderTests(path, null);
+            if (testProject.ItemCount() > 0)
+            {
                 TestSolution solution = new TestSolution();
                 solution.Projects.Add(testProject);
                 Model.Merge(solution);

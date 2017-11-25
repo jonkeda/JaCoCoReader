@@ -1,5 +1,6 @@
 backlog
 * Change menu to Icons
+* Support VS 2015
 * ~~add powershell file connection classes~~
 * ~~Add tests window to VisualStudio~~
 
@@ -29,6 +30,8 @@ Tests
 * Add timecounter when running scripts
 * Show output during run
 * Automatically load files when solution opens or files are added
+* Add debugging
+* Add clear button
 * ~~Color according to formats~~
 * ~~Save file before running~~
 * ~~Running Status~~
@@ -51,9 +54,10 @@ Tests window
 * ~~List view~~
 
 
-Tests tree
-* add gherkin features
+Tests tree 
 * add button to open code coverage window
+* Clear tree
+* ~~add gherkin features~~
 * ~~Add icons~~
 * ~~Add traffic light~~
 * ~~Run tests if nothing is selected~~
@@ -65,6 +69,9 @@ Tests tree
 Tests Bug
 * There are no try catches loading a file
 * Open folder view from solution
+* Test coverage doesn't load for Pesters own tests
+* Protect all commands
+* Open file when in folder view
 * ~~Powershell scripts aren't added to the code coverage~~
 * ~~Tests aren't loaded correctly for code coverage~~
 * ~~stop isn't implemented~~
@@ -94,6 +101,7 @@ Gherkin
 * ~~Load examples~~
 * ~~Run Examples~~
 * ~~Open feature file~~
+
 
 Pester
 * File path in results

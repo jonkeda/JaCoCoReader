@@ -30,7 +30,8 @@ namespace JaCoCoReader.Core.Models.Tests
 
         protected override void DoMerge(TestModel model)
         {
-            if (model is TestContext testContexts)
+            TestContext testContexts = model as TestContext;
+            if (model is TestContext)
             {
                 Its.Merge(testContexts.Its);
             }

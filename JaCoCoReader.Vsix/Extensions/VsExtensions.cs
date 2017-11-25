@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using EnvDTE;
+using JaCoCoReader.Core.Constants;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -9,6 +11,15 @@ namespace JaCoCoReader.Vsix.Extensions
 {
     public static class VsExtensions
     {
+        public static bool IsFolder()
+        {
+            DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
+
+            string extension = Path.GetExtension(dte.Solution.FullName);
+
+            return string.IsNullOrEmpty(extension);
+        }
+
         public static IEnumerable<Project> GetProjects()
         {
             IVsSolution solution = (IVsSolution)Package.GetGlobalService(typeof(IVsSolution));
@@ -78,6 +89,7 @@ namespace JaCoCoReader.Vsix.Extensions
         public static ProjectItem FindProjectItem(string filename)
         {
             DTE dte = (DTE)Package.GetGlobalService(typeof(DTE));
+
             return dte.Solution.FindProjectItem(filename);
         }
 
@@ -86,8 +98,8 @@ namespace JaCoCoReader.Vsix.Extensions
             ProjectItem item = FindProjectItem(filename);
             if (item != null)
             {
-                Window window = item.Open(EnvDTE.Constants.vsViewKindTextView);
-                if (item.IsOpen[EnvDTE.Constants.vsViewKindTextView])
+                Window window = item.Open(Constant.vsViewKindTextView);
+                if (item.IsOpen[Constant.vsViewKindTextView])
                 {
                     window.Activate();
                 }

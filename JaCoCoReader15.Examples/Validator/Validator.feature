@@ -1,4 +1,3 @@
-
 Feature: A string validator function called MyValidator
 
     @Mockery

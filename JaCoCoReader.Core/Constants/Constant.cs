@@ -12,5 +12,7 @@
         public const string Ps1 = ".ps1";
         public const string Psm1 = ".psm1";
 
+
+        public const string vsViewKindTextView = "{7651A703-06E5-11D1-8EBD-00A0C90F26EA}";
     }
 }

@@ -11,7 +11,7 @@ namespace JaCoCoReader.Core.Services
 {
     public class PowerShellTestDiscoverer
     {
-        public static TestProject GetTests(string source, IMessageLogger logger)
+        public static TestProject GetProjectTests(string source, IMessageLogger logger)
         {
             TestProject project = new TestProject
             {
@@ -24,9 +24,25 @@ namespace JaCoCoReader.Core.Services
             return project;
         }
 
+        public static TestProject GetFolderTests(string source, IMessageLogger logger)
+        {
+            TestProject project = new TestProject
+            {
+                Name = Path.GetFileName(source.Trim('\\')),
+                Path = source
+            };
+
+            GetTests(source, project, logger);
+
+            return project;
+        }
+
         private static void GetTests(string folderPath, TestFolder parentFolder, IMessageLogger logger)
         {
-
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                return;
+            }
             foreach (string source in Directory.EnumerateDirectories(folderPath))
             {
                 TestFolder folder = new TestFolder

@@ -30,6 +30,11 @@ namespace JaCoCoReader.Core.Models.Tests
             get { return FontAwesomeIcon.Folder; }
         }
 
+        public int ItemCount()
+        {
+            return Folders.Count + Files.Count + Features.Count;
+        }
+
         public override IEnumerable<TestModel> Items
         {
             get

@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA05C812-4B33-4B70-83FF-5058D0D21A8E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JaCoCoReader.Core</RootNamespace>
+    <AssemblyName>JaCoCoReader.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gherkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=86496cfa5b4a5851, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gherkin.4.0.0\lib\net45\Gherkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerShell.3.ReferenceAssemblies.1.0.0\lib\net4\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\JaCoCoReader.Core\Constants\Constant.cs">
+      <Link>Constants\Constant.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Converters\CoverageOrderMultiValueConvertor.cs">
+      <Link>Converters\CoverageOrderMultiValueConvertor.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Class.cs">
+      <Link>Models\CodeCoverage\Class.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\ClassCollection.cs">
+      <Link>Models\CodeCoverage\ClassCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Counter.cs">
+      <Link>Models\CodeCoverage\Counter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\CounterCollection.cs">
+      <Link>Models\CodeCoverage\CounterCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\CounterType.cs">
+      <Link>Models\CodeCoverage\CounterType.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Group.cs">
+      <Link>Models\CodeCoverage\Group.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\GroupCollection.cs">
+      <Link>Models\CodeCoverage\GroupCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Line.cs">
+      <Link>Models\CodeCoverage\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\LineCollection.cs">
+      <Link>Models\CodeCoverage\LineCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\LineHitDictionary.cs">
+      <Link>Models\CodeCoverage\LineHitDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Method.cs">
+      <Link>Models\CodeCoverage\Method.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\MethodCollection.cs">
+      <Link>Models\CodeCoverage\MethodCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Model.cs">
+      <Link>Models\CodeCoverage\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\ModelCollection.cs">
+      <Link>Models\CodeCoverage\ModelCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Package.cs">
+      <Link>Models\CodeCoverage\Package.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\PackageCollection.cs">
+      <Link>Models\CodeCoverage\PackageCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Report.cs">
+      <Link>Models\CodeCoverage\Report.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\ReportCollection.cs">
+      <Link>Models\CodeCoverage\ReportCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Sessioninfo.cs">
+      <Link>Models\CodeCoverage\Sessioninfo.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\SessioninfoCollection.cs">
+      <Link>Models\CodeCoverage\SessioninfoCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\Sourcefile.cs">
+      <Link>Models\CodeCoverage\Sourcefile.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\CodeCoverage\SourcefileCollection.cs">
+      <Link>Models\CodeCoverage\SourcefileCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\ITestFileModel.cs">
+      <Link>Models\Tests\ITestFileModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestContext.cs">
+      <Link>Models\Tests\TestContext.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestContextCollection.cs">
+      <Link>Models\Tests\TestContextCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestDescribe.cs">
+      <Link>Models\Tests\TestDescribe.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestDescribeCollection.cs">
+      <Link>Models\Tests\TestDescribeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFeature.cs">
+      <Link>Models\Tests\TestFeature.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFeatureCollection.cs">
+      <Link>Models\Tests\TestFeatureCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFile.cs">
+      <Link>Models\Tests\TestFile.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFileCollection.cs">
+      <Link>Models\Tests\TestFileCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFileModel.cs">
+      <Link>Models\Tests\TestFileModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFolder.cs">
+      <Link>Models\Tests\TestFolder.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestFolderCollection.cs">
+      <Link>Models\Tests\TestFolderCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestIt.cs">
+      <Link>Models\Tests\TestIt.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestItCollection.cs">
+      <Link>Models\Tests\TestItCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestModel.cs">
+      <Link>Models\Tests\TestModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestModelByLine.cs">
+      <Link>Models\Tests\TestModelByLine.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestModelCollection.cs">
+      <Link>Models\Tests\TestModelCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestModelsByName.cs">
+      <Link>Models\Tests\TestModelsByName.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestProject.cs">
+      <Link>Models\Tests\TestProject.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestProjectCollection.cs">
+      <Link>Models\Tests\TestProjectCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestScenario.cs">
+      <Link>Models\Tests\TestScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestScenarioCollection.cs">
+      <Link>Models\Tests\TestScenarioCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestSolution.cs">
+      <Link>Models\Tests\TestSolution.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestStep.cs">
+      <Link>Models\Tests\TestStep.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Models\Tests\TestStepCollection.cs">
+      <Link>Models\Tests\TestStepCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\CoveredScripts.cs">
+      <Link>Services\CoveredScripts.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\HostUi.cs">
+      <Link>Services\HostUi.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\IMessageLogger.cs">
+      <Link>Services\IMessageLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\PowerShellTestDiscoverer.cs">
+      <Link>Services\PowerShellTestDiscoverer.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\PowerShellTestExecutor.cs">
+      <Link>Services\PowerShellTestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\PowerShellTestResult.cs">
+      <Link>Services\PowerShellTestResult.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\RawHostUi.cs">
+      <Link>Services\RawHostUi.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\RunContext.cs">
+      <Link>Services\RunContext.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\TestAdapterHost.cs">
+      <Link>Services\TestAdapterHost.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\TestMessageLevel.cs">
+      <Link>Services\TestMessageLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Services\TestOutcome.cs">
+      <Link>Services\TestOutcome.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Threading\DefaultThreadDispatcher.cs">
+      <Link>Threading\DefaultThreadDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Threading\IThreadDispatcher.cs">
+      <Link>Threading\IThreadDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Threading\ThreadDispatcher.cs">
+      <Link>Threading\ThreadDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Threading\WpfDispatcher.cs">
+      <Link>Threading\WpfDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\CommandCanExecuteDelegate.cs">
+      <Link>UI\CommandCanExecuteDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\CommandDelegate.cs">
+      <Link>UI\CommandDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\CommandTaskCanExecuteDelegate.cs">
+      <Link>UI\CommandTaskCanExecuteDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\CommandTaskDelegate.cs">
+      <Link>UI\CommandTaskDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\DockPanelSplitter.cs">
+      <Link>UI\Controls\DockPanelSplitter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\ITreeViewItem.cs">
+      <Link>UI\Controls\ITreeViewItem.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\TreeListView.cs">
+      <Link>UI\Controls\TreeListView.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\TreeListViewItem.cs">
+      <Link>UI\Controls\TreeListViewItem.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\TreeViewEx.cs">
+      <Link>UI\Controls\TreeViewEx.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\TreeViewItemEx.cs">
+      <Link>UI\Controls\TreeViewItemEx.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Controls\ViewControl.cs">
+      <Link>UI\Controls\ViewControl.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Converters\BaseConverter.cs">
+      <Link>UI\Converters\BaseConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Converters\BooleanConverter.cs">
+      <Link>UI\Converters\BooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Converters\LevelToIndentConverter.cs">
+      <Link>UI\Converters\LevelToIndentConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Converters\VisibilityConverter.cs">
+      <Link>UI\Converters\VisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\FileViewModel.cs">
+      <Link>UI\FileViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\Attributes.cs">
+      <Link>UI\Icons\Attributes.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\Awesome.cs">
+      <Link>UI\Icons\Awesome.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\ControlExtensions.cs">
+      <Link>UI\Icons\ControlExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\Converters\CssClassNameConverter.cs">
+      <Link>UI\Icons\Converters\CssClassNameConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\Converters\DescriptionConverter.cs">
+      <Link>UI\Icons\Converters\DescriptionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\Converters\ImageSourceConverter.cs">
+      <Link>UI\Icons\Converters\ImageSourceConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\FontAwesome.cs">
+      <Link>UI\Icons\FontAwesome.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\FontAwesomeIcon.cs">
+      <Link>UI\Icons\FontAwesomeIcon.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\IFlippable.cs">
+      <Link>UI\Icons\IFlippable.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\ImageAwesome.cs">
+      <Link>UI\Icons\ImageAwesome.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\IRotatable.cs">
+      <Link>UI\Icons\IRotatable.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Icons\ISpinable.cs">
+      <Link>UI\Icons\ISpinable.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\Interfaces\IDialog.cs">
+      <Link>UI\Interfaces\IDialog.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\ModelViewModel.cs">
+      <Link>UI\ModelViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\NodeCollectionViewModel.cs">
+      <Link>UI\NodeCollectionViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\NodesViewModel.cs">
+      <Link>UI\NodesViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\NodeViewModel.cs">
+      <Link>UI\NodeViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\ObservableViewModelCollection.cs">
+      <Link>UI\ObservableViewModelCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\PropertyNotifier.cs">
+      <Link>UI\PropertyNotifier.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\TargetCommand.cs">
+      <Link>UI\TargetCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\TargetTaskCommand.cs">
+      <Link>UI\TargetTaskCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\ViewModel.cs">
+      <Link>UI\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\UI\ViewModelCollection.cs">
+      <Link>UI\ViewModelCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\CodeCoverageOrder.cs">
+      <Link>ViewModels\CodeCoverage\CodeCoverageOrder.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\CodeCoverageViewModel.cs">
+      <Link>ViewModels\CodeCoverage\CodeCoverageViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\Folder.cs">
+      <Link>ViewModels\CodeCoverage\Folder.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\FolderCollection.cs">
+      <Link>ViewModels\CodeCoverage\FolderCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\FolderCollectionViewModel.cs">
+      <Link>ViewModels\CodeCoverage\FolderCollectionViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\FolderViewModel.cs">
+      <Link>ViewModels\CodeCoverage\FolderViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\IFolderNodeViewModel.cs">
+      <Link>ViewModels\CodeCoverage\IFolderNodeViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\Item.cs">
+      <Link>ViewModels\CodeCoverage\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\LineBrush.cs">
+      <Link>ViewModels\CodeCoverage\LineBrush.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\LineBrushCollection.cs">
+      <Link>ViewModels\CodeCoverage\LineBrushCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs">
+      <Link>ViewModels\CodeCoverage\SourcefileCollectionViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\CodeCoverage\SourcefileViewModel.cs">
+      <Link>ViewModels\CodeCoverage\SourcefileViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\Colors.cs">
+      <Link>ViewModels\Colors.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\Tests\TestFilesByPath.cs">
+      <Link>ViewModels\Tests\TestFilesByPath.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\Tests\TestModelChanged.cs">
+      <Link>ViewModels\Tests\TestModelChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\ViewModels\Tests\TestsViewModel.cs">
+      <Link>ViewModels\Tests\TestsViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\CodeCoverageMarginView.xaml.cs">
+      <Link>Views\CodeCoverageMarginView.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\CodeCoverageMenu.xaml.cs">
+      <Link>Views\CodeCoverageMenu.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\CodeCoverageTree.xaml.cs">
+      <Link>Views\CodeCoverageTree.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\TestsDetails.xaml.cs">
+      <Link>Views\TestsDetails.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\TestsMenu.xaml.cs">
+      <Link>Views\TestsMenu.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\JaCoCoReader.Core\Views\TestsTree.xaml.cs">
+      <Link>Views\TestsTree.xaml.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\JaCoCoReader.Core\Pester\lib\gherkin.dll">
+      <Link>Pester\lib\gherkin.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="..\JaCoCoReader.Core\Pester\Build.bat">
+      <Link>Pester\Build.bat</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\build.psake.ps1">
+      <Link>Pester\build.psake.ps1</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\CHANGELOG.md">
+      <Link>Pester\CHANGELOG.md</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\chocolateyInstall.ps1">
+      <Link>Pester\chocolateyInstall.ps1</Link>
+    </None>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Be.ps1">
+      <Link>Pester\Functions\Assertions\Be.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Be.Tests.ps1">
+      <Link>Pester\Functions\Assertions\Be.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeGreaterThan.ps1">
+      <Link>Pester\Functions\Assertions\BeGreaterThan.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeGreaterThan.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeGreaterThan.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeIn.ps1">
+      <Link>Pester\Functions\Assertions\BeIn.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeIn.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeIn.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLessThan.ps1">
+      <Link>Pester\Functions\Assertions\BeLessThan.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLessThan.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeLessThan.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLike.ps1">
+      <Link>Pester\Functions\Assertions\BeLike.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLike.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeLike.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLikeExactly.ps1">
+      <Link>Pester\Functions\Assertions\BeLikeExactly.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeLikeExactly.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeLikeExactly.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeNullOrEmpty.ps1">
+      <Link>Pester\Functions\Assertions\BeNullOrEmpty.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeNullOrEmpty.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeNullOrEmpty.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeOfType.ps1">
+      <Link>Pester\Functions\Assertions\BeOfType.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\BeOfType.Tests.ps1">
+      <Link>Pester\Functions\Assertions\BeOfType.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Exist.ps1">
+      <Link>Pester\Functions\Assertions\Exist.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Exist.Tests.ps1">
+      <Link>Pester\Functions\Assertions\Exist.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatch.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatch.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatch.Tests.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatch.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatchExactly.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatchExactly.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatchExactly.Tests.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatchExactly.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatchMultiline.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatchMultiline.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\FileContentMatchMultiline.Tests.ps1">
+      <Link>Pester\Functions\Assertions\FileContentMatchMultiline.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Match.ps1">
+      <Link>Pester\Functions\Assertions\Match.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Match.Tests.ps1">
+      <Link>Pester\Functions\Assertions\Match.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\MatchExactly.ps1">
+      <Link>Pester\Functions\Assertions\MatchExactly.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\MatchExactly.Tests.ps1">
+      <Link>Pester\Functions\Assertions\MatchExactly.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\PesterThrow.ps1">
+      <Link>Pester\Functions\Assertions\PesterThrow.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\PesterThrow.Tests.ps1">
+      <Link>Pester\Functions\Assertions\PesterThrow.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Set-TestInconclusive.ps1">
+      <Link>Pester\Functions\Assertions\Set-TestInconclusive.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Should.ps1">
+      <Link>Pester\Functions\Assertions\Should.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Assertions\Should.Tests.ps1">
+      <Link>Pester\Functions\Assertions\Should.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\BreakAndContinue.Tests.ps1">
+      <Link>Pester\Functions\BreakAndContinue.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Context.ps1">
+      <Link>Pester\Functions\Context.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Coverage.ps1">
+      <Link>Pester\Functions\Coverage.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Coverage.Tests.ps1">
+      <Link>Pester\Functions\Coverage.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Describe.ps1">
+      <Link>Pester\Functions\Describe.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Describe.Tests.ps1">
+      <Link>Pester\Functions\Describe.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Environment.ps1">
+      <Link>Pester\Functions\Environment.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Environment.Tests.ps1">
+      <Link>Pester\Functions\Environment.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Gherkin.ps1">
+      <Link>Pester\Functions\Gherkin.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Gherkin.Tests.ps1">
+      <Link>Pester\Functions\Gherkin.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GherkinHook.ps1">
+      <Link>Pester\Functions\GherkinHook.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GherkinHook.Tests.ps1">
+      <Link>Pester\Functions\GherkinHook.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GherkinStep.ps1">
+      <Link>Pester\Functions\GherkinStep.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GherkinStep.Tests.ps1">
+      <Link>Pester\Functions\GherkinStep.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GlobalMock-A.Tests.ps1">
+      <Link>Pester\Functions\GlobalMock-A.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\GlobalMock-B.Tests.ps1">
+      <Link>Pester\Functions\GlobalMock-B.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\In.ps1">
+      <Link>Pester\Functions\In.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\In.Tests.ps1">
+      <Link>Pester\Functions\In.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\InModuleScope.ps1">
+      <Link>Pester\Functions\InModuleScope.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\InModuleScope.Tests.ps1">
+      <Link>Pester\Functions\InModuleScope.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\It.ps1">
+      <Link>Pester\Functions\It.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\It.Tests.ps1">
+      <Link>Pester\Functions\It.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Mock.ps1">
+      <Link>Pester\Functions\Mock.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Mock.Tests.ps1">
+      <Link>Pester\Functions\Mock.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\New-Fixture.ps1">
+      <Link>Pester\Functions\New-Fixture.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\New-Fixture.Tests.ps1">
+      <Link>Pester\Functions\New-Fixture.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\New-MockObject.ps1">
+      <Link>Pester\Functions\New-MockObject.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\New-MockObject.Tests.ps1">
+      <Link>Pester\Functions\New-MockObject.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Output.ps1">
+      <Link>Pester\Functions\Output.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\Output.Tests.ps1">
+      <Link>Pester\Functions\Output.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\PesterState.ps1">
+      <Link>Pester\Functions\PesterState.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\PesterState.Tests.ps1">
+      <Link>Pester\Functions\PesterState.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\ResolveTestScripts.ps1">
+      <Link>Pester\Functions\ResolveTestScripts.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\SetupTeardown.ps1">
+      <Link>Pester\Functions\SetupTeardown.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\SetupTeardown.Tests.ps1">
+      <Link>Pester\Functions\SetupTeardown.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\TestDrive.ps1">
+      <Link>Pester\Functions\TestDrive.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\TestDrive.Tests.ps1">
+      <Link>Pester\Functions\TestDrive.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\TestResults.ps1">
+      <Link>Pester\Functions\TestResults.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\TestResults.Tests.ps1">
+      <Link>Pester\Functions\TestResults.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Functions\TestsRunningInCleanRunspace.Tests.ps1">
+      <Link>Pester\Functions\TestsRunningInCleanRunspace.Tests.ps1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="..\JaCoCoReader.Core\Pester\LICENSE">
+      <Link>Pester\LICENSE</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\nunit_schema_2.5.xsd">
+      <Link>Pester\nunit_schema_2.5.xsd</Link>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\Pester.nuspec">
+      <Link>Pester\Pester.nuspec</Link>
+    </None>
+    <Content Include="..\JaCoCoReader.Core\Pester\Pester.psd1">
+      <Link>Pester\Pester.psd1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Pester.psm1">
+      <Link>Pester\Pester.psm1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="..\JaCoCoReader.Core\Pester\Pester.Tests.ps1">
+      <Link>Pester\Pester.Tests.ps1</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\README.md">
+      <Link>Pester\README.md</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\report.dtd">
+      <Link>Pester\report.dtd</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\report.xsd">
+      <Link>Pester\report.xsd</Link>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\Run.ps1">
+      <Link>Pester\Run.ps1</Link>
+    </None>
+    <None Include="..\JaCoCoReader.Core\Pester\TestDeploy.bat">
+      <Link>Pester\TestDeploy.bat</Link>
+    </None>
+    <Resource Include="..\JaCoCoReader.Core\UI\Icons\FontAwesome.otf">
+      <Link>UI\Icons\FontAwesome.otf</Link>
+    </Resource>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\JaCoCoReader.Core\Pester\pestercc.xml">
+      <Link>Pester\pestercc.xml</Link>
+    </Content>
+    <Content Include="..\JaCoCoReader.Core\Pester\Report.xml">
+      <Link>Pester\Report.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\JaCoCoReader.Core\UI\Resources\Styles.xaml">
+      <Link>UI\Resources\Styles.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\CodeCoverageMarginView.xaml">
+      <Link>Views\CodeCoverageMarginView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\CodeCoverageMenu.xaml">
+      <Link>Views\CodeCoverageMenu.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\CodeCoverageTree.xaml">
+      <Link>Views\CodeCoverageTree.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\TestsDetails.xaml">
+      <Link>Views\TestsDetails.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\TestsMenu.xaml">
+      <Link>Views\TestsMenu.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\JaCoCoReader.Core\Views\TestsTree.xaml">
+      <Link>Views\TestsTree.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
